@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume &mdash; Vincent Congini</title>
+  <meta name="description" content="Resume of Vincent Congini &mdash; Senior Front End Tech Lead specializing in TypeScript, React, AI product engineering, and SaaS systems.">
+
+  <meta property="og:title" content="Resume &mdash; Vincent Congini">
+  <meta property="og:description" content="Senior Front End Tech Lead specializing in TypeScript, React, AI product engineering, and SaaS systems.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+
+  <meta name="theme-color" content="#F8F6F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1D1F29" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='70' font-family='system-ui' font-weight='700' fill='%232A3A8C'>VC</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <script src="assets/scripts/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html" class="nav__logo" aria-label="Vincent Congini &mdash; Home">VC.</a>
+      <button class="nav__toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="nav-menu" class="nav__links" role="list">
+        <li><a href="index.html#projects" class="nav__link">Projects</a></li>
+        <li><a href="index.html#experience" class="nav__link">Experience</a></li>
+        <li><a href="index.html#skills" class="nav__link">Skills</a></li>
+        <li><a href="resume.html" class="nav__link active">Resume</a></li>
+        <li><a href="index.html#contact" class="nav__link nav__link--cta">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="resume-header">
+      <div class="section__inner">
+        <div class="resume-header__accent" aria-hidden="true"></div>
+        <h1 class="resume-header__name">Vincent Congini</h1>
+        <p class="resume-header__title">Senior Front End Tech Lead | Full-Stack TypeScript &amp; AI Product Engineering</p>
+        <p class="resume-header__summary">Senior engineer focused on modern React platforms, delivery reliability, and AI-assisted product development. Experienced across front-end architecture, CI/CD, testing strategy, SaaS monetization, LLM workflows, and developer enablement.</p>
+        <div class="resume-header__contact">
+          <div>
+            <span class="resume-header__label">Email</span>
+            <a href="mailto:vcongini@gmail.com">vcongini@gmail.com</a>
+          </div>
+          <div>
+            <span class="resume-header__label">LinkedIn</span>
+            <a href="https://www.linkedin.com/in/vincent-congini-216a4b90/" target="_blank" rel="noopener noreferrer">linkedin.com/in/vincent-congini-216a4b90</a>
+          </div>
+          <div>
+            <span class="resume-header__label">Location</span>
+            <span>Greater Boston, United States</span>
+          </div>
+        </div>
+        <div class="resume-header__actions">
+          <a href="assets/files/vincent-congini-resume.pdf" class="btn btn--primary" download>
+            <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download PDF
+          </a>
+          <a href="index.html" class="btn btn--secondary">Back to Home</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface">
+      <div class="section__inner">
+        <h2 class="section-label">Featured Project</h2>
+        <div class="resume-project__card">
+          <div class="resume-project__main">
+            <div class="resume-project__title-row">
+              <h3 class="resume-project__title">My Four Sous Chefs</h3>
+              <span class="resume-project__type">AI recipe SaaS</span>
+            </div>
+            <a href="https://myfoursouschefs.com/" class="resume-project__url" target="_blank" rel="noopener noreferrer">myfoursouschefs.com</a>
+            <ul class="resume-list">
+              <li>Built a full-stack TypeScript app that turns fridge, pantry, and shopping-list photos into personalized recipes and meal plans.</li>
+              <li>Implemented an image-to-ingredients pipeline with HEIC conversion, Sharp preprocessing, Tesseract OCR, Claude vision, structured JSON parsing, and bounding-box normalization.</li>
+              <li>Designed monetization and account flows using Supabase Auth/Postgres, saved recipes, Stripe Checkout, Billing Portal, webhooks, and premium feature gates.</li>
+              <li>Added production controls for AI cost and abuse: Cloudflare Turnstile, identity-aware rate limits, daily quotas, token-budget tracking, atomic Supabase RPC reservations, and rollback on failed requests.</li>
+            </ul>
+          </div>
+          <aside class="resume-project__stack">
+            <h4 class="resume-project__stack-label">Project Stack</h4>
+            <p class="resume-project__stack-text">TypeScript, React 19, Vite, Express, Supabase, PostgreSQL, Stripe, Anthropic Claude, Sharp, Tesseract OCR, Cloudflare Turnstile, Pino, Umami, Vitest, Playwright, pnpm workspaces</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section resume-body">
+      <div class="section__inner">
+        <div class="resume-grid">
+          <div class="resume-grid__main">
+            <h2 class="section-label">Experience</h2>
+
+            <article class="resume-job">
+              <h3 class="resume-job__role">Senior Front End Tech Lead</h3>
+              <p class="resume-job__company">The Access Group (Paytronix Systems)</p>
+              <div class="resume-job__meta">
+                <span>January 2023 &mdash; Present</span>
+                <span>Newton, MA</span>
+              </div>
+              <ul class="resume-list">
+                <li>Serve as front-end technical owner for shared UI architecture, aligning teams around maintainable React patterns, platform standards, and delivery practices.</li>
+                <li>Led extraction of front-end applications from a legacy monorepo into Azure DevOps, improving deployment velocity and enabling clearer team ownership.</li>
+                <li>Designed CI/CD pipelines for React SPAs with automated testing and continuous deployment.</li>
+                <li>Championed AI-assisted development with Claude, ChatGPT, and Devin to accelerate refactors, improve code quality, and reduce repetitive engineering work.</li>
+                <li>Established front-end standards, testing practices, and mentoring patterns across teams; recipient of the 2024 RARE Award.</li>
+              </ul>
+            </article>
+
+            <article class="resume-job">
+              <h3 class="resume-job__role">Front End Software Developer</h3>
+              <p class="resume-job__company">Paytronix Systems</p>
+              <div class="resume-job__meta">
+                <span>July 2019 &mdash; January 2023</span>
+                <span>Newton, MA</span>
+              </div>
+              <ul class="resume-list">
+                <li>Built and maintained React applications using Redux, Redux-Logic, Sass/CSS, and shared component patterns.</li>
+                <li>Modernized and supported legacy systems spanning React, Lift, JSP, Webpack, Jest, and Yarn workspaces.</li>
+                <li>Improved build and test infrastructure to support faster feedback loops and more reliable deployments.</li>
+              </ul>
+            </article>
+
+            <article class="resume-job">
+              <h3 class="resume-job__role">Quality Assurance Automation Engineer</h3>
+              <p class="resume-job__company">Paytronix Systems</p>
+              <div class="resume-job__meta">
+                <span>May 2016 &mdash; July 2019</span>
+                <span>Newton, MA</span>
+              </div>
+              <ul class="resume-list">
+                <li>Maintained REST and Selenium-based automation frameworks, including scalable UI test solutions using RedwoodHQ.</li>
+                <li>Developed shared mobile testing frameworks and automation practices for QA teams.</li>
+              </ul>
+            </article>
+
+            <article class="resume-job">
+              <h3 class="resume-job__role">Senior Software Quality Analyst</h3>
+              <p class="resume-job__company">Bentley Systems</p>
+              <div class="resume-job__meta">
+                <span>May 2007 &mdash; May 2016</span>
+                <span>Mira Mesa, CA</span>
+              </div>
+              <ul class="resume-list">
+                <li>Led functional, integration, and regression testing across product suites; awarded Bentley Star Award three times for performance excellence.</li>
+              </ul>
+            </article>
+          </div>
+
+          <aside class="resume-grid__sidebar">
+            <div class="resume-sidebar-section">
+              <h2 class="section-label">Core Skills</h2>
+              <div class="resume-skills">
+                <div class="resume-skill-group">
+                  <h3 class="resume-skill-group__label">Full Stack</h3>
+                  <p class="resume-skill-group__text">TypeScript, JavaScript, React, Vite, Node.js, Express, REST APIs, Sass/CSS, SPA architecture</p>
+                </div>
+                <div class="resume-skill-group">
+                  <h3 class="resume-skill-group__label">AI Product</h3>
+                  <p class="resume-skill-group__text">Anthropic Claude, LLM APIs, AI vision workflows, prompt design, structured JSON extraction, OCR, image preprocessing</p>
+                </div>
+                <div class="resume-skill-group">
+                  <h3 class="resume-skill-group__label">Data &amp; Billing</h3>
+                  <p class="resume-skill-group__text">Supabase Auth, PostgreSQL, RLS, RPCs, Stripe Checkout, Billing Portal, webhooks, usage metering</p>
+                </div>
+                <div class="resume-skill-group">
+                  <h3 class="resume-skill-group__label">Quality &amp; Platform</h3>
+                  <p class="resume-skill-group__text">Vitest, Jest, Playwright, React Testing Library, Selenium, CI/CD pipelines, Azure DevOps, pnpm workspaces, Pino, Umami</p>
+                </div>
+                <div class="resume-skill-group">
+                  <h3 class="resume-skill-group__label">Legacy Context</h3>
+                  <p class="resume-skill-group__text">Redux, React Router, Material UI, Bootstrap, Webpack, Yarn, Maven, WildFly, C#, Scala, RedwoodHQ</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="resume-sidebar-section">
+              <h2 class="section-label">Education</h2>
+              <div class="resume-edu">
+                <h3 class="resume-edu__degree">Bachelor of Science in CS</h3>
+                <p class="resume-edu__school">DeVry University</p>
+                <p class="resume-edu__dates">2005 &mdash; 2010</p>
+              </div>
+              <div class="resume-edu">
+                <h3 class="resume-edu__degree">C# Programming Certification</h3>
+                <p class="resume-edu__school">University of California San Diego</p>
+                <p class="resume-edu__dates">2005 &mdash; 2010</p>
+              </div>
+            </div>
+
+            <div class="resume-sidebar-section">
+              <h2 class="section-label">Focus Areas</h2>
+              <h3 class="resume-focus__title">AI-assisted software development</h3>
+              <p class="resume-focus__text">Developer productivity, CI/CD reliability, data visualization, UI performance, automation, UX design</p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <span class="footer__logo">VC.</span>
+      <p class="footer__copy">&copy; 2026 Vincent Congini</p>
+    </div>
+  </footer>
+</body>
+</html>

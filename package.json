@@ -1,0 +1,14 @@
+{
+  "name": "vince-congini-site",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "sass:build": "sass src/assets/styles/main.scss:src/assets/styles/main.css --style=compressed",
+    "sass:watch": "sass src/assets/styles/main.scss:src/assets/styles/main.css --watch",
+    "dev": "concurrently \"npm run sass:watch\" \"npx serve src -l 3000\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "sass": "^1.77.0"
+  }
+}
