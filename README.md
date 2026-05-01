@@ -62,6 +62,7 @@ Styling follows the brand design document (`vince-congini-site-brand-design.pdf`
 - Print-friendly resume page (hides chrome, tightens layout, letter-size `@page`)
 - Sticky nav with backdrop blur, scroll-aware transparency on the homepage hero
 - Active section highlighting via Intersection Observer
+- SEO metadata for `vincecongini.com` with canonical URLs, social previews, structured data, `robots.txt`, and `sitemap.xml`
 - Inline SVG icons (no icon library dependencies)
 - SVG data-URI favicon
 
@@ -70,13 +71,13 @@ Styling follows the brand design document (`vince-congini-site-brand-design.pdf`
 The `src/` directory is the deploy root. Any static host works:
 
 - **Netlify / Vercel / Cloudflare Pages** — set build command to `npm run sass:build` and publish directory to `src`
-- **GitHub Pages** — push `src/` contents to the deploy branch
+- **GitHub Pages** — push `src/` contents to the deploy branch. `src/CNAME` configures the custom domain `vincecongini.com`.
 - **Manual** — run `npm run sass:build` then upload `src/` to any web server
 
 ## Customization checklist
 
 - [ ] Add `og:image` meta tag with a social preview image
-- [ ] Add `<link rel="canonical">` once the production domain is set
+- [ ] Update canonical URLs, `robots.txt`, `sitemap.xml`, and `CNAME` if changing the production domain
 - [ ] Replace the inline SVG favicon with a proper `.ico` / `.png` if desired
 - [ ] Add analytics (Umami, Plausible, etc.) before deploying
 - [ ] Update the copyright year in the footer if needed
