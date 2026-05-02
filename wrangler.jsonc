@@ -7,7 +7,7 @@
   },
   "assets": {
     "directory": "src",
-    "not_found_handling": "custom-404"
+    "not_found_handling": "404-page"
   },
   "compatibility_flags": [
     "nodejs_compat"
