@@ -217,6 +217,90 @@ Make the site feel authored, not generated.
 
 ---
 
+## Wave 2: Post-Critique Refinement
+
+> Re-critique on 2026-05-02. Score improved from **26/40** to **31/40** (Good).
+> AI slop detection: **PASS**. Target: **33+/40**.
+
+### 5.1 Fix Skills Grid Orphan
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | Three skill groups in `grid-template-columns: repeat(2, 1fr)` puts two groups on row one and one alone on row two. The empty right cell reads as a layout mistake. The orphaned group (Quality & Delivery) appears less important. |
+| **Solution** | Change desktop skills grid to `repeat(3, 1fr)`. Keep existing 1-column mobile fallback at 768px. |
+| **Files** | `src/assets/styles/main.scss` |
+| **Acceptance** | All 3 skill groups fill one row on desktop. No visual orphan. Mobile unchanged. |
+
+### 5.2 Strengthen Hero Statement Box
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | `.hero__statement` background at `oklch(0.98 0.003 260 / 0.06)` — 6% opacity — is nearly invisible. Reads as a rendering artifact or a removed design element that left a ghost. |
+| **Solution** | Increase background opacity to ~12-15% so the panel is clearly visible as a distinct element that frames the value proposition. |
+| **Files** | `src/assets/styles/main.scss` |
+| **Acceptance** | Hero statement panel is clearly visible as a distinct element on standard and low-contrast displays. |
+
+### 5.3 Add Experience Substance to Homepage
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | Four one-sentence experience descriptions after a rich project card with 6 highlights. The most recent role has the same depth as the oldest. Hiring managers get titles and companies but no evidence of impact. Resume page has specifics (RARE Award, monorepo extraction, CI/CD pipelines) that should surface on the homepage. |
+| **Solution** | Add 2-3 specific accomplishments to the most recent role's homepage description. Optionally add 1-2 to the second most recent role. Older roles stay concise. |
+| **Files** | `src/index.html` |
+| **Acceptance** | Most recent experience item shows measurable or specific accomplishments. Progressive depth: recent roles have more detail than older ones. |
+
+### 5.4 Fix Favicon Color Consistency
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | Inline SVG favicon uses hex `#2A3A8C` (old accent) while the site palette uses OKLCH hue 260. These render differently. On a "practice what you preach" site, metadata is part of the craft. |
+| **Solution** | Update the SVG favicon `fill` to match the computed hex equivalent of `oklch(0.45 0.18 260)`. |
+| **Files** | `src/index.html`, `src/resume.html`, `src/404.html` |
+| **Acceptance** | Favicon color visually matches the on-screen accent. |
+
+### 5.5 Refine Hero Confidence
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | The `min-height: 100vh` hero forces a full scroll before substance. The "Scroll" indicator is itself an admission the user might not continue. The intent is confidence, but the bottom 40-50% of the viewport is unused space. |
+| **Solution** | Reduce hero from `100vh` to `min-height: 85vh` (or `85svh`). Enough height to feel intentional, but the top of the project section peeks above the fold, signaling content below. Remove the "Scroll" indicator — if the hero is properly sized, it's unnecessary. |
+| **Files** | `src/index.html`, `src/assets/styles/main.scss` |
+| **Acceptance** | Hero is still a confident full-width section. Content peeks above the fold on standard viewports. No scroll indicator needed. |
+
+### 5.6 Remove Dead CSS and Meta Cleanup
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | `.tag--accent` CSS defined but never used in HTML. Em dash characters (`—`) in OG/Twitter image:alt meta tags. `text-transform: uppercase` on project highlight phrases (47 chars of uppercase at 0.7rem is unreadable). |
+| **Solution Applied** | Removed `.tag--accent` CSS rule. Replaced em dashes in meta alt text with commas. Removed `text-transform: uppercase` from `.project-card__highlights li`. |
+| **Files** | `src/assets/styles/main.scss`, `src/index.html`, `src/resume.html` |
+| **Acceptance** | Zero dead CSS. Zero em dashes in source. Project highlights readable in normal case. |
+
+### 5.7 Final Wave 2 Polish
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | After all Wave 2 changes, verify build, PDF generation, and zero regressions. |
+| **Solution Applied** | `sass:build` succeeds. `resume:pdf` generates (223KB). Zero dead CSS, zero em dashes, zero old hex values, zero slop markers. |
+| **Files** | All source files |
+| **Acceptance** | Build succeeds. PDF generates. No visual regressions. |
+
+---
+
 ## Phase Summary
 
 | Phase | Items | Priority Range | Focus |
@@ -225,6 +309,7 @@ Make the site feel authored, not generated.
 | **Phase 2** | 2.1 - 2.3 | P2-P3 | Fix content gaps and cognitive load |
 | **Phase 3** | 3.1 - 3.5 | P2-P3 | Accessibility and technical standards |
 | **Phase 4** | 4.1 - 4.3 | P2-P3 | Visual distinction and final polish |
+| **Wave 2** | 5.1 - 5.7 | P2-P3 | Post-critique refinement (31→33+ target) |
 
 ---
 
@@ -249,3 +334,10 @@ Make the site feel authored, not generated.
 | 2026-05-02 | 4.1 | Done — Section spacing varied, visual hierarchy improved across phases |
 | 2026-05-02 | 4.2 | Done — Contact copy rewritten: direct, confident CTA |
 | 2026-05-02 | 4.3 | Done — Final verification: build, PDF, zero slop markers |
+| 2026-05-02 | 5.6 | Done — Removed `.tag--accent` dead CSS, em dashes in meta, uppercase on highlights |
+| 2026-05-02 | 5.1 | Done — Skills grid changed from `repeat(2, 1fr)` to `repeat(3, 1fr)` on desktop |
+| 2026-05-02 | 5.2 | Done — Hero statement background opacity increased from 6% to 12% |
+| 2026-05-02 | 5.3 | Done — Senior Tech Lead description expanded with monorepo extraction, CI/CD, RARE Award |
+| 2026-05-02 | 5.4 | Done — Favicon fill updated from `#2A3A8C` to `#044cb6` (OKLCH 0.45 0.18 260) |
+| 2026-05-02 | 5.5 | Done — Hero reduced to 85vh/svh, scroll indicator removed |
+| 2026-05-02 | 5.7 | Done — Build, PDF (223KB), and regression verification passed |
