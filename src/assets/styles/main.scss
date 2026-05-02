@@ -469,11 +469,27 @@ button:focus:not(:focus-visible) {
 // Featured Project Card
 // ============================================
 .project-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--col-gap);
+  align-items: center;
   background-color: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: var(--space-lg);
-  max-width: 640px;
+}
+
+.project-card__content {
+  min-width: 0;
+}
+
+.project-card__preview {
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+  }
 }
 
 .project-card__header {
@@ -807,7 +823,12 @@ button:focus:not(:focus-visible) {
   }
 
   .project-card {
+    grid-template-columns: 1fr;
     padding: var(--space-md);
+  }
+
+  .project-card__preview {
+    order: -1;
   }
 
   .experience-item {
