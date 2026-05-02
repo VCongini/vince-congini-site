@@ -176,7 +176,6 @@ button:focus:not(:focus-visible) {
 .nav {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   max-width: calc(var(--max-width) + var(--inline-pad) * 2);
   margin: 0 auto;
   padding: 0 var(--inline-pad);
@@ -195,6 +194,7 @@ button:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   gap: var(--space-lg);
+  margin-left: auto;
 }
 
 .nav__link {
@@ -760,6 +760,12 @@ button:focus:not(:focus-visible) {
 
   .js-enabled .nav__toggle {
     display: flex;
+    margin-left: auto;
+  }
+
+  .theme-toggle {
+    margin-left: var(--space-xs);
+    order: 4;
   }
 
   .nav__links {
@@ -870,20 +876,18 @@ button:focus:not(:focus-visible) {
 // ============================================
 // Dark Mode
 // ============================================
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: oklch(0.18 0.02 260);
-    --surface: oklch(0.22 0.025 260);
-    --border: oklch(0.30 0.03 260);
-    --text-primary: oklch(0.93 0.006 260);
-    --text-secondary: oklch(0.68 0.02 260);
-    --text-tertiary: oklch(0.62 0.02 260);
-    --accent: oklch(0.68 0.16 260);
-    --accent-mid: oklch(0.72 0.10 260);
-    --accent-rule: oklch(0.36 0.06 260);
-    --accent-pale: oklch(0.24 0.04 260);
-    --card-bg: oklch(0.25 0.025 260);
-  }
+@mixin dark-theme {
+  --bg: oklch(0.18 0.02 260);
+  --surface: oklch(0.22 0.025 260);
+  --border: oklch(0.30 0.03 260);
+  --text-primary: oklch(0.93 0.006 260);
+  --text-secondary: oklch(0.68 0.02 260);
+  --text-tertiary: oklch(0.62 0.02 260);
+  --accent: oklch(0.68 0.16 260);
+  --accent-mid: oklch(0.72 0.10 260);
+  --accent-rule: oklch(0.36 0.06 260);
+  --accent-pale: oklch(0.24 0.04 260);
+  --card-bg: oklch(0.25 0.025 260);
 
   .hero {
     background-color: oklch(0.14 0.03 260);
@@ -905,22 +909,90 @@ button:focus:not(:focus-visible) {
   .section--surface .contact-row__icon {
     background-color: var(--card-bg);
   }
+}
+
+@mixin dark-mobile {
+  .nav__links {
+    background-color: oklch(0.14 0.03 260 / 0.95);
+  }
+
+  .site-header.scrolled .nav__links {
+    background-color: oklch(0.18 0.02 260 / 0.95);
+    border-bottom-color: var(--border);
+  }
+
+  .site-header.scrolled .nav__link {
+    color: var(--text-primary);
+    border-bottom-color: var(--border);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    @include dark-theme;
+  }
 
   @media (max-width: 768px) {
-    .nav__links {
-      background-color: oklch(0.14 0.03 260 / 0.95);
-    }
-
-    .site-header.scrolled .nav__links {
-      background-color: oklch(0.18 0.02 260 / 0.95);
-      border-bottom-color: var(--border);
-    }
-
-    .site-header.scrolled .nav__link {
-      color: var(--text-primary);
-      border-bottom-color: var(--border);
+    html:not([data-theme]) {
+      @include dark-mobile;
     }
   }
+}
+
+html[data-theme="dark"] {
+  @include dark-theme;
+}
+
+@media (max-width: 768px) {
+  html[data-theme="dark"] {
+    @include dark-mobile;
+  }
+}
+
+// ============================================
+// Theme Toggle
+// ============================================
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  min-height: 36px;
+  padding: 6px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: oklch(0.98 0.003 260 / 0.72);
+  transition: color 0.2s, border-color 0.2s;
+  flex-shrink: 0;
+  margin-left: var(--space-sm);
+
+  &:hover,
+  &:focus-visible {
+    color: oklch(0.98 0.003 260);
+    border-color: oklch(0.98 0.003 260 / 0.2);
+  }
+
+  .site-header.scrolled & {
+    color: var(--text-secondary);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--accent);
+      border-color: var(--border);
+    }
+  }
+}
+
+.theme-toggle__sun { display: none; }
+
+html[data-theme="dark"] .theme-toggle__moon { display: none; }
+html[data-theme="dark"] .theme-toggle__sun { display: block; }
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) .theme-toggle__moon { display: none; }
+  html:not([data-theme]) .theme-toggle__sun { display: block; }
 }
 
 // ============================================

@@ -299,6 +299,17 @@ Make the site feel authored, not generated.
 | **Files** | All source files |
 | **Acceptance** | Build succeeds. PDF generates. No visual regressions. |
 
+### 5.8 Dark/Light Mode Toggle
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | Dark mode exclusively controlled via `prefers-color-scheme` media query. No user-facing toggle. On a "practice what you preach" portfolio site, building a theme toggle demonstrates front-end craft. |
+| **Solution Applied** | **CSS**: Refactored dark mode into `@mixin dark-theme` and `@mixin dark-mobile`. System preference uses `html:not([data-theme])` guard; manual override uses `html[data-theme="dark"]`. Added `.theme-toggle` button styles with icon visibility rules (moon in light, sun in dark). **HTML**: Added inline `<script>` in `<head>` (all 3 pages) to read `localStorage` and set `data-theme` before render (prevents flash). Added toggle button with moon/sun SVG icons to nav in index.html and resume.html. **JS**: Toggle click swaps `data-theme` attribute and persists to `localStorage`. System preference change listener updates icon when no manual preference set. Aria label updates dynamically. **Nav layout**: Changed from `justify-content: space-between` to `margin-left: auto` on links to accommodate the toggle as a sibling element. Mobile: toggle sits beside hamburger via flex `order`. |
+| **Files** | `src/assets/styles/main.scss`, `src/index.html`, `src/resume.html`, `src/404.html`, `src/assets/scripts/main.js` |
+| **Acceptance** | Toggle switches between light/dark mode. Preference persists across pages and sessions. System preference respected as default. No flash of wrong theme on load. Icons swap correctly. Accessible via keyboard with descriptive aria-label. |
+
 ---
 
 ## Phase Summary
@@ -309,7 +320,7 @@ Make the site feel authored, not generated.
 | **Phase 2** | 2.1 - 2.3 | P2-P3 | Fix content gaps and cognitive load |
 | **Phase 3** | 3.1 - 3.5 | P2-P3 | Accessibility and technical standards |
 | **Phase 4** | 4.1 - 4.3 | P2-P3 | Visual distinction and final polish |
-| **Wave 2** | 5.1 - 5.7 | P2-P3 | Post-critique refinement (31→33+ target) |
+| **Wave 2** | 5.1 - 5.8 | P2-P3 | Post-critique refinement (31→33+ target) |
 
 ---
 
@@ -341,3 +352,4 @@ Make the site feel authored, not generated.
 | 2026-05-02 | 5.4 | Done — Favicon fill updated from `#2A3A8C` to `#044cb6` (OKLCH 0.45 0.18 260) |
 | 2026-05-02 | 5.5 | Done — Hero reduced to 85vh/svh, scroll indicator removed |
 | 2026-05-02 | 5.7 | Done — Build, PDF (223KB), and regression verification passed |
+| 2026-05-02 | 5.8 | Done — Dark/light toggle: mixin refactor, localStorage persistence, flash prevention, moon/sun icons |

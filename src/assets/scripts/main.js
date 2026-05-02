@@ -101,6 +101,37 @@
     if (!e.matches) closeMobileMenu();
   });
 
+  var themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function getEffectiveTheme() {
+      var saved = localStorage.getItem('theme');
+      if (saved) return saved;
+      return darkQuery.matches ? 'dark' : 'light';
+    }
+
+    function updateToggle() {
+      var theme = getEffectiveTheme();
+      themeToggle.setAttribute('aria-label',
+        theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+      );
+    }
+
+    themeToggle.addEventListener('click', function () {
+      var next = getEffectiveTheme() === 'dark' ? 'light' : 'dark';
+      docEl.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateToggle();
+    });
+
+    darkQuery.addEventListener('change', function () {
+      if (!localStorage.getItem('theme')) updateToggle();
+    });
+
+    updateToggle();
+  }
+
   var visibleSections = new Set();
 
   if (sections.length) {
