@@ -50,6 +50,7 @@ function assertGeneratedPdf(pdfPath) {
 const chromePath = findChrome();
 const profileDir = path.join(tmpdir(), `resume-pdf-${process.pid}`);
 const tempPdfPath = path.join(profileDir, 'vincent-congini-resume.pdf');
+const disableSandbox = process.env.CHROME_NO_SANDBOX === '1';
 
 mkdirSync(path.dirname(resumePdfPath), { recursive: true });
 mkdirSync(profileDir, { recursive: true });
@@ -58,7 +59,7 @@ const args = [
   '--headless=new',
   '--disable-gpu',
   '--disable-dev-shm-usage',
-  '--no-sandbox',
+  ...(disableSandbox ? ['--no-sandbox'] : []),
   `--user-data-dir=${profileDir}`,
   '--run-all-compositor-stages-before-draw',
   '--virtual-time-budget=3000',

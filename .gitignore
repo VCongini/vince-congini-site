@@ -5,6 +5,9 @@ node_modules/
 src/assets/styles/main.css
 src/assets/styles/main.css.map
 
+# Generated resume PDF (rebuild with `npm run resume:pdf`)
+src/assets/files/vincent-congini-resume.pdf
+
 # OS files
 .DS_Store
 Thumbs.db

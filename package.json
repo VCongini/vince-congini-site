@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "sass:build": "sass src/assets/styles/main.scss:src/assets/styles/main.css --style=compressed",
+    "sass:build": "sass src/assets/styles/main.scss:src/assets/styles/main.css --style=compressed --no-source-map && node -e \"require('node:fs').rmSync('src/assets/styles/main.css.map',{force:true})\"",
     "sass:watch": "sass src/assets/styles/main.scss:src/assets/styles/main.css --watch",
     "resume:pdf": "node scripts/generate-resume-pdf.mjs",
     "build": "npm run sass:build && npm run resume:pdf",

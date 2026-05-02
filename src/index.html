@@ -30,6 +30,7 @@
   <meta name="theme-color" content="#F8F6F2" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#1D1F29" media="(prefers-color-scheme: dark)">
 
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='70' font-family='system-ui' font-weight='700' fill='%232A3A8C'>VC</text></svg>">
   <link rel="apple-touch-icon" href="/icon-192.svg">
   <link rel="manifest" href="/manifest.json">
@@ -37,11 +38,11 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=optional" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono&family=DM+Sans:ital,wght@0,300;0,400;1,300&family=Syne:wght@600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/styles/main.css">
   <script src="assets/scripts/main.js" defer></script>
-  <script defer src="https://umami-production-f934.up.railway.app/script.js" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
+  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-LTPPwaLbU0osA3KlbZu0gbKM+OX2/iNJYVcdtY6ZFUJfsuj7LJ+40McwiPCPpKad" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -185,7 +186,10 @@
             </a>
           </div>
           <div class="project-card__preview">
-            <img src="assets/images/mfsc-screenshot.png" alt="My Four Sous Chefs app showing the recipe generation interface with image upload and AI chef selection" loading="lazy" width="834" height="1024">
+            <picture>
+              <source type="image/avif" srcset="assets/images/mfsc-screenshot-480.avif 480w, assets/images/mfsc-screenshot-834.avif 834w" sizes="(max-width: 768px) calc(100vw - 40px), 50vw">
+              <img src="assets/images/mfsc-screenshot.png" alt="My Four Sous Chefs app showing the recipe generation interface with image upload and AI chef selection" loading="lazy" width="834" height="1024">
+            </picture>
           </div>
         </article>
       </div>
@@ -315,7 +319,7 @@
   <footer class="footer">
     <div class="footer__inner">
       <span class="footer__logo">VC.</span>
-      <p class="footer__copy">&copy; 2026 Vincent Congini</p>
+      <p class="footer__copy">&copy; Vincent Congini</p>
     </div>
   </footer>
 </body>

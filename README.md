@@ -18,7 +18,7 @@ npm run dev
 
 This starts a Sass watcher and local server at `http://localhost:3000`.
 
-`npm run build` and `npm run deploy` require Chrome or Chromium so the resume page can be printed to PDF. Set `CHROME_PATH` if Chrome is installed in a non-standard location.
+`npm run build` and `npm run deploy` require Chrome or Chromium so the resume page can be printed to PDF. Set `CHROME_PATH` if Chrome is installed in a non-standard location. In restricted containers that require Chrome's sandbox to be disabled, set `CHROME_NO_SANDBOX=1` explicitly.
 
 ## Scripts
 
@@ -43,7 +43,7 @@ src/
     scripts/
       main.js                         Nav toggle, scroll detection, active section highlighting
     files/
-      vincent-congini-resume.pdf      Downloadable resume PDF
+      vincent-congini-resume.pdf      Generated downloadable resume PDF (ignored by git)
 package.json                          Sass + concurrently dev dependencies
 ```
 
@@ -70,23 +70,22 @@ Styling follows the brand design document (`vince-congini-site-brand-design.pdf`
 - SEO metadata for `vincecongini.com` with canonical URLs, social previews, structured data, `robots.txt`, and `sitemap.xml`
 - Umami analytics script configured for `vincecongini.com`, with a deploy header policy that allows Umami and Cloudflare Web Analytics scripts and event endpoints
 - Inline SVG icons (no icon library dependencies)
-- SVG data-URI favicon
+- SVG data-URI favicon with PNG fallback
 
 ## Deployment
 
 The `src/` directory is the deploy root. Any static host works:
 
 - **Netlify / Vercel / Cloudflare Pages** — set build command to `npm run build` and publish directory to `src`
-- **GitHub Pages** — push `src/` contents to the deploy branch. `src/CNAME` configures the custom domain `vincecongini.com`.
+- **GitHub Pages** — push the built `src/` contents to the deploy branch and configure the custom domain in repository settings.
 - **Manual** — run `npm run build` then upload `src/` to any web server
 
 ## Customization checklist
 
 - [ ] Add `og:image` meta tag with a social preview image
-- [ ] Update canonical URLs, `robots.txt`, `sitemap.xml`, and `CNAME` if changing the production domain
-- [ ] Replace the inline SVG favicon with a proper `.ico` / `.png` if desired
+- [ ] Update canonical URLs, `robots.txt`, and `sitemap.xml` if changing the production domain
+- [ ] Replace the inline SVG favicon and PNG fallback with a full favicon set if desired
 - [ ] Use a dedicated Umami website ID for this portfolio if it should be tracked separately from other projects
-- [ ] Update the copyright year in the footer if needed
 
 ## Tech stack
 
