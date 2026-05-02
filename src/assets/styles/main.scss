@@ -563,7 +563,6 @@ button:focus:not(:focus-visible) {
     font-family: var(--font-body);
     font-size: 0.7rem;
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--text-secondary);
     padding: var(--space-xs) var(--space-sm);
@@ -663,11 +662,6 @@ button:focus:not(:focus-visible) {
   border-radius: var(--radius-sm);
   color: var(--text-secondary);
 
-  &--accent {
-    border-color: var(--accent-rule);
-    color: var(--accent-mid);
-    background-color: var(--accent-pale);
-  }
 }
 
 // ============================================
