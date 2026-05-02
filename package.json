@@ -6,10 +6,11 @@
     "sass:build": "sass src/assets/styles/main.scss:src/assets/styles/main.css --style=compressed --no-source-map && node -e \"require('node:fs').rmSync('src/assets/styles/main.css.map',{force:true})\"",
     "sass:watch": "sass src/assets/styles/main.scss:src/assets/styles/main.css --watch",
     "resume:pdf": "node scripts/generate-resume-pdf.mjs",
-    "build": "npm run sass:build && npm run resume:pdf",
+    "dist:prepare": "node scripts/prepare-dist.mjs",
+    "build": "npm run sass:build && npm run resume:pdf && npm run dist:prepare",
     "dev": "concurrently \"npm run sass:watch\" \"npx serve src -l 3000\"",
     "deploy": "npm run build && wrangler deploy",
-    "preview": "wrangler dev"
+    "preview": "npm run build && wrangler dev"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",

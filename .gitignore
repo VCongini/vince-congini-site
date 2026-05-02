@@ -8,6 +8,9 @@ src/assets/styles/main.css.map
 # Generated resume PDF (rebuild with `npm run resume:pdf`)
 src/assets/files/vincent-congini-resume.pdf
 
+# Production build output
+dist/
+
 # OS files
 .DS_Store
 Thumbs.db

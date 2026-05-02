@@ -25,10 +25,11 @@ This starts a Sass watcher and local server at `http://localhost:3000`.
 | Command | Description |
 |---|---|
 | `npm run dev` | Watch Sass + serve locally on port 3000 |
-| `npm run build` | Compile Sass and regenerate the downloadable resume PDF |
+| `npm run build` | Compile Sass, regenerate the downloadable resume PDF, and prepare `dist/` with fingerprinted assets |
 | `npm run sass:build` | One-time Sass compilation (compressed) |
 | `npm run sass:watch` | Watch Sass for changes |
 | `npm run resume:pdf` | Regenerate `src/assets/files/vincent-congini-resume.pdf` from `src/resume.html` |
+| `npm run dist:prepare` | Copy `src/` to `dist/`, fingerprint CSS/JS, and rewrite built HTML references |
 
 ## Project structure
 
@@ -44,6 +45,7 @@ src/
       main.js                         Nav toggle, scroll detection, active section highlighting
     files/
       vincent-congini-resume.pdf      Generated downloadable resume PDF (ignored by git)
+dist/                                 Generated deploy output with hashed CSS/JS
 package.json                          Sass + concurrently dev dependencies
 ```
 
@@ -69,16 +71,17 @@ Styling follows the brand design document (`vince-congini-site-brand-design.pdf`
 - Active section highlighting via Intersection Observer
 - SEO metadata for `vincecongini.com` with canonical URLs, social previews, structured data, `robots.txt`, and `sitemap.xml`
 - Umami analytics script configured for `vincecongini.com`, with a deploy header policy that allows Umami and Cloudflare Web Analytics scripts and event endpoints
+- Fingerprinted production CSS and JavaScript generated into `dist/` for safe long-lived caching
 - Inline SVG icons (no icon library dependencies)
 - SVG data-URI favicon with PNG fallback
 
 ## Deployment
 
-The `src/` directory is the deploy root. Any static host works:
+The `dist/` directory is the deploy root after running `npm run build`. Any static host works:
 
-- **Netlify / Vercel / Cloudflare Pages** — set build command to `npm run build` and publish directory to `src`
-- **GitHub Pages** — push the built `src/` contents to the deploy branch and configure the custom domain in repository settings.
-- **Manual** — run `npm run build` then upload `src/` to any web server
+- **Netlify / Vercel / Cloudflare Pages** — set build command to `npm run build` and publish directory to `dist`
+- **GitHub Pages** — push the built `dist/` contents to the deploy branch and configure the custom domain in repository settings.
+- **Manual** — run `npm run build` then upload `dist/` to any web server
 
 ## Customization checklist
 
