@@ -4,17 +4,17 @@
 // Design Tokens
 // ============================================
 :root {
-  --accent: #2A3A8C;
-  --accent-mid: #4A5DB0;
-  --accent-rule: #B8C0E0;
-  --accent-pale: #E8EBF7;
+  --accent: oklch(0.45 0.18 260);
+  --accent-mid: oklch(0.53 0.13 260);
+  --accent-rule: oklch(0.74 0.07 260);
+  --accent-pale: oklch(0.93 0.03 260);
 
-  --bg: #F8F6F2;
-  --surface: #EFECE6;
-  --border: #DBD8D2;
-  --text-primary: #1A1C24;
-  --text-secondary: #5A5E6E;
-  --text-tertiary: #6E7282;
+  --bg: oklch(0.97 0.005 260);
+  --surface: oklch(0.94 0.008 260);
+  --border: oklch(0.87 0.01 260);
+  --text-primary: oklch(0.17 0.015 260);
+  --text-secondary: oklch(0.43 0.025 260);
+  --text-tertiary: oklch(0.38 0.02 260);
   --card-bg: var(--bg);
 
   --space-xs: 6px;
@@ -34,9 +34,9 @@
   --nav-height: 56px;
   --nav-transition-duration: 300ms;
 
-  --font-display: 'Syne', sans-serif;
-  --font-body: 'DM Sans', sans-serif;
-  --font-mono: 'DM Mono', monospace;
+  --font-display: 'Schibsted Grotesk', sans-serif;
+  --font-body: 'Source Sans 3', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 // ============================================
@@ -108,9 +108,10 @@ button:focus:not(:focus-visible) {
   z-index: 1000;
   padding: var(--space-xs) var(--space-sm);
   background: var(--accent);
-  color: #fff;
-  font-family: var(--font-mono);
+  color: oklch(0.98 0.003 260);
+  font-family: var(--font-body);
   font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   border-radius: var(--radius-sm);
@@ -133,7 +134,7 @@ button:focus:not(:focus-visible) {
   transition: background-color var(--nav-transition-duration), box-shadow var(--nav-transition-duration);
 
   &.scrolled {
-    background-color: rgba(248, 246, 242, 0.85);
+    background-color: oklch(0.97 0.005 260 / 0.85);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     box-shadow: 0 1px 0 var(--border);
@@ -186,7 +187,7 @@ button:focus:not(:focus-visible) {
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.25rem;
-  color: #fff;
+  color: oklch(0.98 0.003 260);
   transition: color var(--nav-transition-duration);
 }
 
@@ -197,31 +198,32 @@ button:focus:not(:focus-visible) {
 }
 
 .nav__link {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: rgba(255, 255, 255, 0.82);
+  color: oklch(0.98 0.003 260 / 0.82);
   transition: color 0.2s;
 
   &:hover,
   &:focus-visible {
-    color: #fff;
+    color: oklch(0.98 0.003 260);
   }
 
   &.active {
-    color: #fff;
+    color: oklch(0.98 0.003 260);
   }
 
   &--cta {
     padding: var(--space-xs) var(--space-sm);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid oklch(0.98 0.003 260 / 0.3);
     border-radius: var(--radius-sm);
 
     &:hover,
     &:focus-visible {
-      border-color: rgba(255, 255, 255, 0.6);
-      color: #fff;
+      border-color: oklch(0.98 0.003 260 / 0.6);
+      color: oklch(0.98 0.003 260);
     }
   }
 }
@@ -242,7 +244,7 @@ button:focus:not(:focus-visible) {
     display: block;
     width: 100%;
     height: 2px;
-    background: #fff;
+    background: oklch(0.98 0.003 260);
     border-radius: 1px;
     transition: transform var(--nav-transition-duration), opacity var(--nav-transition-duration);
   }
@@ -267,8 +269,9 @@ button:focus:not(:focus-visible) {
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.8rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: var(--space-sm) var(--space-md);
@@ -285,7 +288,7 @@ button:focus:not(:focus-visible) {
 
   &--primary {
     background-color: var(--accent);
-    color: #fff;
+    color: oklch(0.98 0.003 260);
     border-color: var(--accent);
 
     &:hover,
@@ -309,27 +312,16 @@ button:focus:not(:focus-visible) {
 
   &--secondary-light {
     background-color: transparent;
-    color: rgba(255, 255, 255, 0.85);
-    border-color: rgba(255, 255, 255, 0.3);
+    color: oklch(0.98 0.003 260 / 0.85);
+    border-color: oklch(0.98 0.003 260 / 0.3);
 
     &:hover,
     &:focus-visible {
-      border-color: rgba(255, 255, 255, 0.6);
-      color: #fff;
+      border-color: oklch(0.98 0.003 260 / 0.6);
+      color: oklch(0.98 0.003 260);
     }
   }
 
-  &--ghost {
-    background-color: transparent;
-    color: var(--text-secondary);
-    border-color: var(--border);
-
-    &:hover,
-    &:focus-visible {
-      border-color: var(--accent-rule);
-      color: var(--accent-mid);
-    }
-  }
 }
 
 // ============================================
@@ -350,17 +342,24 @@ button:focus:not(:focus-visible) {
 }
 
 .section-label {
-  font-family: var(--font-mono);
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-family: var(--font-body);
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--accent-mid);
   margin-bottom: var(--space-lg);
 
   &::before {
-    content: '\2014\2014\00a0\00a0';
-    color: var(--accent-rule);
+    content: '';
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: var(--accent-rule);
+    flex-shrink: 0;
   }
 }
 
@@ -372,13 +371,13 @@ button:focus:not(:focus-visible) {
   min-height: 100svh;
   display: flex;
   align-items: center;
-  background-color: #1A1C24;
+  background-color: oklch(0.20 0.04 260);
   position: relative;
   padding: calc(var(--nav-height) + var(--space-xl)) 0 var(--space-xl);
 
   ::selection {
     background-color: var(--accent);
-    color: #fff;
+    color: oklch(0.98 0.003 260);
   }
 }
 
@@ -403,7 +402,7 @@ button:focus:not(:focus-visible) {
   font-size: clamp(3.5rem, 10vw, 6.5rem);
   letter-spacing: -0.03em;
   line-height: 1.0;
-  color: #fff;
+  color: oklch(0.98 0.003 260);
   margin-bottom: var(--space-md);
 }
 
@@ -411,24 +410,25 @@ button:focus:not(:focus-visible) {
   font-family: var(--font-body);
   font-size: clamp(0.95rem, 2vw, 1.125rem);
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.78);
+  color: oklch(0.98 0.003 260 / 0.78);
   letter-spacing: 0.01em;
-  line-height: 1.65;
+  line-height: 1.75;
   max-width: 600px;
   margin-bottom: var(--space-lg);
 }
 
 .hero__statement {
-  border-left: 3px solid var(--accent);
-  padding-left: var(--space-md);
+  padding: var(--space-md);
   margin-bottom: var(--space-lg);
   max-width: 700px;
+  background: oklch(0.98 0.003 260 / 0.06);
+  border-radius: var(--radius-sm);
 
   p {
     font-size: clamp(1rem, 1.8vw, 1.15rem);
     line-height: 1.65;
     letter-spacing: 0.01em;
-    color: rgba(255, 255, 255, 0.84);
+    color: oklch(0.98 0.003 260 / 0.84);
   }
 }
 
@@ -445,11 +445,12 @@ button:focus:not(:focus-visible) {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: rgba(255, 255, 255, 0.72);
+  color: oklch(0.98 0.003 260 / 0.72);
 
   svg {
     animation: scrollBounce 2s ease-in-out infinite;
@@ -511,7 +512,7 @@ button:focus:not(:focus-visible) {
 .project-card__dot {
   width: 8px;
   height: 8px;
-  background-color: #4A8C5E;
+  background-color: oklch(0.55 0.14 150);
   border-radius: 50%;
   display: inline-block;
 }
@@ -555,8 +556,9 @@ button:focus:not(:focus-visible) {
   margin-bottom: var(--space-lg);
 
   li {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 0.7rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--text-secondary);
@@ -592,8 +594,9 @@ button:focus:not(:focus-visible) {
 }
 
 .experience-item__company {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--accent-mid);
@@ -616,9 +619,9 @@ button:focus:not(:focus-visible) {
 }
 
 .skill-group__label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-secondary);
@@ -632,8 +635,9 @@ button:focus:not(:focus-visible) {
 }
 
 .tag {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.02em;
   padding: var(--space-xs) var(--space-sm);
   border: 1px solid var(--border);
@@ -704,8 +708,9 @@ button:focus:not(:focus-visible) {
 
 .contact-row__label {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-tertiary);
@@ -743,8 +748,9 @@ button:focus:not(:focus-visible) {
 }
 
 .footer__copy {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--text-tertiary);
 }
@@ -776,12 +782,12 @@ button:focus:not(:focus-visible) {
     flex-direction: column;
     align-items: stretch;
     gap: 0;
-    background-color: rgba(26, 28, 36, 0.95);
+    background-color: oklch(0.17 0.015 260 / 0.95);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     margin: 0 calc(var(--inline-pad) * -1);
     padding: var(--space-sm) var(--inline-pad);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid oklch(0.98 0.003 260 / 0.1);
   }
 
   .js-enabled .nav__links {
@@ -807,15 +813,15 @@ button:focus:not(:focus-visible) {
   }
 
   .site-header.scrolled .nav__links {
-    background-color: rgba(248, 246, 242, 0.95);
+    background-color: oklch(0.97 0.005 260 / 0.95);
     border-bottom-color: var(--border);
   }
 
   .nav__link {
     display: block;
     padding: var(--space-sm) 0;
-    color: rgba(255, 255, 255, 0.85);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: oklch(0.98 0.003 260 / 0.85);
+    border-bottom: 1px solid oklch(0.98 0.003 260 / 0.1);
 
   .site-header.scrolled & {
     color: var(--text-primary);
@@ -885,34 +891,34 @@ button:focus:not(:focus-visible) {
 // ============================================
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #1D1F29;
-    --surface: #252835;
-    --border: #363949;
-    --text-primary: #EFECE7;
-    --text-secondary: #9DA0AE;
-    --text-tertiary: #8E92A4;
-    --accent: #7B92F0;
-    --accent-mid: #9AADE6;
-    --accent-rule: #3A4575;
-    --accent-pale: #252840;
-    --card-bg: #2E3148;
+    --bg: oklch(0.18 0.02 260);
+    --surface: oklch(0.22 0.025 260);
+    --border: oklch(0.30 0.03 260);
+    --text-primary: oklch(0.93 0.006 260);
+    --text-secondary: oklch(0.68 0.02 260);
+    --text-tertiary: oklch(0.62 0.02 260);
+    --accent: oklch(0.68 0.16 260);
+    --accent-mid: oklch(0.72 0.10 260);
+    --accent-rule: oklch(0.36 0.06 260);
+    --accent-pale: oklch(0.24 0.04 260);
+    --card-bg: oklch(0.25 0.025 260);
   }
 
   .hero {
-    background-color: #111318;
+    background-color: oklch(0.14 0.03 260);
   }
 
   .btn--primary {
-    color: #1A1C24;
+    color: oklch(0.17 0.015 260);
   }
 
   .site-header.scrolled {
-    background-color: rgba(29, 31, 41, 0.85);
+    background-color: oklch(0.18 0.02 260 / 0.85);
     box-shadow: 0 1px 0 var(--border);
   }
 
   .project-card__dot {
-    background-color: #5AB87A;
+    background-color: oklch(0.65 0.16 150);
   }
 
   .section--surface .contact-row__icon {
@@ -921,11 +927,11 @@ button:focus:not(:focus-visible) {
 
   @media (max-width: 768px) {
     .nav__links {
-      background-color: rgba(17, 19, 24, 0.95);
+      background-color: oklch(0.14 0.03 260 / 0.95);
     }
 
     .site-header.scrolled .nav__links {
-      background-color: rgba(29, 31, 41, 0.95);
+      background-color: oklch(0.18 0.02 260 / 0.95);
       border-bottom-color: var(--border);
     }
 
@@ -950,8 +956,9 @@ button:focus:not(:focus-visible) {
 }
 
 .error-page__label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--accent-mid);
