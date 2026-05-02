@@ -63,7 +63,7 @@ Styling follows the brand design document (`vince-congini-site-brand-design.pdf`
 - Sticky nav with backdrop blur, scroll-aware transparency on the homepage hero
 - Active section highlighting via Intersection Observer
 - SEO metadata for `vincecongini.com` with canonical URLs, social previews, structured data, `robots.txt`, and `sitemap.xml`
-- Umami analytics script configured for `vincecongini.com`, with a deploy header policy that allows the Umami script and event endpoint
+- Umami analytics script configured for `vincecongini.com`, with a deploy header policy that allows Umami and Cloudflare Web Analytics scripts and event endpoints
 - Inline SVG icons (no icon library dependencies)
 - SVG data-URI favicon
 
