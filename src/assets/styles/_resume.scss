@@ -1,4 +1,42 @@
 // ============================================
+// Breadcrumb
+// ============================================
+.breadcrumb {
+  margin-bottom: var(--space-md);
+
+  ol {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    list-style: none;
+  }
+
+  li {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-tertiary);
+
+    &:not(:last-child)::after {
+      content: '/';
+      margin: 0 var(--space-xs);
+      color: var(--border);
+    }
+  }
+
+  a {
+    color: var(--accent-mid);
+    transition: color 0.2s;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--accent);
+    }
+  }
+}
+
+// ============================================
 // Resume Header
 // ============================================
 .resume-header {
@@ -366,6 +404,7 @@
   .site-header,
   .skip-link,
   .footer,
+  .breadcrumb,
   .resume-header__actions {
     display: none !important;
   }
