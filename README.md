@@ -18,13 +18,17 @@ npm run dev
 
 This starts a Sass watcher and local server at `http://localhost:3000`.
 
+`npm run build` and `npm run deploy` require Chrome or Chromium so the resume page can be printed to PDF. Set `CHROME_PATH` if Chrome is installed in a non-standard location.
+
 ## Scripts
 
 | Command | Description |
 |---|---|
 | `npm run dev` | Watch Sass + serve locally on port 3000 |
+| `npm run build` | Compile Sass and regenerate the downloadable resume PDF |
 | `npm run sass:build` | One-time Sass compilation (compressed) |
 | `npm run sass:watch` | Watch Sass for changes |
+| `npm run resume:pdf` | Regenerate `src/assets/files/vincent-congini-resume.pdf` from `src/resume.html` |
 
 ## Project structure
 
@@ -60,6 +64,7 @@ Styling follows the brand design document (`vince-congini-site-brand-design.pdf`
 - Dark mode via CSS custom properties and `prefers-color-scheme`
 - `prefers-reduced-motion` respected (disables animations and smooth scroll)
 - Print-friendly resume page (hides chrome, tightens layout, letter-size `@page`)
+- Downloadable resume PDF generated from the live resume page during `npm run build` / `npm run deploy`
 - Sticky nav with backdrop blur, scroll-aware transparency on the homepage hero
 - Active section highlighting via Intersection Observer
 - SEO metadata for `vincecongini.com` with canonical URLs, social previews, structured data, `robots.txt`, and `sitemap.xml`
@@ -71,9 +76,9 @@ Styling follows the brand design document (`vince-congini-site-brand-design.pdf`
 
 The `src/` directory is the deploy root. Any static host works:
 
-- **Netlify / Vercel / Cloudflare Pages** — set build command to `npm run sass:build` and publish directory to `src`
+- **Netlify / Vercel / Cloudflare Pages** — set build command to `npm run build` and publish directory to `src`
 - **GitHub Pages** — push `src/` contents to the deploy branch. `src/CNAME` configures the custom domain `vincecongini.com`.
-- **Manual** — run `npm run sass:build` then upload `src/` to any web server
+- **Manual** — run `npm run build` then upload `src/` to any web server
 
 ## Customization checklist
 

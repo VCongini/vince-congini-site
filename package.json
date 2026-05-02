@@ -5,8 +5,10 @@
   "scripts": {
     "sass:build": "sass src/assets/styles/main.scss:src/assets/styles/main.css --style=compressed",
     "sass:watch": "sass src/assets/styles/main.scss:src/assets/styles/main.css --watch",
+    "resume:pdf": "node scripts/generate-resume-pdf.mjs",
+    "build": "npm run sass:build && npm run resume:pdf",
     "dev": "concurrently \"npm run sass:watch\" \"npx serve src -l 3000\"",
-    "deploy": "npm run sass:build && wrangler deploy",
+    "deploy": "npm run build && wrangler deploy",
     "preview": "wrangler dev"
   },
   "devDependencies": {
