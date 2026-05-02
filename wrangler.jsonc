@@ -6,7 +6,8 @@
     "enabled": true
   },
   "assets": {
-    "directory": "src"
+    "directory": "src",
+    "not_found_handling": "custom-404"
   },
   "compatibility_flags": [
     "nodejs_compat"

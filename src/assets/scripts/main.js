@@ -34,6 +34,7 @@
       var expanded = navToggle.getAttribute('aria-expanded') === 'true';
       navToggle.setAttribute('aria-expanded', String(!expanded));
       navLinks.classList.toggle('open', !expanded);
+      document.body.style.overflow = !expanded ? 'hidden' : '';
       updateScrolledState();
     });
   }
@@ -43,6 +44,7 @@
       if (navToggle && navToggle.getAttribute('aria-expanded') === 'true') {
         navToggle.setAttribute('aria-expanded', 'false');
         navLinks.classList.remove('open');
+        document.body.style.overflow = '';
         setTimeout(updateScrolledState, 350);
       }
     });
@@ -70,7 +72,9 @@
 
         navItems.forEach(function (link) {
           var href = link.getAttribute('href');
-          link.classList.toggle('active', href === '#' + activeId);
+          if (href && href.charAt(0) === '#') {
+            link.classList.toggle('active', href === '#' + activeId);
+          }
         });
       },
       { rootMargin: '-80px 0px -40% 0px' }

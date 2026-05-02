@@ -63,6 +63,7 @@ Styling follows the brand design document (`vince-congini-site-brand-design.pdf`
 - Sticky nav with backdrop blur, scroll-aware transparency on the homepage hero
 - Active section highlighting via Intersection Observer
 - SEO metadata for `vincecongini.com` with canonical URLs, social previews, structured data, `robots.txt`, and `sitemap.xml`
+- Umami analytics script configured for `vincecongini.com`, with a deploy header policy that allows the Umami script and event endpoint
 - Inline SVG icons (no icon library dependencies)
 - SVG data-URI favicon
 
@@ -79,7 +80,7 @@ The `src/` directory is the deploy root. Any static host works:
 - [ ] Add `og:image` meta tag with a social preview image
 - [ ] Update canonical URLs, `robots.txt`, `sitemap.xml`, and `CNAME` if changing the production domain
 - [ ] Replace the inline SVG favicon with a proper `.ico` / `.png` if desired
-- [ ] Add analytics (Umami, Plausible, etc.) before deploying
+- [ ] Use a dedicated Umami website ID for this portfolio if it should be tracked separately from other projects
 - [ ] Update the copyright year in the footer if needed
 
 ## Tech stack
