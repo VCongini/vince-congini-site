@@ -50,6 +50,16 @@
     });
   });
 
+  var mobileQuery = window.matchMedia('(max-width: 768px)');
+  mobileQuery.addEventListener('change', function (e) {
+    if (!e.matches && navToggle && navToggle.getAttribute('aria-expanded') === 'true') {
+      navToggle.setAttribute('aria-expanded', 'false');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+      updateScrolledState();
+    }
+  });
+
   var visibleSections = new Set();
 
   if (sections.length) {

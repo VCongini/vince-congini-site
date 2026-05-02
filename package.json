@@ -6,7 +6,7 @@
     "sass:build": "sass src/assets/styles/main.scss:src/assets/styles/main.css --style=compressed",
     "sass:watch": "sass src/assets/styles/main.scss:src/assets/styles/main.css --watch",
     "dev": "concurrently \"npm run sass:watch\" \"npx serve src -l 3000\"",
-    "deploy": "wrangler deploy",
+    "deploy": "npm run sass:build && wrangler deploy",
     "preview": "wrangler dev"
   },
   "devDependencies": {

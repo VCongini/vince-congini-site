@@ -14,7 +14,7 @@
   --border: #DBD8D2;
   --text-primary: #1A1C24;
   --text-secondary: #5A5E6E;
-  --text-tertiary: #8A8E9E;
+  --text-tertiary: #6E7282;
   --card-bg: var(--bg);
 
   --space-xs: 6px;
@@ -834,7 +834,7 @@ button:focus:not(:focus-visible) {
     --border: #363949;
     --text-primary: #EFECE7;
     --text-secondary: #9DA0AE;
-    --text-tertiary: #6A6D7A;
+    --text-tertiary: #8E92A4;
     --accent: #7B92F0;
     --accent-mid: #9AADE6;
     --accent-rule: #3A4575;
@@ -873,6 +873,46 @@ button:focus:not(:focus-visible) {
       border-bottom-color: var(--border);
     }
   }
+}
+
+// ============================================
+// 404 Page
+// ============================================
+.error-page__main {
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.error-page__label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-mid);
+  margin-bottom: var(--space-md);
+}
+
+.error-page__heading {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+}
+
+.error-page__desc {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 400px;
+  margin: 0 auto var(--space-lg);
 }
 
 // ============================================

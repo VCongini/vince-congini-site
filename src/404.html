@@ -17,12 +17,12 @@
 
   <link rel="stylesheet" href="assets/styles/main.css">
 </head>
-<body>
-  <main id="main" style="min-height:100vh;min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;padding:var(--space-lg)">
+<body class="error-page">
+  <main id="main" class="error-page__main">
     <div>
-      <p style="font-family:var(--font-mono);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--accent-mid);margin-bottom:var(--space-md)">404 &mdash; Page not found</p>
-      <h1 style="font-family:var(--font-display);font-weight:700;font-size:clamp(2.5rem,8vw,4rem);letter-spacing:-0.03em;line-height:1;color:var(--text-primary);margin-bottom:var(--space-md)">Nothing here.</h1>
-      <p style="font-size:1rem;line-height:1.65;color:var(--text-secondary);max-width:400px;margin:0 auto var(--space-lg)">The page you're looking for doesn't exist or has been moved.</p>
+      <p class="error-page__label">404 &mdash; Page not found</p>
+      <h1 class="error-page__heading">Nothing here.</h1>
+      <p class="error-page__desc">The page you're looking for doesn't exist or has been moved.</p>
       <a href="/" class="btn btn--primary">Back to Home</a>
     </div>
   </main>
