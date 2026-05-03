@@ -7,6 +7,7 @@
     "sass:watch": "sass src/assets/styles/main.scss:src/assets/styles/main.css --watch",
     "resume:pdf": "node scripts/generate-resume-pdf.mjs",
     "dist:prepare": "node scripts/prepare-dist.mjs",
+    "build:cloudflare": "npm run sass:build && npm run dist:prepare",
     "build": "npm run sass:build && npm run resume:pdf && npm run dist:prepare",
     "dev": "concurrently \"npm run sass:watch\" \"npx serve src -l 3000\"",
     "deploy": "npm run build && wrangler deploy",
