@@ -40,7 +40,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Schibsted+Grotesk:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
 
-  <script>(function(){var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)})()</script>
+  <script>(function(){var e=document.documentElement;e.classList.add('js-enabled');var t=localStorage.getItem('theme');if(t)e.setAttribute('data-theme',t)})()</script>
   <link rel="stylesheet" href="assets/styles/main.css">
   <script src="assets/scripts/main.js" defer></script>
   <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-LTPPwaLbU0osA3KlbZu0gbKM+OX2/iNJYVcdtY6ZFUJfsuj7LJ+40McwiPCPpKad" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
@@ -270,15 +270,18 @@
         <h2 class="section-label">Get in Touch</h2>
         <p class="contact__intro">Building something that needs strong front-end leadership? I'd like to hear about it.</p>
         <div class="contact-rows">
-          <a href="mailto:vcongini@gmail.com" class="contact-row">
-            <span class="contact-row__icon" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
-            </span>
-            <span class="contact-row__content">
-              <span class="contact-row__label">Email</span>
-              <span class="contact-row__value">vcongini@gmail.com</span>
-            </span>
-          </a>
+          <div class="contact-row contact-row--split">
+            <a href="mailto:vcongini@gmail.com" class="contact-row__main">
+              <span class="contact-row__icon" aria-hidden="true">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg>
+              </span>
+              <span class="contact-row__content">
+                <span class="contact-row__label">Email</span>
+                <span class="contact-row__value">vcongini@gmail.com</span>
+              </span>
+            </a>
+            <button class="contact-row__action" type="button" data-copy-email="vcongini@gmail.com">Copy</button>
+          </div>
           <a href="https://www.linkedin.com/in/vincent-congini-216a4b90/" class="contact-row" target="_blank" rel="noopener noreferrer">
             <span class="contact-row__icon" aria-hidden="true">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -289,6 +292,7 @@
             </span>
           </a>
         </div>
+        <p class="contact-status" id="contact-status" aria-live="polite"></p>
       </div>
     </section>
 

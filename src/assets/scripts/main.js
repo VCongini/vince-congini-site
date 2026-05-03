@@ -8,6 +8,8 @@
   var navLinks = document.querySelector('.nav__links');
   var navItems = document.querySelectorAll('.nav__link');
   var sections = document.querySelectorAll('section[id]');
+  var copyEmailButton = document.querySelector('[data-copy-email]');
+  var contactStatus = document.getElementById('contact-status');
 
   docEl.classList.add('js-enabled');
 
@@ -120,6 +122,7 @@
       themeToggle.setAttribute('aria-label',
         theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
       );
+      themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
     }
 
     themeToggle.addEventListener('click', function () {
@@ -134,6 +137,21 @@
     });
 
     updateToggle();
+  }
+
+  if (copyEmailButton && contactStatus) {
+    copyEmailButton.addEventListener('click', function () {
+      var email = copyEmailButton.getAttribute('data-copy-email');
+      var copy = navigator.clipboard && window.isSecureContext
+        ? navigator.clipboard.writeText(email)
+        : Promise.reject(new Error('Clipboard unavailable'));
+
+      copy.then(function () {
+        contactStatus.textContent = 'Email copied to clipboard.';
+      }).catch(function () {
+        contactStatus.textContent = 'Email copy failed. Select the address and copy it manually.';
+      });
+    });
   }
 
   var visibleSections = new Set();
@@ -159,7 +177,13 @@
         navItems.forEach(function (link) {
           var href = link.getAttribute('href');
           if (href && href.charAt(0) === '#') {
-            link.classList.toggle('active', href === '#' + activeId);
+            var active = href === '#' + activeId;
+            link.classList.toggle('active', active);
+            if (active) {
+              link.setAttribute('aria-current', 'location');
+            } else {
+              link.removeAttribute('aria-current');
+            }
           }
         });
       },

@@ -316,6 +316,7 @@ Make the site feel authored, not generated.
 
 > Re-critique on 2026-05-02 after Wave 2. Score estimated at **34/40** (Good).
 > AI slop detection: **PASS**. Deterministic scan found small text and tight-leading issues only.
+> Follow-up critique pass: no detector findings remain. Best remaining score lift is interaction feedback and state clarity. Score after 6.4-6.6 estimated at **36/40** (Excellent threshold).
 
 ### 6.1 Increase Featured Project Chip Text
 
@@ -350,6 +351,39 @@ Make the site feel authored, not generated.
 | **Files** | `src/assets/styles/main.scss`, `src/assets/scripts/main.js` |
 | **Acceptance** | Header controls meet the same mobile hit target standard. Screen-reader state is clearer when the menu opens and closes. |
 
+### 6.4 Add Contact Copy Feedback
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | The contact endpoint relied on `mailto:` only. That is fragile for recruiters on locked-down work machines or users without a configured mail client, and there was no visible confirmation for any contact action. |
+| **Solution Applied** | Converted the email row into a split contact row with a direct mail link plus a `Copy` button. Added an `aria-live` status message that confirms successful clipboard copy or gives a manual recovery instruction if clipboard access fails. |
+| **Files** | `src/index.html`, `src/assets/styles/main.scss`, `src/assets/scripts/main.js` |
+| **Acceptance** | Users can copy the email without launching a mail client. The copy action produces visible and screen-reader-readable feedback. |
+
+### 6.5 Publish Active UI State to Assistive Tech
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | The site visually marked active in-page navigation links and switched the theme icon, but the equivalent state was not fully exposed semantically. |
+| **Solution Applied** | Added `aria-pressed` updates to the theme toggle so dark mode is announced as an active toggle state. Updated section observer logic so active in-page nav links receive `aria-current="location"` and inactive links have it removed. |
+| **Files** | `src/assets/scripts/main.js` |
+| **Acceptance** | Visual active states now have semantic equivalents for keyboard and screen-reader users. |
+
+### 6.6 Prevent Mobile Nav First-Paint Leak
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | Fresh mobile screenshots showed faint hidden nav labels at the top of the page during initial render. The deferred script added `.js-enabled` only after CSS loaded, so the no-JS fallback menu briefly painted before being hidden. |
+| **Solution Applied** | Updated the existing head bootstrap script on all pages to add `.js-enabled` before the stylesheet loads, while still applying the saved theme before render. |
+| **Files** | `src/index.html`, `src/resume.html`, `src/404.html` |
+| **Acceptance** | Mobile nav links do not leak during first paint. The no-JS fallback remains available when JavaScript is disabled. |
+
 ---
 
 ## Phase Summary
@@ -361,7 +395,7 @@ Make the site feel authored, not generated.
 | **Phase 3** | 3.1 - 3.5 | P2-P3 | Accessibility and technical standards |
 | **Phase 4** | 4.1 - 4.3 | P2-P3 | Visual distinction and final polish |
 | **Wave 2** | 5.1 - 5.8 | P2-P3 | Post-critique refinement (31→33+ target) |
-| **Wave 3** | 6.1 - 6.3 | P2-P3 | Legibility and interaction tightening |
+| **Wave 3** | 6.1 - 6.6 | P2-P3 | Legibility and interaction tightening |
 
 ---
 
@@ -397,3 +431,6 @@ Make the site feel authored, not generated.
 | 2026-05-02 | 6.1 | Done — Featured project chip/status text increased to 0.75rem |
 | 2026-05-02 | 6.2 | Done — Resume heading line-height increased to 1.35 |
 | 2026-05-02 | 6.3 | Done — Theme toggle hit target increased to 44px; menu aria-label now reflects open/close state |
+| 2026-05-02 | 6.4 | Done — Contact email row now includes copy-to-clipboard with live success/error feedback |
+| 2026-05-02 | 6.5 | Done — Theme toggle exposes `aria-pressed`; active section nav exposes `aria-current="location"` |
+| 2026-05-02 | 6.6 | Done — Head bootstrap now adds `.js-enabled` before CSS to prevent mobile nav first-paint leak |

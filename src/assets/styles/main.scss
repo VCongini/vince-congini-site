@@ -665,7 +665,8 @@ button:focus:not(:focus-visible) {
   transition: border-color 0.2s;
 
   &:hover,
-  &:focus-visible {
+  &:focus-visible,
+  &:focus-within {
     border-color: var(--accent-rule);
   }
 
@@ -673,6 +674,17 @@ button:focus:not(:focus-visible) {
     outline: 2px solid var(--accent);
     outline-offset: 2px;
   }
+}
+
+.contact-row--split {
+  justify-content: space-between;
+}
+
+.contact-row__main {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  min-width: 0;
 }
 
 .contact-row__icon {
@@ -706,6 +718,46 @@ button:focus:not(:focus-visible) {
   display: block;
   font-size: 0.925rem;
   color: var(--text-primary);
+}
+
+.contact-row__action {
+  min-width: 64px;
+  min-height: 44px;
+  padding: 0 var(--space-sm);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--accent-mid);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+
+  &:hover,
+  &:focus-visible {
+    background-color: var(--surface);
+    border-color: var(--accent-rule);
+    color: var(--accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.contact-status {
+  max-width: 640px;
+  margin-top: var(--space-sm);
+  color: var(--accent-mid);
+  font-size: 0.875rem;
+
+  &:empty {
+    display: none;
+  }
 }
 
 // ============================================
@@ -855,6 +907,10 @@ button:focus:not(:focus-visible) {
 
   .contact-row {
     padding: var(--space-sm) var(--space-md);
+  }
+
+  .contact-row--split {
+    align-items: stretch;
   }
 
   .skills-grid {
