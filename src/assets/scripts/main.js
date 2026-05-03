@@ -8,6 +8,8 @@
   var navLinks = document.querySelector('.nav__links');
   var navItems = document.querySelectorAll('.nav__link');
   var sections = document.querySelectorAll('section[id]');
+  var copyEmailButton = document.querySelector('[data-copy-email]');
+  var contactStatus = document.getElementById('contact-status');
 
   docEl.classList.add('js-enabled');
 
@@ -36,6 +38,22 @@
     return getCssMilliseconds('--nav-transition-duration', 300);
   }
 
+  function getStoredTheme() {
+    try {
+      return window.localStorage.getItem('theme');
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function setStoredTheme(theme) {
+    try {
+      window.localStorage.setItem('theme', theme);
+    } catch (error) {
+      // Storage may be disabled in privacy-restricted or sandboxed contexts.
+    }
+  }
+
   function isHeroVisible() {
     if (!hero) return false;
     return hero.getBoundingClientRect().bottom > getNavHeight();
@@ -53,6 +71,7 @@
     }
 
     navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open menu');
     navLinks.classList.remove('open');
     document.body.style.overflow = '';
 
@@ -74,9 +93,12 @@
   }
 
   if (navToggle && navLinks) {
+    navToggle.setAttribute('aria-label', 'Open menu');
+
     navToggle.addEventListener('click', function () {
       var expanded = navToggle.getAttribute('aria-expanded') === 'true';
       navToggle.setAttribute('aria-expanded', String(!expanded));
+      navToggle.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu');
       navLinks.classList.toggle('open', !expanded);
       document.body.style.overflow = !expanded ? 'hidden' : '';
       updateScrolledState();
@@ -101,6 +123,66 @@
     if (!e.matches) closeMobileMenu();
   });
 
+  var themeToggle = document.querySelector('.theme-toggle');
+  if (themeToggle) {
+    var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+    function getEffectiveTheme() {
+      var saved = getStoredTheme();
+      if (saved) return saved;
+      return darkQuery.matches ? 'dark' : 'light';
+    }
+
+    function updateToggle() {
+      var theme = getEffectiveTheme();
+      themeToggle.setAttribute('aria-label',
+        theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
+      );
+      themeToggle.setAttribute('aria-pressed', String(theme === 'dark'));
+    }
+
+    themeToggle.addEventListener('click', function () {
+      var next = getEffectiveTheme() === 'dark' ? 'light' : 'dark';
+      docEl.setAttribute('data-theme', next);
+      setStoredTheme(next);
+      updateToggle();
+    });
+
+    darkQuery.addEventListener('change', function () {
+      if (!getStoredTheme()) updateToggle();
+    });
+
+    updateToggle();
+  }
+
+  if (copyEmailButton && contactStatus) {
+    var copyStatusTimer;
+    var copyButtonLabel = copyEmailButton.textContent;
+
+    function updateCopyStatus(buttonText, statusText) {
+      copyEmailButton.textContent = buttonText;
+      contactStatus.textContent = statusText;
+      window.clearTimeout(copyStatusTimer);
+      copyStatusTimer = window.setTimeout(function () {
+        copyEmailButton.textContent = copyButtonLabel;
+        contactStatus.textContent = '';
+      }, 4000);
+    }
+
+    copyEmailButton.addEventListener('click', function () {
+      var email = copyEmailButton.getAttribute('data-copy-email');
+      var copy = navigator.clipboard && window.isSecureContext
+        ? navigator.clipboard.writeText(email)
+        : Promise.reject(new Error('Clipboard unavailable'));
+
+      copy.then(function () {
+        updateCopyStatus('Copied', 'Email copied to clipboard.');
+      }).catch(function () {
+        updateCopyStatus('Failed', 'Email copy failed. Select the address and copy it manually.');
+      });
+    });
+  }
+
   var visibleSections = new Set();
 
   if (sections.length) {
@@ -124,7 +206,13 @@
         navItems.forEach(function (link) {
           var href = link.getAttribute('href');
           if (href && href.charAt(0) === '#') {
-            link.classList.toggle('active', href === '#' + activeId);
+            var active = href === '#' + activeId;
+            link.classList.toggle('active', active);
+            if (active) {
+              link.setAttribute('aria-current', 'location');
+            } else {
+              link.removeAttribute('aria-current');
+            }
           }
         });
       },

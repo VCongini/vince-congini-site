@@ -12,8 +12,9 @@
   }
 
   li {
-    font-family: var(--font-mono);
+    font-family: var(--font-body);
     font-size: 0.7rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--text-tertiary);
@@ -67,7 +68,7 @@
   font-weight: 600;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
   letter-spacing: -0.025em;
-  line-height: 1.1;
+  line-height: 1.35;
   color: var(--accent);
   margin-bottom: var(--space-md);
 }
@@ -100,8 +101,9 @@
 
 .resume-header__label {
   display: block;
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.7rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--text-tertiary);
@@ -124,7 +126,6 @@
   padding: var(--space-lg);
   background-color: var(--card-bg);
   border: 1px solid var(--border);
-  border-left: 4px solid var(--accent);
   border-radius: var(--radius-md);
 }
 
@@ -141,7 +142,7 @@
   font-weight: 700;
   font-size: 1.35rem;
   letter-spacing: -0.025em;
-  line-height: 1.1;
+  line-height: 1.35;
   color: var(--text-primary);
 }
 
@@ -169,9 +170,9 @@
 }
 
 .resume-project__stack-label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.7rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-secondary);
@@ -241,7 +242,7 @@
   font-weight: 600;
   font-size: 1.15rem;
   letter-spacing: -0.025em;
-  line-height: 1.1;
+  line-height: 1.35;
   color: var(--text-primary);
   margin-bottom: var(--space-xs);
 }
@@ -257,8 +258,9 @@
   display: flex;
   justify-content: space-between;
   gap: var(--space-md);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--accent-mid);
   font-style: italic;
@@ -292,9 +294,9 @@
 }
 
 .resume-skill-group__label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.7rem;
-  font-weight: 400;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--text-primary);
@@ -332,8 +334,9 @@
 }
 
 .resume-edu__dates {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: 0.04em;
   color: var(--text-tertiary);
 }
@@ -536,7 +539,7 @@
     gap: 26px;
     background: #f6f8fa !important;
     border: 1px solid var(--border);
-    border-left: 5px solid var(--accent);
+    border-top: 3px solid var(--accent);
     border-radius: 0;
     padding: 22px 24px 11px 26px;
   }
