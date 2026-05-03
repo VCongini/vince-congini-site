@@ -38,6 +38,22 @@
     return getCssMilliseconds('--nav-transition-duration', 300);
   }
 
+  function getStoredTheme() {
+    try {
+      return window.localStorage.getItem('theme');
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function setStoredTheme(theme) {
+    try {
+      window.localStorage.setItem('theme', theme);
+    } catch (error) {
+      // Storage may be disabled in privacy-restricted or sandboxed contexts.
+    }
+  }
+
   function isHeroVisible() {
     if (!hero) return false;
     return hero.getBoundingClientRect().bottom > getNavHeight();
@@ -112,7 +128,7 @@
     var darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
     function getEffectiveTheme() {
-      var saved = localStorage.getItem('theme');
+      var saved = getStoredTheme();
       if (saved) return saved;
       return darkQuery.matches ? 'dark' : 'light';
     }
@@ -128,12 +144,12 @@
     themeToggle.addEventListener('click', function () {
       var next = getEffectiveTheme() === 'dark' ? 'light' : 'dark';
       docEl.setAttribute('data-theme', next);
-      localStorage.setItem('theme', next);
+      setStoredTheme(next);
       updateToggle();
     });
 
     darkQuery.addEventListener('change', function () {
-      if (!localStorage.getItem('theme')) updateToggle();
+      if (!getStoredTheme()) updateToggle();
     });
 
     updateToggle();
