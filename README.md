@@ -53,8 +53,8 @@ package.json                          Sass + concurrently dev dependencies
 
 Styling follows the brand design document (`vince-congini-site-brand-design.pdf`) with these specifications:
 
-- **Typography** — Syne (display/headings), DM Sans (body), DM Mono (labels/nav/tags) via Google Fonts
-- **Colors** — Slate-blue accent palette (`#2A3A8C`) on warm neutral backgrounds (`#F8F6F2`), with full dark mode support via `prefers-color-scheme`
+- **Typography** — Schibsted Grotesk (display/headings), Source Sans 3 (body), JetBrains Mono (technical metadata only) via Google Fonts
+- **Colors** — OKLCH cobalt-indigo accent tokens on subtly tinted neutral backgrounds, with manual and system dark mode support
 - **Spacing** — 6 / 12 / 24 / 48 / 80 / 128px scale as CSS custom properties
 - **Layout** — 1100px max-width, `clamp()`-based responsive padding, two-column grid where appropriate
 

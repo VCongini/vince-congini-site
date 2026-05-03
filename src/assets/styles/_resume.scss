@@ -57,7 +57,7 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: clamp(2rem, 5vw, 3rem);
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   line-height: 1.0;
   color: var(--text-primary);
   margin-bottom: var(--space-xs);
@@ -67,7 +67,7 @@
   font-family: var(--font-display);
   font-weight: 600;
   font-size: clamp(0.9rem, 2vw, 1.1rem);
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   line-height: 1.35;
   color: var(--accent);
   margin-bottom: var(--space-md);
@@ -90,6 +90,7 @@
 
   a {
     color: var(--accent-mid);
+    overflow-wrap: anywhere;
     transition: color 0.2s;
 
     &:hover,
@@ -141,7 +142,7 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 1.35rem;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   line-height: 1.35;
   color: var(--text-primary);
 }
@@ -241,7 +242,7 @@
   font-family: var(--font-display);
   font-weight: 600;
   font-size: 1.15rem;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   line-height: 1.35;
   color: var(--text-primary);
   margin-bottom: var(--space-xs);
@@ -463,7 +464,7 @@
   .resume-header__name {
     grid-column: 1;
     font-size: 2.85rem;
-    letter-spacing: -0.035em;
+    letter-spacing: 0;
     margin-bottom: 5px;
   }
 
