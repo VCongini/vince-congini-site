@@ -53,6 +53,7 @@
     }
 
     navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', 'Open menu');
     navLinks.classList.remove('open');
     document.body.style.overflow = '';
 
@@ -74,9 +75,12 @@
   }
 
   if (navToggle && navLinks) {
+    navToggle.setAttribute('aria-label', 'Open menu');
+
     navToggle.addEventListener('click', function () {
       var expanded = navToggle.getAttribute('aria-expanded') === 'true';
       navToggle.setAttribute('aria-expanded', String(!expanded));
+      navToggle.setAttribute('aria-label', expanded ? 'Open menu' : 'Close menu');
       navLinks.classList.toggle('open', !expanded);
       document.body.style.overflow = !expanded ? 'hidden' : '';
       updateScrolledState();

@@ -312,6 +312,46 @@ Make the site feel authored, not generated.
 
 ---
 
+## Wave 3: Legibility & Interaction Tightening
+
+> Re-critique on 2026-05-02 after Wave 2. Score estimated at **34/40** (Good).
+> AI slop detection: **PASS**. Deterministic scan found small text and tight-leading issues only.
+
+### 6.1 Increase Featured Project Chip Text
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | `$impeccable critique` deterministic scan flagged six `11.2px` text instances on the homepage. These map to the featured project highlight chips, which are real content, not decorative labels. |
+| **Solution Applied** | Increased `.project-card__highlights li` from `0.7rem` to `0.75rem` and reduced letter spacing from `0.04em` to `0.02em` to preserve fit while improving readability. Increased `.project-card__status` to `0.75rem` for consistency. |
+| **Files** | `src/assets/styles/main.scss` |
+| **Acceptance** | Featured project chips render at 12px minimum, with less cramped tracking. CLI detector no longer flags tiny text. |
+
+### 6.2 Relax Resume Heading Leading
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | `$impeccable critique` deterministic scan flagged a `line-height 1.25x` issue on the resume. Several resume headings can wrap on mobile or narrow print contexts, where 1.25 still reads tight. |
+| **Solution Applied** | Increased `.resume-header__title`, `.resume-project__title`, and `.resume-job__role` line-height from `1.25` to `1.35`. |
+| **Files** | `src/assets/styles/_resume.scss` |
+| **Acceptance** | Wrapping resume headings have enough breathing room on screen and mobile. CLI detector no longer flags tight leading. |
+
+### 6.3 Improve Toggle Touch Target and State Label
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | The theme toggle was visually tidy but only `36x36px`, smaller than the 44px mobile target used for the nav toggle. The menu button also kept a static `Menu` label while open. |
+| **Solution Applied** | Increased `.theme-toggle` to `44x44px` minimum and updated menu JavaScript to switch the button aria-label between `Open menu` and `Close menu`. |
+| **Files** | `src/assets/styles/main.scss`, `src/assets/scripts/main.js` |
+| **Acceptance** | Header controls meet the same mobile hit target standard. Screen-reader state is clearer when the menu opens and closes. |
+
+---
+
 ## Phase Summary
 
 | Phase | Items | Priority Range | Focus |
@@ -321,6 +361,7 @@ Make the site feel authored, not generated.
 | **Phase 3** | 3.1 - 3.5 | P2-P3 | Accessibility and technical standards |
 | **Phase 4** | 4.1 - 4.3 | P2-P3 | Visual distinction and final polish |
 | **Wave 2** | 5.1 - 5.8 | P2-P3 | Post-critique refinement (31→33+ target) |
+| **Wave 3** | 6.1 - 6.3 | P2-P3 | Legibility and interaction tightening |
 
 ---
 
@@ -353,3 +394,6 @@ Make the site feel authored, not generated.
 | 2026-05-02 | 5.5 | Done — Hero reduced to 85vh/svh, scroll indicator removed |
 | 2026-05-02 | 5.7 | Done — Build, PDF (223KB), and regression verification passed |
 | 2026-05-02 | 5.8 | Done — Dark/light toggle: mixin refactor, localStorage persistence, flash prevention, moon/sun icons |
+| 2026-05-02 | 6.1 | Done — Featured project chip/status text increased to 0.75rem |
+| 2026-05-02 | 6.2 | Done — Resume heading line-height increased to 1.35 |
+| 2026-05-02 | 6.3 | Done — Theme toggle hit target increased to 44px; menu aria-label now reflects open/close state |

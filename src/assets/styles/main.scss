@@ -479,7 +479,7 @@ button:focus:not(:focus-visible) {
   align-items: center;
   gap: var(--space-xs);
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--accent-mid);
@@ -533,9 +533,9 @@ button:focus:not(:focus-visible) {
 
   li {
     font-family: var(--font-body);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.02em;
     color: var(--text-secondary);
     padding: var(--space-xs) var(--space-sm);
     border: 1px solid var(--border);
@@ -956,9 +956,9 @@ html[data-theme="dark"] {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 36px;
-  min-height: 36px;
-  padding: 6px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 10px;
   background: none;
   border: 1px solid transparent;
   border-radius: var(--radius-sm);
