@@ -317,6 +317,7 @@ Make the site feel authored, not generated.
 > Re-critique on 2026-05-02 after Wave 2. Score estimated at **34/40** (Good).
 > AI slop detection: **PASS**. Deterministic scan found small text and tight-leading issues only.
 > Follow-up critique pass: no detector findings remain. Best remaining score lift is interaction feedback and state clarity. Score after 6.4-6.6 estimated at **36/40** (Excellent threshold).
+> Final critique pass: no detector findings remain. Remaining gains are recovery-path polish and clearer transient action feedback. Score after 6.7-6.8 estimated at **37/40**.
 
 ### 6.1 Increase Featured Project Chip Text
 
@@ -384,6 +385,28 @@ Make the site feel authored, not generated.
 | **Files** | `src/index.html`, `src/resume.html`, `src/404.html` |
 | **Acceptance** | Mobile nav links do not leak during first paint. The no-JS fallback remains available when JavaScript is disabled. |
 
+### 6.7 Strengthen 404 Recovery Paths
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | The 404 page had only one recovery path: `Back to Home`. That is acceptable, but it leaves visitors who came looking for the resume or who found a broken link with unnecessary backtracking. |
+| **Solution Applied** | Expanded the 404 copy with concrete recovery guidance and added three direct actions: home, resume, and email. The actions reuse existing button styles and stack cleanly on mobile. |
+| **Files** | `src/404.html`, `src/assets/styles/main.scss` |
+| **Acceptance** | Error recovery is specific and task-focused. A recruiter can recover directly to the resume or report a broken link without hunting. |
+
+### 6.8 Make Copy Feedback Visible on the Control
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | Email copy feedback appeared in the live status text, but the button itself did not change. Users who click and keep their eyes on the control get weaker confirmation than they should. |
+| **Solution Applied** | Updated the copy action so the button text changes to `Copied` or `Failed` for four seconds while the `aria-live` message announces the same outcome. The button then resets to `Copy`. |
+| **Files** | `src/assets/scripts/main.js` |
+| **Acceptance** | The copy action confirms directly where the action occurred and still provides assistive-tech feedback. |
+
 ---
 
 ## Phase Summary
@@ -395,7 +418,7 @@ Make the site feel authored, not generated.
 | **Phase 3** | 3.1 - 3.5 | P2-P3 | Accessibility and technical standards |
 | **Phase 4** | 4.1 - 4.3 | P2-P3 | Visual distinction and final polish |
 | **Wave 2** | 5.1 - 5.8 | P2-P3 | Post-critique refinement (31→33+ target) |
-| **Wave 3** | 6.1 - 6.6 | P2-P3 | Legibility and interaction tightening |
+| **Wave 3** | 6.1 - 6.8 | P2-P3 | Legibility, interaction, and recovery tightening |
 
 ---
 
@@ -434,3 +457,5 @@ Make the site feel authored, not generated.
 | 2026-05-02 | 6.4 | Done — Contact email row now includes copy-to-clipboard with live success/error feedback |
 | 2026-05-02 | 6.5 | Done — Theme toggle exposes `aria-pressed`; active section nav exposes `aria-current="location"` |
 | 2026-05-02 | 6.6 | Done — Head bootstrap now adds `.js-enabled` before CSS to prevent mobile nav first-paint leak |
+| 2026-05-02 | 6.7 | Done — 404 page now offers direct recovery links to home, resume, and email |
+| 2026-05-02 | 6.8 | Done — Copy button now changes to `Copied` or `Failed` before resetting |

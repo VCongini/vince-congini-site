@@ -140,6 +140,19 @@
   }
 
   if (copyEmailButton && contactStatus) {
+    var copyStatusTimer;
+    var copyButtonLabel = copyEmailButton.textContent;
+
+    function updateCopyStatus(buttonText, statusText) {
+      copyEmailButton.textContent = buttonText;
+      contactStatus.textContent = statusText;
+      window.clearTimeout(copyStatusTimer);
+      copyStatusTimer = window.setTimeout(function () {
+        copyEmailButton.textContent = copyButtonLabel;
+        contactStatus.textContent = '';
+      }, 4000);
+    }
+
     copyEmailButton.addEventListener('click', function () {
       var email = copyEmailButton.getAttribute('data-copy-email');
       var copy = navigator.clipboard && window.isSecureContext
@@ -147,9 +160,9 @@
         : Promise.reject(new Error('Clipboard unavailable'));
 
       copy.then(function () {
-        contactStatus.textContent = 'Email copied to clipboard.';
+        updateCopyStatus('Copied', 'Email copied to clipboard.');
       }).catch(function () {
-        contactStatus.textContent = 'Email copy failed. Select the address and copy it manually.';
+        updateCopyStatus('Failed', 'Email copy failed. Select the address and copy it manually.');
       });
     });
   }
