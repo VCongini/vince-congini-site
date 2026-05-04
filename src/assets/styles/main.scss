@@ -380,8 +380,8 @@ button:focus:not(:focus-visible) {
 // Hero
 // ============================================
 .hero {
-  min-height: 85vh;
-  min-height: 85svh;
+  min-height: 65vh;
+  min-height: 65svh;
   display: flex;
   align-items: center;
   background-color: oklch(0.20 0.04 260);
@@ -434,7 +434,8 @@ button:focus:not(:focus-visible) {
   padding: var(--space-md);
   margin-bottom: var(--space-lg);
   max-width: 700px;
-  background: oklch(0.98 0.003 260 / 0.12);
+  background: oklch(0.98 0.003 260 / 0.07);
+  border: 1px solid oklch(0.98 0.003 260 / 0.12);
   border-radius: var(--radius-sm);
 
   p {
@@ -611,13 +612,17 @@ button:focus:not(:focus-visible) {
   gap: var(--space-lg);
 }
 
+.skill-group {
+  padding: var(--space-md) 0;
+  border-top: 1px solid var(--border);
+}
+
 .skill-group__label {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-family: var(--font-display);
+  font-size: 0.875rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
+  letter-spacing: 0;
+  color: var(--text-primary);
   margin-bottom: var(--space-sm);
 }
 
@@ -635,15 +640,14 @@ button:focus:not(:focus-visible) {
 }
 
 .tag {
-  font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
   font-weight: 400;
   letter-spacing: 0.02em;
-  padding: var(--space-xs) var(--space-sm);
-  border: 1px solid var(--border);
+  padding: 2px var(--space-xs);
+  background-color: var(--accent-pale);
   border-radius: var(--radius-sm);
-  color: var(--text-secondary);
-
+  color: var(--text-tertiary);
 }
 
 // ============================================
