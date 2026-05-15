@@ -13,7 +13,8 @@
 **First-load list for implementation tasks:**
 1. This file (AGENTS.md)
 2. Agent Handoff Summary (above)
-3. Agent Context Routing (above) — then load only matched guidelines
+3. Pipeline manifest (above) — note: tdd_default is false for this project
+4. Agent Context Routing (above) — then load only matched guidelines
 
 This file is authoritative for repo-local implementation details. If the wiki and this file disagree about implementation, follow this file and current code, then update the wiki.
 
