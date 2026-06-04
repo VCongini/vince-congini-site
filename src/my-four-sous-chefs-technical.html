@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Four Sous Chefs Technical Overview | Vincent Congini</title>
+  <meta name="description" content="A high-level technical overview of My Four Sous Chefs, an AI recipe SaaS application built with TypeScript, React, Express, Supabase, Stripe, and production AI controls.">
+  <meta name="author" content="Vincent Congini">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://vincecongini.com/my-four-sous-chefs-technical.html">
+
+  <meta property="og:title" content="My Four Sous Chefs Technical Overview | Vincent Congini">
+  <meta property="og:description" content="Architecture, AI workflow, production controls, and engineering decisions behind a private-repo AI recipe SaaS application.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vincecongini.com/my-four-sous-chefs-technical.html">
+  <meta property="og:site_name" content="Vincent Congini">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://vincecongini.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Vincent Congini, Senior Front End Tech Lead">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="My Four Sous Chefs Technical Overview | Vincent Congini">
+  <meta name="twitter:description" content="Architecture, AI workflow, production controls, and engineering decisions behind a private-repo AI recipe SaaS application.">
+  <meta name="twitter:image" content="https://vincecongini.com/og-image.png">
+  <meta name="twitter:image:alt" content="Vincent Congini, Senior Front End Tech Lead">
+
+  <meta name="theme-color" content="#F8F6F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1D1F29" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='70' font-family='system-ui' font-weight='700' fill='%23044cb6'>VC</text></svg>">
+  <link rel="apple-touch-icon" href="/icon-192.svg">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="me" href="https://www.linkedin.com/in/vincent-congini-216a4b90/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Schibsted+Grotesk:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script>(function(){var e=document.documentElement;e.classList.add('js-enabled');try{var t=localStorage.getItem('theme');if(t)e.setAttribute('data-theme',t)}catch(_){}})()</script>
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <script src="assets/scripts/main.js" defer></script>
+  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-LTPPwaLbU0osA3KlbZu0gbKM+OX2/iNJYVcdtY6ZFUJfsuj7LJ+40McwiPCPpKad" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://vincecongini.com/#person",
+          "name": "Vincent Congini",
+          "url": "https://vincecongini.com/",
+          "email": "mailto:vcongini@gmail.com",
+          "jobTitle": "Senior Front End Tech Lead",
+          "sameAs": [
+            "https://www.linkedin.com/in/vincent-congini-216a4b90/"
+          ],
+          "knowsAbout": [
+            "React",
+            "TypeScript",
+            "Front-end architecture",
+            "AI product engineering",
+            "SaaS systems",
+            "Testing automation",
+            "CI/CD"
+          ],
+          "image": "https://vincecongini.com/og-image.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://vincecongini.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "My Four Sous Chefs Technical Overview",
+              "item": "https://vincecongini.com/my-four-sous-chefs-technical.html"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://vincecongini.com/my-four-sous-chefs-technical.html#article",
+          "headline": "My Four Sous Chefs Technical Overview",
+          "description": "A high-level technical overview of the architecture, AI workflow, production controls, and engineering decisions behind My Four Sous Chefs.",
+          "author": {
+            "@id": "https://vincecongini.com/#person"
+          },
+          "url": "https://vincecongini.com/my-four-sous-chefs-technical.html",
+          "inLanguage": "en-US"
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav nav--case" aria-label="Project">
+      <a href="index.html" class="nav__logo" aria-label="Vincent Congini, Home">VC.</a>
+      <a href="#overview" class="nav__context" aria-label="My Four Sous Chefs overview">My Four Sous Chefs</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="nav-menu" class="nav__links" role="list">
+        <li><a href="#product-story" class="nav__link">Product</a></li>
+        <li><a href="#process" class="nav__link">Process</a></li>
+        <li><a href="#architecture" class="nav__link">Architecture</a></li>
+        <li><a href="#production" class="nav__link">Production</a></li>
+        <li><a href="index.html#projects" class="nav__link nav__link--cta">Portfolio</a></li>
+      </ul>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="theme-toggle__moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-toggle__sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="case-header" id="overview">
+      <div class="section__inner">
+        <div class="case-header__accent" aria-hidden="true"></div>
+        <p class="case-header__eyebrow">Private-repo case study</p>
+        <h1 class="case-header__title">A production AI app, built past the demo line.</h1>
+        <div class="case-header__layout">
+          <div>
+            <p class="case-header__summary">My Four Sous Chefs turns pantry, fridge, and shopping-list context into practical dinner decisions. The source is private, so this walkthrough shows the architecture, product surfaces, and production controls that matter when an AI feature becomes a real SaaS application.</p>
+            <div class="case-header__actions">
+              <a href="https://myfoursouschefs.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Live App</a>
+              <a href="#product-story" class="btn btn--secondary">Explore the Build</a>
+            </div>
+          </div>
+          <picture class="case-header__preview">
+            <source type="image/avif" srcset="assets/images/mfsc-screenshot-480.avif 480w, assets/images/mfsc-screenshot-834.avif 834w" sizes="(max-width: 768px) calc(100vw - 40px), 320px">
+            <img src="assets/images/mfsc-screenshot.png" alt="My Four Sous Chefs app showing image upload and AI chef selection" loading="eager" width="834" height="1024">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface case-story" id="product-story" aria-labelledby="story-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="story-heading">Product Story</h2>
+        <div class="case-story__intro">
+          <p>This project is strongest when the visitor can see both sides at once: a family-facing food product and the engineering discipline underneath it. The page now leaves clear room for more app screens as the product story grows.</p>
+        </div>
+        <div class="screen-slots" aria-label="Planned app screen gallery">
+          <figure class="screen-slot screen-slot--filled">
+            <picture>
+              <source type="image/avif" srcset="assets/images/mfsc-screenshot-480.avif 480w, assets/images/mfsc-screenshot-834.avif 834w" sizes="(max-width: 768px) calc(100vw - 40px), 320px">
+              <img src="assets/images/mfsc-screenshot.png" alt="My Four Sous Chefs ingredient input screen with image upload and AI chef options" loading="lazy" width="834" height="1024">
+            </picture>
+            <figcaption>
+              <span>Current screen</span>
+              Ingredient capture and AI chef selection.
+            </figcaption>
+          </figure>
+          <figure class="screen-slot">
+            <div class="screen-slot__placeholder" aria-hidden="true">
+              <span>Recipe result</span>
+            </div>
+            <figcaption>
+              <span>Image slot</span>
+              Add a generated recipe detail screen showing ingredient reasoning and chef voice.
+            </figcaption>
+          </figure>
+          <figure class="screen-slot">
+            <div class="screen-slot__placeholder" aria-hidden="true">
+              <span>Meal plan</span>
+            </div>
+            <figcaption>
+              <span>Image slot</span>
+              Add a family-week meal plan screen with shopping-list or prep-task context.
+            </figcaption>
+          </figure>
+          <figure class="screen-slot">
+            <div class="screen-slot__placeholder" aria-hidden="true">
+              <span>Account</span>
+            </div>
+            <figcaption>
+              <span>Image slot</span>
+              Add an account, saved recipes, or entitlement screen to show the SaaS layer.
+            </figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process" aria-labelledby="walkthrough-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="walkthrough-heading">How It Works</h2>
+        <div class="case-walkthrough">
+          <article class="walkthrough-step">
+            <span class="walkthrough-step__number">01</span>
+            <div>
+              <h3>Capture messy kitchen context</h3>
+              <p>Users can bring photos, pantry lists, shopping-list context, and preferences. The interface stays oriented around dinner decisions, not prompt writing.</p>
+            </div>
+          </article>
+          <article class="walkthrough-step">
+            <span class="walkthrough-step__number">02</span>
+            <div>
+              <h3>Turn inputs into structured product state</h3>
+              <p>Image preprocessing, OCR, vision-assisted extraction, structured parsing, and normalization convert imperfect inputs into ingredients the rest of the product can trust.</p>
+            </div>
+          </article>
+          <article class="walkthrough-step">
+            <span class="walkthrough-step__number">03</span>
+            <div>
+              <h3>Generate useful recipes, not novelty output</h3>
+              <p>AI calls are isolated behind API boundaries with typed responses, fallback handling, token-budget awareness, and UI states for slow or partial results.</p>
+            </div>
+          </article>
+          <article class="walkthrough-step">
+            <span class="walkthrough-step__number">04</span>
+            <div>
+              <h3>Persist the value after generation</h3>
+              <p>Saved recipes, meal plans, usage records, account state, and entitlements make the app a continuing product rather than a one-off generation tool.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="architecture" aria-labelledby="architecture-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="architecture-heading">Architecture</h2>
+        <div class="architecture-brief">
+          <div class="architecture-brief__copy">
+            <h3>TypeScript product system</h3>
+            <p>My Four Sous Chefs is organized as a TypeScript monorepo: React and Vite for web, Expo and React Native for mobile, Express for the API, shared domain packages, and Supabase-backed persistence for user and product state.</p>
+            <p>The split keeps the product fast to iterate while protecting the boundaries that matter: AI calls, billing events, identity, quotas, and saved user data.</p>
+          </div>
+          <div class="architecture-map" aria-label="High-level architecture map">
+            <div class="architecture-map__node">Web<br><span>React 19, Vite</span></div>
+            <div class="architecture-map__node">Mobile<br><span>Expo, React Native</span></div>
+            <div class="architecture-map__node architecture-map__node--core">API<br><span>Express, TypeScript</span></div>
+            <div class="architecture-map__node">Data<br><span>Supabase, PostgreSQL</span></div>
+            <div class="architecture-map__node">External<br><span>Claude, Stripe, Turnstile</span></div>
+          </div>
+        </div>
+        <ul class="case-tags case-tags--stack" role="list" aria-label="Core stack">
+          <li>TypeScript</li>
+          <li>React 19</li>
+          <li>Vite</li>
+          <li>React Native</li>
+          <li>Expo</li>
+          <li>Express</li>
+          <li>Supabase</li>
+          <li>PostgreSQL</li>
+          <li>Stripe</li>
+          <li>Claude</li>
+          <li>Sharp</li>
+          <li>Tesseract OCR</li>
+          <li>Vitest</li>
+          <li>Playwright</li>
+          <li>Cloudflare Turnstile</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="production" aria-labelledby="controls-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="controls-heading">Production Controls</h2>
+        <div class="control-band">
+          <article>
+            <span>Cost</span>
+            <h3>Meter before expensive work starts</h3>
+            <p>Identity-aware limits, daily and monthly token budgets, request metering, and reservation-style accounting keep AI usage controlled before provider calls are made.</p>
+          </article>
+          <article>
+            <span>Abuse</span>
+            <h3>Treat AI endpoints as protected resources</h3>
+            <p>Cloudflare Turnstile, authenticated usage records, and quota-aware API paths reduce abuse without making the family-facing flow feel hostile.</p>
+          </article>
+          <article>
+            <span>Reliability</span>
+            <h3>Design for partial success</h3>
+            <p>Structured logging, observable request outcomes, rollback handling, and automated coverage around critical flows keep failures understandable and recoverable.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="decisions" aria-labelledby="decisions-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="decisions-heading">Engineering Decisions</h2>
+        <div class="decision-list">
+          <article class="decision-item">
+            <span class="decision-item__label">Boundary</span>
+            <h3>Keep AI work server-side</h3>
+            <p>Provider keys, cost controls, prompt assembly, and structured parsing stay behind server boundaries. The client owns interaction quality; the API owns trust, metering, and external calls.</p>
+          </article>
+          <article class="decision-item">
+            <span class="decision-item__label">Data</span>
+            <h3>Persist product state, not raw experimentation</h3>
+            <p>Recipes, plans, account state, and usage records are first-class data. This makes the product useful after the first generation and gives production controls durable state to enforce.</p>
+          </article>
+          <article class="decision-item">
+            <span class="decision-item__label">Delivery</span>
+            <h3>Favor boring deployable pieces</h3>
+            <p>The architecture uses familiar TypeScript, web, database, and payment primitives. The interesting work sits in product judgment, AI workflow design, and reliability controls rather than novelty for its own sake.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section case-close" aria-labelledby="proof-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="proof-heading">What This Demonstrates</h2>
+        <div class="case-proof">
+          <p>My Four Sous Chefs is a useful portfolio proof point because it combines modern front-end architecture with the parts that make AI products hard in production: unreliable inputs, variable model outputs, cost exposure, subscription state, operational feedback, and user trust.</p>
+          <p>The source is private, but the public architecture story shows the same thing a repository walkthrough would need to prove: clear boundaries, practical product thinking, and production discipline around an AI-heavy user experience.</p>
+        </div>
+        <div class="case-close__actions">
+          <a href="https://myfoursouschefs.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Try My Four Sous Chefs</a>
+          <a href="index.html#projects" class="btn btn--secondary">Return to Portfolio</a>
+          <a href="mailto:vcongini@gmail.com" class="case-close__contact">Discuss the engineering</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <a href="index.html" class="footer__logo">VC.</a>
+      <p class="footer__copy">&copy; Vincent Congini</p>
+    </div>
+  </footer>
+</body>
+</html>
