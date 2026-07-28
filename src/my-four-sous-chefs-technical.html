@@ -4,14 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Four Sous Chefs Technical Overview | Vincent Congini</title>
-  <meta name="description" content="A high-level technical overview of My Four Sous Chefs, an AI recipe SaaS application built with TypeScript, React, Express, Supabase, Stripe, and production AI controls.">
+  <meta name="description" content="A technical overview of My Four Sous Chefs, a full-stack recipe product built with React, TypeScript, Express, Supabase, Stripe, vision, OCR, and language models.">
   <meta name="author" content="Vincent Congini">
   <meta name="robots" content="index, follow">
 
   <link rel="canonical" href="https://vincecongini.com/my-four-sous-chefs-technical.html">
 
   <meta property="og:title" content="My Four Sous Chefs Technical Overview | Vincent Congini">
-  <meta property="og:description" content="Architecture, AI workflow, production controls, and engineering decisions behind a private-repo AI recipe SaaS application.">
+  <meta property="og:description" content="Product architecture, model workflow, billing, usage controls, and engineering decisions behind a private-repo recipe application.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://vincecongini.com/my-four-sous-chefs-technical.html">
   <meta property="og:site_name" content="Vincent Congini">
@@ -23,7 +23,7 @@
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="My Four Sous Chefs Technical Overview | Vincent Congini">
-  <meta name="twitter:description" content="Architecture, AI workflow, production controls, and engineering decisions behind a private-repo AI recipe SaaS application.">
+  <meta name="twitter:description" content="Product architecture, model workflow, billing, usage controls, and engineering decisions behind a private-repo recipe application.">
   <meta name="twitter:image" content="https://vincecongini.com/og-image.png">
   <meta name="twitter:image:alt" content="Vincent Congini, Senior Front End Tech Lead">
 
@@ -90,7 +90,7 @@
           "@type": "TechArticle",
           "@id": "https://vincecongini.com/my-four-sous-chefs-technical.html#article",
           "headline": "My Four Sous Chefs Technical Overview",
-          "description": "A high-level technical overview of the architecture, AI workflow, production controls, and engineering decisions behind My Four Sous Chefs.",
+          "description": "A technical overview of the product architecture, model workflow, billing, usage controls, and engineering decisions behind My Four Sous Chefs.",
           "author": {
             "@id": "https://vincecongini.com/#person"
           },
@@ -133,10 +133,10 @@
       <div class="section__inner">
         <div class="case-header__accent" aria-hidden="true"></div>
         <p class="case-header__eyebrow">Private-repo case study</p>
-        <h1 class="case-header__title">A production AI app, built past the demo line.</h1>
+        <h1 class="case-header__title">From kitchen photos to a product people can keep using.</h1>
         <div class="case-header__layout">
           <div>
-            <p class="case-header__summary">My Four Sous Chefs turns pantry, fridge, and shopping-list context into practical dinner decisions. The source is private, so this walkthrough shows the architecture, product surfaces, and production controls that matter when an AI feature becomes a real SaaS application.</p>
+            <p class="case-header__summary">My Four Sous Chefs turns everyday kitchen inputs into recipes and meal plans. This walkthrough focuses on how the product handles messy image input, model calls, accounts, subscriptions, usage, and failure, not just the generated result.</p>
             <div class="case-header__actions">
               <a href="https://myfoursouschefs.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="case-study-open-live-app">Open Live App</a>
               <a href="#product-story" class="btn btn--secondary" data-umami-event="case-study-explore-build">Explore the Build</a>
@@ -154,7 +154,7 @@
       <div class="section__inner">
         <h2 class="section-label" id="story-heading">Product Story</h2>
         <div class="case-story__intro">
-          <p>Built end to end as a production product, this work connects a family-facing workflow to the engineering controls required for AI-backed SaaS.</p>
+          <p>I built the product end to end, from the family-facing flow to the service boundaries and controls behind it.</p>
         </div>
         <div class="case-story__layout">
           <figure class="case-story__screen">
@@ -170,15 +170,15 @@
           <div class="case-story__proof">
             <div>
               <span>Scope</span>
-              <p>Product architecture, front end, API, persistence, billing, AI workflow, and production controls.</p>
+              <p>Product architecture, front end, API, persistence, billing, model workflow, and production controls.</p>
             </div>
             <div>
-              <span>Product responsibility</span>
-              <p>Carry the experience from messy input through generated results, saved recipes, plans, account state, and entitlements.</p>
+              <span>End-to-end flow</span>
+              <p>Messy input, generated results, saved recipes, plans, account state, and entitlements all belong to one product experience.</p>
             </div>
             <div>
-              <span>Engineering standard</span>
-              <p>Treat cost, abuse prevention, fallbacks, observability, and automated tests as product requirements.</p>
+              <span>Working standard</span>
+              <p>Cost, abuse prevention, fallbacks, logs, and automated tests were product requirements from the start.</p>
             </div>
           </div>
         </div>
@@ -199,22 +199,22 @@
           <article class="walkthrough-step">
             <span class="walkthrough-step__number">02</span>
             <div>
-              <h3>Turn inputs into structured product state</h3>
+              <h3>Turn inputs into usable data</h3>
               <p>Image preprocessing, OCR, vision-assisted extraction, structured parsing, and normalization convert imperfect inputs into ingredients the rest of the product can trust.</p>
             </div>
           </article>
           <article class="walkthrough-step">
             <span class="walkthrough-step__number">03</span>
             <div>
-              <h3>Generate useful recipes, not novelty output</h3>
-              <p>AI calls are isolated behind API boundaries with typed responses, fallback handling, token-budget awareness, and UI states for slow or partial results.</p>
+              <h3>Generate recipes people can act on</h3>
+              <p>Model calls stay behind API boundaries with typed responses, fallback handling, token-budget awareness, and UI states for slow or partial results.</p>
             </div>
           </article>
           <article class="walkthrough-step">
             <span class="walkthrough-step__number">04</span>
             <div>
-              <h3>Persist the value after generation</h3>
-              <p>Saved recipes, meal plans, usage records, account state, and entitlements make the app a continuing product rather than a one-off generation tool.</p>
+              <h3>Keep results useful after generation</h3>
+              <p>Saved recipes, meal plans, usage records, account state, and entitlements make the app useful beyond a single request.</p>
             </div>
           </article>
         </div>
@@ -228,7 +228,7 @@
           <div class="architecture-brief__copy">
             <h3>TypeScript product system</h3>
             <p>My Four Sous Chefs is organized as a TypeScript monorepo: React and Vite for web, Expo and React Native for mobile, Express for the API, shared domain packages, and Supabase-backed persistence for user and product state.</p>
-            <p>The split keeps the product fast to iterate while protecting the boundaries that matter: AI calls, billing events, identity, quotas, and saved user data.</p>
+            <p>The split keeps the product fast to iterate while protecting the boundaries that matter: model calls, billing events, identity, quotas, and saved user data.</p>
           </div>
           <div class="architecture-map" aria-label="High-level architecture map">
             <div class="architecture-map__node">Web<br><span>React 19, Vite</span></div>
@@ -265,11 +265,11 @@
           <article>
             <span>Cost</span>
             <h3>Meter before expensive work starts</h3>
-            <p>Identity-aware limits, daily and monthly token budgets, request metering, and reservation-style accounting keep AI usage controlled before provider calls are made.</p>
+            <p>Identity-aware limits, daily and monthly token budgets, request metering, and reservation-style accounting control usage before provider calls are made.</p>
           </article>
           <article>
             <span>Abuse</span>
-            <h3>Treat AI endpoints as protected resources</h3>
+            <h3>Treat model endpoints as protected resources</h3>
             <p>Cloudflare Turnstile, authenticated usage records, and quota-aware API paths reduce abuse without making the family-facing flow feel hostile.</p>
           </article>
           <article>
@@ -287,18 +287,18 @@
         <div class="decision-list">
           <article class="decision-item">
             <span class="decision-item__label">Boundary</span>
-            <h3>Keep AI work server-side</h3>
+            <h3>Keep model calls server-side</h3>
             <p>Provider keys, cost controls, prompt assembly, and structured parsing stay behind server boundaries. The client owns interaction quality; the API owns trust, metering, and external calls.</p>
           </article>
           <article class="decision-item">
             <span class="decision-item__label">Data</span>
-            <h3>Persist product state, not raw experimentation</h3>
+            <h3>Persist useful product state</h3>
             <p>Recipes, plans, account state, and usage records are first-class data. This makes the product useful after the first generation and gives production controls durable state to enforce.</p>
           </article>
           <article class="decision-item">
             <span class="decision-item__label">Delivery</span>
-            <h3>Favor boring deployable pieces</h3>
-            <p>The architecture uses familiar TypeScript, web, database, and payment primitives. The interesting work sits in product judgment, AI workflow design, and reliability controls rather than novelty for its own sake.</p>
+            <h3>Choose familiar deployable parts</h3>
+            <p>I kept the deployment pieces familiar so effort could go into input quality, generation, billing, and reliability.</p>
           </article>
         </div>
       </div>
@@ -308,8 +308,8 @@
       <div class="section__inner">
         <h2 class="section-label" id="proof-heading">What This Demonstrates</h2>
         <div class="case-proof">
-          <p>My Four Sous Chefs is a useful portfolio proof point because it combines modern front-end architecture with the parts that make AI products hard in production: unreliable inputs, variable model outputs, cost exposure, subscription state, operational feedback, and user trust.</p>
-          <p>The source is private, but the public architecture story shows the same thing a repository walkthrough would need to prove: clear boundaries, practical product thinking, and production discipline around an AI-heavy user experience.</p>
+          <p>The visible experience is a React product. Behind it are the less visible concerns that decide whether a model-backed feature can stay useful: messy inputs, variable outputs, provider costs, subscription state, operational feedback, and user trust.</p>
+          <p>The repository is private, so this page focuses on decisions I can show clearly: system boundaries, data flow, billing, usage controls, and failure handling.</p>
         </div>
         <div class="case-close__actions">
           <a href="https://myfoursouschefs.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="case-study-try-app">Try My Four Sous Chefs</a>
