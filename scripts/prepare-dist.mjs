@@ -98,6 +98,7 @@ await copyDirectory(srcDir, distDir);
 
 const replacements = [
   await fingerprintAsset('assets/styles/main.css'),
+  await fingerprintAsset('assets/scripts/theme-init.js'),
   await fingerprintAsset('assets/scripts/main.js'),
 ];
 

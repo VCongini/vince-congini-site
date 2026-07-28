@@ -40,7 +40,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Schibsted+Grotesk:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
 
-  <script>(function(){var e=document.documentElement;e.classList.add('js-enabled');try{var t=localStorage.getItem('theme');if(t)e.setAttribute('data-theme',t)}catch(_){}})()</script>
+  <script src="assets/scripts/theme-init.js"></script>
   <link rel="stylesheet" href="assets/styles/main.css">
   <script src="assets/scripts/main.js" defer></script>
   <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-LTPPwaLbU0osA3KlbZu0gbKM+OX2/iNJYVcdtY6ZFUJfsuj7LJ+40McwiPCPpKad" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
@@ -106,7 +106,7 @@
 
   <header class="site-header scrolled" id="site-header">
     <nav class="nav nav--case" aria-label="Project">
-      <a href="index.html" class="nav__logo" aria-label="Vincent Congini, Home">VC.</a>
+      <a href="index.html" class="nav__logo" aria-label="VC. Vincent Congini, home">VC.</a>
       <a href="#overview" class="nav__context" aria-label="My Four Sous Chefs overview">My Four Sous Chefs</a>
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
         <span></span>
@@ -138,8 +138,8 @@
           <div>
             <p class="case-header__summary">My Four Sous Chefs turns pantry, fridge, and shopping-list context into practical dinner decisions. The source is private, so this walkthrough shows the architecture, product surfaces, and production controls that matter when an AI feature becomes a real SaaS application.</p>
             <div class="case-header__actions">
-              <a href="https://myfoursouschefs.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Open Live App</a>
-              <a href="#product-story" class="btn btn--secondary">Explore the Build</a>
+              <a href="https://myfoursouschefs.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="case-study-open-live-app">Open Live App</a>
+              <a href="#product-story" class="btn btn--secondary" data-umami-event="case-study-explore-build">Explore the Build</a>
             </div>
           </div>
           <picture class="case-header__preview">
@@ -154,46 +154,33 @@
       <div class="section__inner">
         <h2 class="section-label" id="story-heading">Product Story</h2>
         <div class="case-story__intro">
-          <p>This project is strongest when the visitor can see both sides at once: a family-facing food product and the engineering discipline underneath it. The page now leaves clear room for more app screens as the product story grows.</p>
+          <p>Built end to end as a production product, this work connects a family-facing workflow to the engineering controls required for AI-backed SaaS.</p>
         </div>
-        <div class="screen-slots" aria-label="Planned app screen gallery">
-          <figure class="screen-slot screen-slot--filled">
+        <div class="case-story__layout">
+          <figure class="case-story__screen">
             <picture>
               <source type="image/avif" srcset="assets/images/mfsc-screenshot-480.avif 480w, assets/images/mfsc-screenshot-834.avif 834w" sizes="(max-width: 768px) calc(100vw - 40px), 320px">
               <img src="assets/images/mfsc-screenshot.png" alt="My Four Sous Chefs ingredient input screen with image upload and AI chef options" loading="lazy" width="834" height="1024">
             </picture>
             <figcaption>
-              <span>Current screen</span>
-              Ingredient capture and AI chef selection.
+              <span>Product surface</span>
+              Ingredient capture and AI chef selection keep the experience centered on dinner decisions, not prompt writing.
             </figcaption>
           </figure>
-          <figure class="screen-slot">
-            <div class="screen-slot__placeholder" aria-hidden="true">
-              <span>Recipe result</span>
+          <div class="case-story__proof">
+            <div>
+              <span>Scope</span>
+              <p>Product architecture, front end, API, persistence, billing, AI workflow, and production controls.</p>
             </div>
-            <figcaption>
-              <span>Image slot</span>
-              Add a generated recipe detail screen showing ingredient reasoning and chef voice.
-            </figcaption>
-          </figure>
-          <figure class="screen-slot">
-            <div class="screen-slot__placeholder" aria-hidden="true">
-              <span>Meal plan</span>
+            <div>
+              <span>Product responsibility</span>
+              <p>Carry the experience from messy input through generated results, saved recipes, plans, account state, and entitlements.</p>
             </div>
-            <figcaption>
-              <span>Image slot</span>
-              Add a family-week meal plan screen with shopping-list or prep-task context.
-            </figcaption>
-          </figure>
-          <figure class="screen-slot">
-            <div class="screen-slot__placeholder" aria-hidden="true">
-              <span>Account</span>
+            <div>
+              <span>Engineering standard</span>
+              <p>Treat cost, abuse prevention, fallbacks, observability, and automated tests as product requirements.</p>
             </div>
-            <figcaption>
-              <span>Image slot</span>
-              Add an account, saved recipes, or entitlement screen to show the SaaS layer.
-            </figcaption>
-          </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -325,9 +312,9 @@
           <p>The source is private, but the public architecture story shows the same thing a repository walkthrough would need to prove: clear boundaries, practical product thinking, and production discipline around an AI-heavy user experience.</p>
         </div>
         <div class="case-close__actions">
-          <a href="https://myfoursouschefs.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer">Try My Four Sous Chefs</a>
-          <a href="index.html#projects" class="btn btn--secondary">Return to Portfolio</a>
-          <a href="mailto:vcongini@gmail.com" class="case-close__contact">Discuss the engineering</a>
+          <a href="https://myfoursouschefs.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="case-study-try-app">Try My Four Sous Chefs</a>
+          <a href="index.html#projects" class="btn btn--secondary" data-umami-event="case-study-return-portfolio">Return to Portfolio</a>
+          <a href="mailto:vcongini@gmail.com" class="case-close__contact" data-umami-event="case-study-email">Discuss the engineering</a>
         </div>
       </div>
     </section>
