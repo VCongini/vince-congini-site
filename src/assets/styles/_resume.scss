@@ -449,12 +449,16 @@
 
   .resume-header {
     padding-top: 0 !important;
-    padding-bottom: 11px !important;
+    padding-bottom: 9px !important;
     border-bottom: 2px solid var(--text-primary);
   }
 
   .resume-header .section__inner {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 178px;
+    grid-template-rows: auto auto 1fr;
+    column-gap: 22px;
+    align-items: start;
   }
 
   .resume-header__accent {
@@ -462,30 +466,38 @@
   }
 
   .resume-header__name {
+    grid-column: 1;
+    grid-row: 1;
     font-size: 24pt;
     letter-spacing: 0;
     margin-bottom: 3px;
   }
 
   .resume-header__title {
+    grid-column: 1;
+    grid-row: 2;
     font-size: 10.75pt;
     line-height: 1.25;
     color: var(--accent);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
 
   .resume-header__summary {
+    grid-column: 1;
+    grid-row: 3;
     max-width: none;
     font-size: 9.25pt;
     line-height: 1.35;
     color: var(--text-secondary);
-    margin-bottom: 7px;
+    margin-bottom: 0;
   }
 
   .resume-header__contact {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px 18px;
+    grid-column: 2;
+    grid-row: 1 / 4;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 6px;
     text-align: left;
     margin-bottom: 0;
     font-size: 8.5pt;
@@ -497,14 +509,14 @@
   }
 
   .resume-header__label {
-    display: inline;
+    display: block;
     font-family: var(--font-body);
-    font-size: 8.5pt;
+    font-size: 7.5pt;
     font-weight: 700;
-    letter-spacing: 0;
-    text-transform: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--text-primary);
-    margin: 0 4px 0 0;
+    margin: 0 0 1px;
   }
 
   .section {
@@ -525,7 +537,10 @@
   }
 
   .resume-project__card {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 158px;
+    gap: 14px;
+    align-items: start;
     background: #f6f8fa !important;
     border: 1px solid var(--border);
     border-top: 2px solid var(--accent);
@@ -560,23 +575,24 @@
   }
 
   .resume-project__stack {
-    margin-top: 6px;
-    padding-top: 6px;
-    border-top: 1px solid var(--border);
+    margin-top: 0;
+    padding: 0 0 0 12px;
+    border-top: 0;
+    border-left: 1px solid var(--border);
   }
 
   .resume-project__stack-label {
-    display: inline;
+    display: block;
     font-size: 8.5pt;
     font-weight: 700;
     color: var(--text-primary);
-    margin: 0 4px 0 0;
+    margin: 0 0 3px;
   }
 
   .resume-project__stack-text {
-    display: inline;
-    font-size: 8.5pt;
-    line-height: 1.3;
+    display: block;
+    font-size: 8.25pt;
+    line-height: 1.32;
   }
 
   .resume-body {
@@ -584,7 +600,15 @@
   }
 
   .resume-grid {
-    display: block;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 194px;
+    gap: 17px;
+    align-items: start;
+  }
+
+  .resume-grid__sidebar {
+    padding-left: 15px;
+    border-left: 1px solid var(--border);
   }
 
   .section-label {
@@ -640,9 +664,17 @@
     break-inside: avoid;
 
     &:first-child {
-      padding-top: 8px;
-      border-top: 1px solid var(--border);
+      padding-top: 0;
+      border-top: 0;
     }
+  }
+
+  .resume-sidebar-section--career {
+    display: none;
+  }
+
+  .resume-print-optional {
+    display: none;
   }
 
   .resume-skills {
@@ -676,7 +708,7 @@
 
   .resume-edu__degree,
   .resume-focus__title {
-    display: inline;
+    display: block;
     font-size: 9pt;
     font-weight: 700;
     line-height: 1.2;
@@ -684,17 +716,17 @@
 
   .resume-edu__school,
   .resume-edu__dates {
-    display: inline;
-    font-size: 8.75pt;
+    display: block;
+    font-size: 8.5pt;
     line-height: 1.25;
   }
 
   .resume-edu__school::before {
-    content: ' · ';
+    content: none;
   }
 
   .resume-edu__dates::before {
-    content: ' · ';
+    content: none;
   }
 
   .resume-focus__text {
