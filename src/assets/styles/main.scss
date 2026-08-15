@@ -1325,8 +1325,11 @@ button:focus:not(:focus-visible) {
     padding: var(--space-md);
   }
 
-  .project-card__preview {
-    order: -1;
+  // Single column: lead with the title and description so the project is
+  // named before its screenshot is read. Overrides the desktop mirror too.
+  .project-card__preview,
+  .project-card--reverse .project-card__preview {
+    order: 0;
   }
 
   .project-card__actions,
