@@ -63,6 +63,13 @@ function assertSinglePage(pdfPath) {
   }
 }
 
+if (process.argv.includes('--check')) {
+  assertGeneratedPdf(resumePdfPath);
+  assertSinglePage(resumePdfPath);
+  console.log(`Verified ${path.relative(rootDir, resumePdfPath)} is one page.`);
+  process.exit(0);
+}
+
 const chromePath = findChrome();
 const profileDir = path.join(tmpdir(), `resume-pdf-${process.pid}`);
 const tempPdfPath = path.join(profileDir, 'vincent-congini-resume.pdf');
@@ -90,7 +97,6 @@ const child = spawn(chromePath, args, {
   stdio: 'inherit',
 });
 
-let pdfReady = false;
 let timedOut = false;
 let lastPdfSize = 0;
 let stablePdfChecks = 0;
@@ -115,7 +121,6 @@ const monitor = setInterval(() => {
   }
 
   if (stablePdfChecks >= 2) {
-    pdfReady = true;
     clearInterval(monitor);
     child.kill('SIGTERM');
   }
@@ -133,14 +138,6 @@ clearInterval(monitor);
 clearTimeout(timeout);
 
 try {
-  if (!pdfReady) {
-    assertGeneratedPdf(tempPdfPath);
-  }
-
-  copyFileSync(tempPdfPath, resumePdfPath);
-  assertGeneratedPdf(resumePdfPath);
-  assertSinglePage(resumePdfPath);
-
   if (timedOut) {
     throw new Error('Chrome timed out after creating the resume PDF.');
   }
@@ -152,6 +149,10 @@ try {
 
     throw new Error(`Chrome exited with ${exitDetail}.`);
   }
+
+  assertGeneratedPdf(tempPdfPath);
+  assertSinglePage(tempPdfPath);
+  copyFileSync(tempPdfPath, resumePdfPath);
 
   console.log(`Generated ${path.relative(rootDir, resumePdfPath)}`);
 } finally {
