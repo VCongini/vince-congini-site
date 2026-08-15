@@ -488,6 +488,14 @@ button:focus:not(:focus-visible) {
   padding: var(--space-lg);
 }
 
+.project-card + .project-card {
+  margin-top: var(--space-lg);
+}
+
+.project-card--reverse .project-card__preview {
+  order: -1;
+}
+
 .project-card__content {
   min-width: 0;
 }

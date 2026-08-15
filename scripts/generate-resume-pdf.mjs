@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { copyFileSync, existsSync, mkdirSync, rmSync, statSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -44,6 +44,22 @@ function assertGeneratedPdf(pdfPath) {
 
   if (size < 10_000) {
     throw new Error(`Generated resume PDF looks too small (${size} bytes).`);
+  }
+}
+
+// The resume must stay one page. Chrome writes an uncompressed page tree, so
+// counting `/Type /Page` objects (not `/Type /Pages`) is enough to check it.
+// Verified by mutation: before the layout was trimmed this counted 2.
+function assertSinglePage(pdfPath) {
+  const pdf = readFileSync(pdfPath, 'latin1');
+  const pages = pdf.match(/\/Type\s*\/Page[^s]/g)?.length ?? 0;
+
+  if (pages !== 1) {
+    throw new Error(
+      pages === 0
+        ? 'Could not count pages in the generated resume PDF, so the one-page rule is unverified.'
+        : `Resume PDF is ${pages} pages. Trim content or mark it resume-print-optional until it fits one page.`,
+    );
   }
 }
 
@@ -123,6 +139,7 @@ try {
 
   copyFileSync(tempPdfPath, resumePdfPath);
   assertGeneratedPdf(resumePdfPath);
+  assertSinglePage(resumePdfPath);
 
   if (timedOut) {
     throw new Error('Chrome timed out after creating the resume PDF.');

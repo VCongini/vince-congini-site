@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Math Bearings Technical Overview | Vincent Congini</title>
+  <meta name="description" content="A technical overview of Math Bearings, an offline-first math practice PWA built with TypeScript, React, and Cloudflare Pages around a pure deterministic learning core.">
+  <meta name="author" content="Vincent Congini">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://vincecongini.com/math-bearings-technical.html">
+
+  <meta property="og:title" content="Math Bearings Technical Overview | Vincent Congini">
+  <meta property="og:description" content="Domain core, method-level grading, offline delivery, privacy invariants, and the verification gates behind a production math practice app.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vincecongini.com/math-bearings-technical.html">
+  <meta property="og:site_name" content="Vincent Congini">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://vincecongini.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Vincent Congini, Senior Front End Tech Lead">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Math Bearings Technical Overview | Vincent Congini">
+  <meta name="twitter:description" content="Domain core, method-level grading, offline delivery, privacy invariants, and the verification gates behind a production math practice app.">
+  <meta name="twitter:image" content="https://vincecongini.com/og-image.png">
+  <meta name="twitter:image:alt" content="Vincent Congini, Senior Front End Tech Lead">
+
+  <meta name="theme-color" content="#F8F6F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1D1F29" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='70' font-family='system-ui' font-weight='700' fill='%23044cb6'>VC</text></svg>">
+  <link rel="apple-touch-icon" href="/icon-192.svg">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="me" href="https://www.linkedin.com/in/vincent-congini-216a4b90/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Schibsted+Grotesk:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script src="assets/scripts/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <script src="assets/scripts/main.js" defer></script>
+  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-LTPPwaLbU0osA3KlbZu0gbKM+OX2/iNJYVcdtY6ZFUJfsuj7LJ+40McwiPCPpKad" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://vincecongini.com/#person",
+          "name": "Vincent Congini",
+          "url": "https://vincecongini.com/",
+          "email": "mailto:vcongini@gmail.com",
+          "jobTitle": "Senior Front End Tech Lead",
+          "sameAs": [
+            "https://www.linkedin.com/in/vincent-congini-216a4b90/"
+          ],
+          "knowsAbout": [
+            "React",
+            "TypeScript",
+            "Front-end architecture",
+            "Offline-first web applications",
+            "Progressive Web Apps",
+            "Domain modeling",
+            "Testing automation",
+            "CI/CD"
+          ],
+          "image": "https://vincecongini.com/og-image.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://vincecongini.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Math Bearings Technical Overview",
+              "item": "https://vincecongini.com/math-bearings-technical.html"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://vincecongini.com/math-bearings-technical.html#article",
+          "headline": "Math Bearings Technical Overview",
+          "description": "A technical overview of the domain core, grading model, offline delivery, privacy invariants, and verification gates behind Math Bearings.",
+          "author": {
+            "@id": "https://vincecongini.com/#person"
+          },
+          "url": "https://vincecongini.com/math-bearings-technical.html",
+          "inLanguage": "en-US"
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav nav--case" aria-label="Project">
+      <a href="index.html" class="nav__logo" aria-label="VC. Vincent Congini, home">VC.</a>
+      <a href="#overview" class="nav__context" aria-label="Math Bearings overview">Math Bearings</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="nav-menu" class="nav__links" role="list">
+        <li><a href="#product-story" class="nav__link">Product</a></li>
+        <li><a href="#process" class="nav__link">Process</a></li>
+        <li><a href="#architecture" class="nav__link">Architecture</a></li>
+        <li><a href="#production" class="nav__link">Production</a></li>
+        <li><a href="index.html#projects" class="nav__link nav__link--cta">Portfolio</a></li>
+      </ul>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="theme-toggle__moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-toggle__sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <section class="case-header" id="overview">
+      <div class="section__inner">
+        <div class="case-header__accent" aria-hidden="true"></div>
+        <p class="case-header__eyebrow">Production case study</p>
+        <h1 class="case-header__title">A math app that only counts work it can see.</h1>
+        <div class="case-header__layout">
+          <div>
+            <p class="case-header__summary">Math Bearings is a browser-based math practice app for ages 3 up. It grades the working rather than pattern-matching a final answer, gives hints that cannot leak the result, and marks a skill as held only while the learner keeps re-demonstrating it. This walkthrough covers the domain core, the grading model, offline delivery, and the gates that keep the privacy posture from drifting.</p>
+            <div class="case-header__actions">
+              <a href="https://mathbearings.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="mb-case-study-open-live-app">Open Math Bearings</a>
+              <a href="#product-story" class="btn btn--secondary" data-umami-event="mb-case-study-explore-build">Explore the Build</a>
+            </div>
+          </div>
+          <picture class="case-header__preview">
+            <source type="image/avif" srcset="assets/images/mb-screenshot-480.avif 480w, assets/images/mb-screenshot-700.avif 700w" sizes="(max-width: 768px) calc(100vw - 40px), 320px">
+            <img src="assets/images/mb-screenshot.png" alt="Math Bearings practice page with a tappable counting problem, a read-aloud control, and the Guide's margin note" loading="eager" width="700" height="981">
+          </picture>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface case-story" id="product-story" aria-labelledby="story-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="story-heading">Product Story</h2>
+        <div class="case-story__intro">
+          <p>Most practice apps optimize for activity and infer learning from it. Math Bearings inverts the unit of progress: a skill counts only once the learner has produced the work for it, and then produced it again later without help.</p>
+        </div>
+        <div class="case-story__layout">
+          <figure class="case-story__screen">
+            <picture>
+              <source type="image/avif" srcset="assets/images/mb-screenshot-480.avif 480w, assets/images/mb-screenshot-700.avif 700w" sizes="(max-width: 768px) calc(100vw - 40px), 320px">
+              <img src="assets/images/mb-screenshot.png" alt="Math Bearings practice page showing a ruled worksheet, a read-aloud control, and a hint that withholds the answer" loading="lazy" width="700" height="981">
+            </picture>
+            <figcaption>
+              <span>Product surface</span>
+              A ruled practice page, a read-aloud control, and a margin hint that prompts the next move without revealing the result.
+            </figcaption>
+          </figure>
+          <div class="case-story__proof">
+            <div>
+              <span>Scope</span>
+              <p>Curriculum design, learning engine, scheduler, worksheet surfaces, offline delivery, print output, and deployment.</p>
+            </div>
+            <div>
+              <span>Built surface</span>
+              <p>80 skill nodes across four bands, from subitizing to one-variable linear equations, with fifteen worksheet types including visual and tappable ones.</p>
+            </div>
+            <div>
+              <span>Working standard</span>
+              <p>Privacy, offline behavior, and answer-safety are enforced by tests that fail closed, not by a policy page.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="process" aria-labelledby="walkthrough-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="walkthrough-heading">How It Works</h2>
+        <div class="case-walkthrough">
+          <article class="walkthrough-step">
+            <span class="walkthrough-step__number">01</span>
+            <div>
+              <h3>Place the learner without asking</h3>
+              <p>A silent adaptive pretest probes down each strand and settles on a starting point. Nobody self-reports a grade level, and the probe results are kept separate from the mastery record.</p>
+            </div>
+          </article>
+          <article class="walkthrough-step">
+            <span class="walkthrough-step__number">02</span>
+            <div>
+              <h3>Serve the page that follows from the graph</h3>
+              <p>The scheduler interleaves strands, respects prerequisite structure, and prefers continuing an active frontier over moving the learner somewhere new mid-thread.</p>
+            </div>
+          </article>
+          <article class="walkthrough-step">
+            <span class="walkthrough-step__number">03</span>
+            <div>
+              <h3>Grade the method, not the answer</h3>
+              <p>Carries, partial products, number-line jumps, tape diagrams, and the learner's own chunking are all graded as structured work. Hints are Socratic and structurally unable to contain the result.</p>
+            </div>
+          </article>
+          <article class="walkthrough-step">
+            <span class="walkthrough-step__number">04</span>
+            <div>
+              <h3>Let mastery decay, then ask again</h3>
+              <p>Mastery decays on a schedule, so the competence map reflects what a learner can do now rather than what they once did. Regaining a skill means re-demonstrating it cold.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="architecture" aria-labelledby="architecture-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="architecture-heading">Architecture</h2>
+        <div class="architecture-brief">
+          <div class="architecture-brief__copy">
+            <h3>A pure core with platforms at the edges</h3>
+            <p>Math Bearings is a TypeScript monorepo. Curriculum, scheduling, grading, and mastery live in a side-effect-free core that knows nothing about storage, rendering, or platform. Persistence, UI, and device concerns sit behind ports at the edges.</p>
+            <p>That boundary is what let a React Native portability tracer reuse the production session assembly unchanged instead of reimplementing it. The tracer covers one node and exists to prove the core travels, not as a shipped mobile product.</p>
+          </div>
+          <div class="architecture-map" aria-label="High-level architecture map">
+            <div class="architecture-map__node">Web<br><span>React, Vite, PWA</span></div>
+            <div class="architecture-map__node">Tracer<br><span>React Native, Expo</span></div>
+            <div class="architecture-map__node architecture-map__node--core">Core<br><span>Pure TypeScript engine</span></div>
+            <div class="architecture-map__node">Storage<br><span>IndexedDB, SQLite port</span></div>
+            <div class="architecture-map__node">Delivery<br><span>Cloudflare Pages, Actions</span></div>
+          </div>
+        </div>
+        <ul class="case-tags case-tags--stack" role="list" aria-label="Core stack">
+          <li>TypeScript</li>
+          <li>React</li>
+          <li>Vite</li>
+          <li>React Native</li>
+          <li>Expo</li>
+          <li>Service Worker</li>
+          <li>IndexedDB</li>
+          <li>SQLite</li>
+          <li>Web Speech API</li>
+          <li>Canvas</li>
+          <li>Vitest</li>
+          <li>Playwright</li>
+          <li>Cloudflare Pages</li>
+          <li>GitHub Actions</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="production" aria-labelledby="controls-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="controls-heading">Production Controls</h2>
+        <div class="control-band">
+          <article>
+            <span>Privacy</span>
+            <h3>Enforce it in tests, not in a policy</h3>
+            <p>No accounts, no analytics, and no network call carries learner data. Every learner record stays in device storage, and the tests fail closed if a request would leave the origin with it.</p>
+          </article>
+          <article>
+            <span>Offline</span>
+            <h3>Treat offline as a tested property</h3>
+            <p>A browser journey goes offline and reopens every lazily loaded surface at 320px against the production origin, so the service worker and precache manifest are verified rather than assumed.</p>
+          </article>
+          <article>
+            <span>Delivery</span>
+            <h3>Ship only what CI verified</h3>
+            <p>Production deploys run from CI on the default branch, rebuild the artifact rather than trusting one, re-confirm the verified commit is still current, and are armed by an explicit kill switch. No manual deploy to production has been run.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="decisions" aria-labelledby="decisions-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="decisions-heading">Engineering Decisions</h2>
+        <div class="decision-list">
+          <article class="decision-item">
+            <span class="decision-item__label">Boundary</span>
+            <h3>Keep the learning core pure</h3>
+            <p>Domain logic is deterministic and fully unit-testable, with storage and rendering pushed to the edges. Seeded generators mean a worksheet, its answer key, and its printable twin all come from the same source.</p>
+          </article>
+          <article class="decision-item">
+            <span class="decision-item__label">Verification</span>
+            <h3>Mutation-test the guards</h3>
+            <p>A guard that still passes after you delete the code it protects is decoration. Every gate here is checked by breaking the thing it guards, and one command runs types, lint, unit tests, browser journeys against the built bundle, and bundle budgets.</p>
+          </article>
+          <article class="decision-item">
+            <span class="decision-item__label">Change control</span>
+            <h3>Make curriculum changes declare their data flow</h3>
+            <p>Education-affecting changes carry a machine-readable receipt describing what learner data they touch. The gate derives the actual data flow from the diff and fails when the two disagree, so the invariant is mechanically enforced rather than remembered.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section case-close" aria-labelledby="proof-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="proof-heading">What This Demonstrates</h2>
+        <div class="case-proof">
+          <p>The visible surface is a quiet React app. Behind it is the part that decides whether a learning product is honest: a domain model with a defensible unit of progress, grading that reads structured work, hints that cannot cheat, and privacy properties that are tested rather than promised.</p>
+          <p>One caveat belongs on this page as much as in the repository. The software and its behavior are verified; its effect on learners is not. There is no human-subject evidence here, so nothing on this page claims improved outcomes, retention, or confidence. The project holds its own bar for that claim, and it has not been met yet.</p>
+        </div>
+        <div class="case-close__actions">
+          <a href="https://mathbearings.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="mb-case-study-try-app">Try Math Bearings</a>
+          <a href="index.html#projects" class="btn btn--secondary" data-umami-event="mb-case-study-return-portfolio">Return to Portfolio</a>
+          <a href="mailto:vcongini@gmail.com" class="case-close__contact" data-umami-event="mb-case-study-email">Discuss the engineering</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <a href="index.html" class="footer__logo">VC.</a>
+      <p class="footer__copy">&copy; Vincent Congini</p>
+    </div>
+  </footer>
+</body>
+</html>

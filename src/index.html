@@ -164,8 +164,43 @@
 
     <section class="section" id="projects">
       <div class="section__inner">
-        <h2 class="section-label">Featured Project</h2>
+        <h2 class="section-label">Projects</h2>
         <article class="project-card">
+          <div class="project-card__content">
+            <div class="project-card__header">
+              <span class="project-card__status">
+                <span class="project-card__dot" aria-hidden="true"></span>
+                Live &amp; Production
+              </span>
+            </div>
+            <h3 class="project-card__title">Math<br>Bearings</h3>
+            <a href="https://mathbearings.com/" class="project-card__url" target="_blank" rel="noopener noreferrer" data-umami-event="project-mb-domain">mathbearings.com</a>
+            <p class="project-card__desc">A math practice app built on one idea: progress is work you can see. It grades the method a learner shows rather than the answer they land on, and a skill counts as held only while they keep proving it.</p>
+            <p class="project-card__proof">A pure deterministic core owns curriculum, scheduling, and grading, with storage, rendering, and platform pushed behind ports at the edges. Privacy, offline behavior, and answer-safe hints are properties the tests enforce, not promises the copy makes.</p>
+            <ul class="project-card__highlights" role="list">
+              <li>Pure domain core, platforms at the edges</li>
+              <li>Grades the method, not the answer</li>
+              <li>Hints that cannot reveal the result</li>
+              <li>Mastery decays until re-demonstrated</li>
+              <li>Learner records never leave the device</li>
+              <li>Offline and privacy proven by tests</li>
+            </ul>
+            <div class="project-card__actions">
+              <a href="https://mathbearings.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="project-mb-live-app">
+                View Project
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a href="math-bearings-technical.html" class="btn btn--secondary" data-umami-event="project-mb-case-study">Technical Overview</a>
+            </div>
+          </div>
+          <div class="project-card__preview">
+            <picture>
+              <source type="image/avif" srcset="assets/images/mb-screenshot-480.avif 480w, assets/images/mb-screenshot-700.avif 700w" sizes="(max-width: 768px) calc(100vw - 40px), 50vw">
+              <img src="assets/images/mb-screenshot.png" alt="Math Bearings practice page showing a tappable counting problem, a read-aloud control, and the Guide's margin note" loading="lazy" width="700" height="981">
+            </picture>
+          </div>
+        </article>
+        <article class="project-card project-card--reverse">
           <div class="project-card__content">
             <div class="project-card__header">
               <span class="project-card__status">
