@@ -43,7 +43,7 @@
   <script src="assets/scripts/theme-init.js"></script>
   <link rel="stylesheet" href="assets/styles/main.css">
   <script src="assets/scripts/main.js" defer></script>
-  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-LTPPwaLbU0osA3KlbZu0gbKM+OX2/iNJYVcdtY6ZFUJfsuj7LJ+40McwiPCPpKad" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
+  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -187,37 +187,30 @@
 
     <section class="section" id="process" aria-labelledby="walkthrough-heading">
       <div class="section__inner">
-        <h2 class="section-label" id="walkthrough-heading">How It Works</h2>
-        <div class="case-walkthrough">
-          <article class="walkthrough-step">
-            <span class="walkthrough-step__number">01</span>
-            <div>
-              <h3>Capture messy kitchen context</h3>
-              <p>Users can bring photos, pantry lists, shopping-list context, and preferences. The interface keeps the task familiar: show what you have, choose a direction, and decide what to cook.</p>
-            </div>
-          </article>
-          <article class="walkthrough-step">
-            <span class="walkthrough-step__number">02</span>
-            <div>
-              <h3>Turn inputs into usable data</h3>
-              <p>Image preprocessing, OCR, vision-assisted extraction, structured parsing, and normalization convert imperfect inputs into ingredients the rest of the product can trust.</p>
-            </div>
-          </article>
-          <article class="walkthrough-step">
-            <span class="walkthrough-step__number">03</span>
-            <div>
-              <h3>Generate recipes people can act on</h3>
-              <p>Model calls stay behind API boundaries with typed responses, fallback handling, token-budget awareness, and UI states for slow or partial results.</p>
-            </div>
-          </article>
-          <article class="walkthrough-step">
-            <span class="walkthrough-step__number">04</span>
-            <div>
-              <h3>Keep results useful after generation</h3>
-              <p>Saved recipes, meal plans, usage records, account state, and entitlements make the app useful beyond a single request.</p>
-            </div>
-          </article>
-        </div>
+        <h2 class="section-label" id="walkthrough-heading">The Input Pipeline</h2>
+        <p class="case-story__intro">Every stage has to hand the next one something it can trust. The interesting engineering is in the conversions, not the endpoints.</p>
+        <ol class="case-pipeline" role="list">
+          <li>
+            <span class="case-pipeline__io">in: photos, pantry lists, preferences</span>
+            <h3>Capture messy kitchen context</h3>
+            <p>Users can bring photos, pantry lists, shopping-list context, and preferences. The interface keeps the task familiar: show what you have, choose a direction, and decide what to cook.</p>
+          </li>
+          <li>
+            <span class="case-pipeline__io">out: normalized ingredient set</span>
+            <h3>Turn inputs into usable data</h3>
+            <p>Image preprocessing, OCR, vision-assisted extraction, structured parsing, and normalization convert imperfect inputs into ingredients the rest of the product can trust.</p>
+          </li>
+          <li>
+            <span class="case-pipeline__io">out: typed recipe response</span>
+            <h3>Generate recipes people can act on</h3>
+            <p>Model calls stay behind API boundaries with typed responses, fallback handling, token-budget awareness, and UI states for slow or partial results.</p>
+          </li>
+          <li>
+            <span class="case-pipeline__io">out: durable product state</span>
+            <h3>Keep results useful after generation</h3>
+            <p>Saved recipes, meal plans, usage records, account state, and entitlements make the app useful beyond a single request.</p>
+          </li>
+        </ol>
       </div>
     </section>
 

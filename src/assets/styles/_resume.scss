@@ -118,8 +118,12 @@
 }
 
 // ============================================
-// Resume Featured Project Card
+// Resume Selected Project Cards
 // ============================================
+.resume-project__card + .resume-project__card {
+  margin-top: var(--space-md);
+}
+
 .resume-project__card {
   display: grid;
   grid-template-columns: 1fr 240px;
@@ -130,11 +134,13 @@
   border-radius: var(--radius-md);
 }
 
+// Not space-between: pushing the descriptor to the far edge of a wide column
+// stranded it in mid-air, disconnected from the title it describes.
 .resume-project__title-row {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
-  gap: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-sm);
   margin-bottom: var(--space-xs);
 }
 
@@ -147,11 +153,11 @@
   color: var(--text-primary);
 }
 
+// Body face, not mono. This is a human phrase, not technical metadata, and mono
+// on prose is the developer-cosplay tell DESIGN.md rules out.
 .resume-project__type {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
   white-space: nowrap;
 }
 
@@ -194,6 +200,7 @@
 
   li {
     position: relative;
+    max-width: 74ch;
     padding-left: 14px;
     margin-top: var(--space-xs);
     font-size: 0.9rem;
@@ -255,17 +262,24 @@
   margin-bottom: 2px;
 }
 
+// Dates and location belong together. Pushed apart by space-between they read
+// as two unrelated fragments with a void between them.
 .resume-job__meta {
   display: flex;
-  justify-content: space-between;
-  gap: var(--space-md);
+  flex-wrap: wrap;
+  gap: var(--space-xs) var(--space-sm);
   font-family: var(--font-body);
   font-size: 0.75rem;
   font-weight: 400;
   letter-spacing: 0.04em;
-  color: var(--accent-mid);
-  font-style: italic;
+  color: var(--text-tertiary);
   margin-bottom: var(--space-sm);
+
+  span + span::before {
+    content: '\00b7';
+    margin-right: var(--space-sm);
+    color: var(--border);
+  }
 }
 
 // ============================================
@@ -372,16 +386,6 @@
     grid-template-columns: 1fr;
   }
 
-  .resume-job__meta {
-    flex-direction: column;
-    gap: 2px;
-  }
-
-  .resume-project__title-row {
-    flex-direction: column;
-    gap: var(--space-xs);
-  }
-
   .resume-header__contact {
     grid-template-columns: 1fr 1fr;
   }
@@ -415,7 +419,7 @@
 
   @page {
     size: Letter;
-    margin: 0.44in 0.5in;
+    margin: 0.35in 0.5in;
   }
 
   html {
@@ -423,9 +427,11 @@
   }
 
   body {
-    --font-display: Arial, Helvetica, sans-serif;
-    --font-body: Arial, Helvetica, sans-serif;
-    --font-mono: Arial, Helvetica, sans-serif;
+    // The downloadable PDF carries the site's typography. Arial stays as the
+    // fallback so a print run without the webfonts still lays out predictably.
+    --font-display: 'Schibsted Grotesk', Arial, Helvetica, sans-serif;
+    --font-body: 'Source Sans 3', Arial, Helvetica, sans-serif;
+    --font-mono: 'Source Sans 3', Arial, Helvetica, sans-serif;
     --accent: #2A3A8C;
     --accent-mid: #2A3A8C;
     --accent-rule: #B8C0E0;
@@ -440,8 +446,10 @@
     --space-lg: 14px;
     --col-gap: 18px;
     background: #fff !important;
-    font-size: 9.25pt;
-    line-height: 1.3;
+    // Source Sans 3 runs taller than the old Arial fallback, so the whole print
+    // scale steps down to hold the one-page rule. Verified by generate-resume-pdf.
+    font-size: 8.9pt;
+    line-height: 1.28;
     font-variant-ligatures: none;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
@@ -449,13 +457,13 @@
 
   .resume-header {
     padding-top: 0 !important;
-    padding-bottom: 9px !important;
+    padding-bottom: 7px !important;
     border-bottom: 2px solid var(--text-primary);
   }
 
   .resume-header .section__inner {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 178px;
+    grid-template-columns: minmax(0, 1fr) 254px;
     grid-template-rows: auto auto 1fr;
     column-gap: 22px;
     align-items: start;
@@ -496,8 +504,8 @@
     grid-column: 2;
     grid-row: 1 / 4;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 6px;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 14px;
     text-align: left;
     margin-bottom: 0;
     font-size: 8.5pt;
@@ -520,7 +528,7 @@
   }
 
   .section {
-    padding: 9px 0 0 !important;
+    padding: 6px 0 0 !important;
   }
 
   .section__inner {
@@ -543,9 +551,13 @@
     align-items: start;
     background: #f6f8fa !important;
     border: 1px solid var(--border);
-    border-top: 2px solid var(--accent);
     border-radius: 0;
-    padding: 9px 11px;
+    padding: 7px 10px;
+    break-inside: avoid;
+  }
+
+  .resume-project__card + .resume-project__card {
+    margin-top: 6px;
   }
 
   .resume-project__title-row {
@@ -624,7 +636,7 @@
   }
 
   .resume-job {
-    margin-top: 7px !important;
+    margin-top: 5px !important;
     break-inside: avoid;
 
     &:first-of-type {
@@ -633,7 +645,7 @@
   }
 
   .resume-job__role {
-    font-size: 10.5pt;
+    font-size: 10pt;
     letter-spacing: 0;
     margin-bottom: 1px;
   }
@@ -656,7 +668,9 @@
   }
 
   .resume-job__meta span + span::before {
-    content: ' | ';
+    content: '\00b7';
+    margin: 0 3px 0 2px;
+    color: inherit;
   }
 
   .resume-sidebar-section {
@@ -735,10 +749,11 @@
   }
 
   .resume-list li {
+    max-width: none;
     padding-left: 13px;
     margin-top: 2px;
-    font-size: 9pt;
-    line-height: 1.3;
+    font-size: 8.6pt;
+    line-height: 1.25;
 
     &::before {
       top: 0.55em;

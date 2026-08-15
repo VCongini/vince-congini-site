@@ -43,7 +43,7 @@
   <script src="assets/scripts/theme-init.js"></script>
   <link rel="stylesheet" href="assets/styles/main.css">
   <script src="assets/scripts/main.js" defer></script>
-  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-LTPPwaLbU0osA3KlbZu0gbKM+OX2/iNJYVcdtY6ZFUJfsuj7LJ+40McwiPCPpKad" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
+  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -132,7 +132,7 @@
       <ul id="nav-menu" class="nav__links" role="list">
         <li><a href="#projects" class="nav__link">Projects</a></li>
         <li><a href="#experience" class="nav__link">Experience</a></li>
-        <li><a href="#skills" class="nav__link">Focus</a></li>
+        <li><a href="#focus" class="nav__link">Focus</a></li>
         <li><a href="resume.html" class="nav__link">Resume</a></li>
         <li><a href="#contact" class="nav__link nav__link--cta">Contact</a></li>
       </ul>
@@ -164,8 +164,43 @@
 
     <section class="section" id="projects">
       <div class="section__inner">
-        <h2 class="section-label">Featured Project</h2>
+        <h2 class="section-label">Projects</h2>
         <article class="project-card">
+          <div class="project-card__content">
+            <div class="project-card__header">
+              <span class="project-card__status">
+                <span class="project-card__dot" aria-hidden="true"></span>
+                Live &amp; Production
+              </span>
+            </div>
+            <h3 class="project-card__title">Math<br>Bearings</h3>
+            <a href="https://mathbearings.com/" class="project-card__url" target="_blank" rel="noopener noreferrer" data-umami-event="project-mb-domain">mathbearings.com</a>
+            <p class="project-card__desc">A math practice app built on one idea: progress is work you can see. It grades the method a learner shows rather than the answer they land on, and a skill counts as held only while they keep proving it.</p>
+            <p class="project-card__proof">A pure deterministic core owns curriculum, scheduling, and grading, with storage, rendering, and platform pushed behind ports at the edges. Privacy, offline behavior, and answer-safe hints are properties the tests enforce, not promises the copy makes.</p>
+            <ul class="project-card__highlights" role="list">
+              <li>Pure domain core, platforms at the edges</li>
+              <li>Grades the method, not the answer</li>
+              <li>Hints that cannot reveal the result</li>
+              <li>Mastery decays until re-demonstrated</li>
+              <li>Learner records never leave the device</li>
+              <li>Offline and privacy proven by tests</li>
+            </ul>
+            <div class="project-card__actions">
+              <a href="https://mathbearings.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="project-mb-live-app">
+                View Project
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a href="math-bearings-technical.html" class="btn btn--secondary" data-umami-event="project-mb-case-study">Technical Overview</a>
+            </div>
+          </div>
+          <div class="project-card__preview">
+            <picture>
+              <source type="image/avif" srcset="assets/images/mb-screenshot-480.avif 480w, assets/images/mb-screenshot-700.avif 700w" sizes="(max-width: 768px) calc(100vw - 40px), 50vw">
+              <img src="assets/images/mb-screenshot.png" alt="Math Bearings practice page showing a tappable counting problem, a read-aloud control, and the Guide's margin note" loading="lazy" width="700" height="981">
+            </picture>
+          </div>
+        </article>
+        <article class="project-card project-card--reverse">
           <div class="project-card__content">
             <div class="project-card__header">
               <span class="project-card__status">
@@ -208,34 +243,42 @@
         <h2 class="section-label">Experience</h2>
         <div class="experience-list">
           <article class="experience-item">
-            <h3 class="experience-item__role">Senior Front End Tech Lead</h3>
-            <p class="experience-item__company">The Access Group / Paytronix</p>
-            <p class="experience-item__dates">January 2023 &ndash; Present</p>
+            <div class="experience-item__meta">
+              <h3 class="experience-item__role">Senior Front End Tech Lead</h3>
+              <p class="experience-item__company">The Access Group / Paytronix</p>
+              <p class="experience-item__dates">January 2023 &ndash; Present</p>
+            </div>
             <p class="experience-item__desc">Own front-end technical direction for SaaS loyalty and engagement products. Led legacy monorepo extraction, CI/CD design, platform standards, and mentoring. Helped teams use coding assistants for scoped refactors and repetitive work without changing verification or review standards. Recipient of the 2024 RARE Award.</p>
           </article>
           <article class="experience-item">
-            <h3 class="experience-item__role">Front End Software Developer</h3>
-            <p class="experience-item__company">Paytronix</p>
-            <p class="experience-item__dates">July 2019 &ndash; January 2023</p>
+            <div class="experience-item__meta">
+              <h3 class="experience-item__role">Front End Software Developer</h3>
+              <p class="experience-item__company">Paytronix</p>
+              <p class="experience-item__dates">July 2019 &ndash; January 2023</p>
+            </div>
             <p class="experience-item__desc">Built and maintained React component systems, TypeScript-first feature delivery, and cross-team UI platform contributions.</p>
           </article>
           <article class="experience-item">
-            <h3 class="experience-item__role">QA Automation Engineer</h3>
-            <p class="experience-item__company">Paytronix</p>
-            <p class="experience-item__dates">May 2016 &ndash; July 2019</p>
+            <div class="experience-item__meta">
+              <h3 class="experience-item__role">QA Automation Engineer</h3>
+              <p class="experience-item__company">Paytronix</p>
+              <p class="experience-item__dates">May 2016 &ndash; July 2019</p>
+            </div>
             <p class="experience-item__desc">Test automation frameworks, CI/CD pipeline integration, and quality infrastructure for SaaS products.</p>
           </article>
           <article class="experience-item">
-            <h3 class="experience-item__role">Senior Software Quality Analyst</h3>
-            <p class="experience-item__company">Bentley Systems</p>
-            <p class="experience-item__dates">May 2007 &ndash; May 2016</p>
+            <div class="experience-item__meta">
+              <h3 class="experience-item__role">Senior Software Quality Analyst</h3>
+              <p class="experience-item__company">Bentley Systems</p>
+              <p class="experience-item__dates">May 2007 &ndash; May 2016</p>
+            </div>
             <p class="experience-item__desc">Software quality strategy, test automation, and process development for infrastructure engineering software.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section--tight" id="skills">
+    <section class="section section--tight" id="focus">
       <div class="section__inner">
         <h2 class="section-label">Engineering Focus</h2>
         <div class="skills-grid">

@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { copyFileSync, existsSync, mkdirSync, rmSync, statSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, statSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
@@ -47,6 +47,29 @@ function assertGeneratedPdf(pdfPath) {
   }
 }
 
+// The resume must stay one page. Chrome writes an uncompressed page tree, so
+// counting `/Type /Page` objects (not `/Type /Pages`) is enough to check it.
+// Verified by mutation: before the layout was trimmed this counted 2.
+function assertSinglePage(pdfPath) {
+  const pdf = readFileSync(pdfPath, 'latin1');
+  const pages = pdf.match(/\/Type\s*\/Page[^s]/g)?.length ?? 0;
+
+  if (pages !== 1) {
+    throw new Error(
+      pages === 0
+        ? 'Could not count pages in the generated resume PDF, so the one-page rule is unverified.'
+        : `Resume PDF is ${pages} pages. Trim content or mark it resume-print-optional until it fits one page.`,
+    );
+  }
+}
+
+if (process.argv.includes('--check')) {
+  assertGeneratedPdf(resumePdfPath);
+  assertSinglePage(resumePdfPath);
+  console.log(`Verified ${path.relative(rootDir, resumePdfPath)} is one page.`);
+  process.exit(0);
+}
+
 const chromePath = findChrome();
 const profileDir = path.join(tmpdir(), `resume-pdf-${process.pid}`);
 const tempPdfPath = path.join(profileDir, 'vincent-congini-resume.pdf');
@@ -74,7 +97,6 @@ const child = spawn(chromePath, args, {
   stdio: 'inherit',
 });
 
-let pdfReady = false;
 let timedOut = false;
 let lastPdfSize = 0;
 let stablePdfChecks = 0;
@@ -99,7 +121,6 @@ const monitor = setInterval(() => {
   }
 
   if (stablePdfChecks >= 2) {
-    pdfReady = true;
     clearInterval(monitor);
     child.kill('SIGTERM');
   }
@@ -117,13 +138,6 @@ clearInterval(monitor);
 clearTimeout(timeout);
 
 try {
-  if (!pdfReady) {
-    assertGeneratedPdf(tempPdfPath);
-  }
-
-  copyFileSync(tempPdfPath, resumePdfPath);
-  assertGeneratedPdf(resumePdfPath);
-
   if (timedOut) {
     throw new Error('Chrome timed out after creating the resume PDF.');
   }
@@ -135,6 +149,10 @@ try {
 
     throw new Error(`Chrome exited with ${exitDetail}.`);
   }
+
+  assertGeneratedPdf(tempPdfPath);
+  assertSinglePage(tempPdfPath);
+  copyFileSync(tempPdfPath, resumePdfPath);
 
   console.log(`Generated ${path.relative(rootDir, resumePdfPath)}`);
 } finally {

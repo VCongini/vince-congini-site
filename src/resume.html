@@ -43,7 +43,7 @@
   <script src="assets/scripts/theme-init.js"></script>
   <link rel="stylesheet" href="assets/styles/main.css">
   <script src="assets/scripts/main.js" defer></script>
-  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-LTPPwaLbU0osA3KlbZu0gbKM+OX2/iNJYVcdtY6ZFUJfsuj7LJ+40McwiPCPpKad" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
+  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -138,7 +138,7 @@
       <ul id="nav-menu" class="nav__links" role="list">
         <li><a href="index.html#projects" class="nav__link">Projects</a></li>
         <li><a href="index.html#experience" class="nav__link">Experience</a></li>
-        <li><a href="index.html#skills" class="nav__link">Focus</a></li>
+        <li><a href="index.html#focus" class="nav__link">Focus</a></li>
         <li><a href="resume.html" class="nav__link active" aria-current="page">Resume</a></li>
         <li><a href="index.html#contact" class="nav__link nav__link--cta">Contact</a></li>
       </ul>
@@ -161,8 +161,8 @@
         </nav>
         <div class="resume-header__accent" aria-hidden="true"></div>
         <h1 class="resume-header__name">Vincent Congini</h1>
-        <p class="resume-header__title">Senior Front-End Tech Lead | React Platforms &amp; AI Products</p>
-        <p class="resume-header__summary">Front-end technical leader whose career grew from software quality and automation into React platform ownership. Leads architecture, standards, mentoring, and delivery, with a focus on turning complex product ideas into reliable, maintainable software.</p>
+        <p class="resume-header__title">Senior Front-End Tech Lead &middot; React Platforms &amp; AI Products</p>
+        <p class="resume-header__summary">Front-end technical leader whose career grew from software quality and automation into React platform ownership and a tech lead role since 2023. Leads architecture and standards; builds AI-backed products end to end.</p>
         <div class="resume-header__contact">
           <div>
             <span class="resume-header__label">Email</span>
@@ -173,14 +173,18 @@
             <a href="https://www.linkedin.com/in/vincent-congini-216a4b90/" target="_blank" rel="noopener noreferrer" data-umami-event="resume-linkedin">Vincent Congini</a>
           </div>
           <div>
+            <span class="resume-header__label">Portfolio</span>
+            <a href="https://vincecongini.com/" data-umami-event="resume-portfolio">vincecongini.com</a>
+          </div>
+          <div>
             <span class="resume-header__label">Location</span>
-            <span>Greater Boston, United States</span>
+            <span>Greater Boston, MA</span>
           </div>
         </div>
         <div class="resume-header__actions">
           <a href="assets/files/vincent-congini-resume.pdf" class="btn btn--primary" download data-umami-event="resume-download-pdf">
             <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Download PDF <span aria-label="file size">(269 KB)</span>
+            Download PDF <span aria-label="file size">(279 KB)</span>
           </a>
           <a href="index.html" class="btn btn--secondary">Back to Home</a>
         </div>
@@ -189,7 +193,26 @@
 
     <section class="section section--surface">
       <div class="section__inner">
-        <h2 class="section-label">Featured Project</h2>
+        <h2 class="section-label">Personal Projects</h2>
+        <div class="resume-project__card">
+          <div class="resume-project__main">
+            <div class="resume-project__title-row">
+              <h3 class="resume-project__title">Math Bearings</h3>
+              <span class="resume-project__type">Offline-first learning PWA</span>
+            </div>
+            <a href="https://mathbearings.com/" class="resume-project__url" target="_blank" rel="noopener noreferrer" data-umami-event="resume-mb-live-app">mathbearings.com</a>
+            <ul class="resume-list">
+              <li>Designed and shipped a production learning PWA around a pure deterministic core that owns curriculum, scheduling, and grading, with platform and storage behind ports at the edges.</li>
+              <li>Proved that boundary by reusing the same core unchanged across a React web app and a React Native portability tracer, with session assembly shared rather than reimplemented.</li>
+              <li>Made privacy and offline behavior tested properties rather than documented intentions: no learner data leaves the device, and a gate blocks diffs that contradict their declared data flow.</li>
+              <li class="resume-print-optional">Caught and structurally blocked third-party analytics injection at the CDN edge, then converted the fix into a build gate so it cannot regress.</li>
+            </ul>
+          </div>
+          <div class="resume-project__stack">
+            <h4 class="resume-project__stack-label">Project Stack</h4>
+            <p class="resume-project__stack-text">TypeScript, React, Vite, service workers, IndexedDB, SQLite, Vitest, Playwright, Cloudflare Pages, GitHub Actions</p>
+          </div>
+        </div>
         <div class="resume-project__card">
           <div class="resume-project__main">
             <div class="resume-project__title-row">
@@ -199,14 +222,14 @@
             <a href="https://myfoursouschefs.com/" class="resume-project__url" target="_blank" rel="noopener noreferrer" data-umami-event="resume-project-live-app">myfoursouschefs.com</a>
             <ul class="resume-list">
               <li>Built a full-stack TypeScript app that turns fridge, pantry, and shopping-list photos into personalized recipes and meal plans.</li>
-              <li>Implemented an image-to-ingredients pipeline with HEIC conversion, Sharp preprocessing, Tesseract OCR, Claude vision, structured JSON parsing, and bounding-box normalization.</li>
+              <li>Implemented an image-to-ingredients pipeline with HEIC conversion, Sharp preprocessing, Tesseract OCR, Claude vision, and structured JSON parsing.</li>
               <li class="resume-print-optional">Designed monetization and account flows using Supabase Auth/Postgres, saved recipes, Stripe Checkout, Billing Portal, webhooks, and premium feature gates.</li>
-              <li>Added production controls for provider cost and abuse: Cloudflare Turnstile, identity-aware rate limits, daily quotas, token-budget tracking, atomic Supabase RPC reservations, and rollback on failed requests.</li>
+              <li>Added production controls for provider cost and abuse: Turnstile, identity-aware rate limits, daily quotas, token budgets, and atomic usage reservations with rollback.</li>
             </ul>
           </div>
           <div class="resume-project__stack">
             <h4 class="resume-project__stack-label">Project Stack</h4>
-            <p class="resume-project__stack-text">TypeScript, React 19, Vite, Express, Supabase, PostgreSQL, Stripe, Anthropic Claude, Sharp, Tesseract OCR, Cloudflare Turnstile, Pino, Umami, Vitest, Playwright, pnpm workspaces</p>
+            <p class="resume-project__stack-text">TypeScript, React 19, Vite, Express, Supabase, PostgreSQL, Stripe, Anthropic Claude, Sharp, Tesseract OCR, Cloudflare Turnstile, Vitest, Playwright</p>
           </div>
         </div>
       </div>
@@ -226,7 +249,7 @@
                 <span>Newton, MA</span>
               </div>
               <ul class="resume-list">
-                <li>Own front-end technical direction for shared UI architecture, aligning teams around maintainable React patterns, platform standards, and reliable delivery.</li>
+                <li>Own front-end technical direction for the shared design system behind SaaS loyalty and engagement products, setting the React patterns, component standards, and release gates other teams build on.</li>
                 <li>Led extraction of front-end applications from a legacy monorepo into Azure DevOps, improving deployment velocity and enabling clearer team ownership.</li>
                 <li class="resume-print-optional">Designed CI/CD pipelines for React SPAs with automated testing and continuous deployment.</li>
                 <li>Helped teams use coding assistants for scoped refactors and repetitive work, keeping verification and code review inside the normal delivery process.</li>
@@ -243,8 +266,8 @@
               </div>
               <ul class="resume-list">
                 <li>Built and maintained React applications using Redux, Redux-Logic, Sass/CSS, and shared component patterns.</li>
-                <li>Modernized and supported legacy systems spanning React, Lift, JSP, Webpack, Jest, and Yarn workspaces.</li>
-                <li>Improved build and test infrastructure to support faster feedback loops and more reliable deployments.</li>
+                <li class="resume-print-optional">Modernized and supported legacy systems spanning React, Lift, JSP, Webpack, Jest, and Yarn workspaces.</li>
+                <li class="resume-print-optional">Improved build and test infrastructure to support faster feedback loops and more reliable deployments.</li>
               </ul>
             </article>
 
@@ -257,7 +280,7 @@
               </div>
               <ul class="resume-list">
                 <li>Maintained REST and Selenium-based automation frameworks, including scalable UI test solutions using RedwoodHQ.</li>
-                <li>Developed shared mobile testing frameworks and automation practices for QA teams.</li>
+                <li class="resume-print-optional">Developed shared mobile testing frameworks and automation practices for QA teams.</li>
               </ul>
             </article>
 
@@ -269,7 +292,7 @@
                 <span>Mira Mesa, CA</span>
               </div>
               <ul class="resume-list">
-                <li>Led functional, integration, and regression testing across product suites; awarded Bentley Star Award three times for performance excellence.</li>
+                <li>Led functional, integration, and regression testing across product suites; three-time Bentley Star Award recipient.</li>
               </ul>
             </article>
           </div>
@@ -280,19 +303,19 @@
               <div class="resume-skills">
                 <div class="resume-skill-group">
                   <h3 class="resume-skill-group__label">Front-End Platforms</h3>
-                  <p class="resume-skill-group__text">TypeScript, JavaScript, React, Vite, SPA architecture, shared UI systems, Sass/CSS, accessibility, performance</p>
+                  <p class="resume-skill-group__text">TypeScript, JavaScript, React, Vite, SPA architecture, design systems, Sass/CSS, accessibility, performance</p>
                 </div>
                 <div class="resume-skill-group">
                   <h3 class="resume-skill-group__label">Models in Production</h3>
-                  <p class="resume-skill-group__text">LLM APIs, vision workflows, multimodal extraction, structured responses, OCR, prompt design, cost controls, quotas, fallbacks, observability</p>
+                  <p class="resume-skill-group__text">LLM APIs, vision workflows, structured responses, OCR, prompt design, cost controls, quotas, observability</p>
                 </div>
                 <div class="resume-skill-group">
                   <h3 class="resume-skill-group__label">Quality &amp; Delivery</h3>
-                  <p class="resume-skill-group__text">Testing strategy, Vitest, Jest, Playwright, React Testing Library, Selenium, CI/CD pipelines, Azure DevOps, developer tooling, technical mentoring</p>
+                  <p class="resume-skill-group__text">Testing strategy, Vitest, Jest, Playwright, CI/CD pipelines, Azure DevOps, technical mentoring</p>
                 </div>
                 <div class="resume-skill-group">
                   <h3 class="resume-skill-group__label">Data, Billing &amp; Operations</h3>
-                  <p class="resume-skill-group__text">Node.js, Express, REST APIs, Supabase Auth, PostgreSQL, RLS, RPCs, Stripe, webhooks, usage metering, Pino, Umami</p>
+                  <p class="resume-skill-group__text">Node.js, Express, REST APIs, Supabase, PostgreSQL, Stripe, webhooks, usage metering</p>
                 </div>
                 <div class="resume-skill-group resume-print-optional">
                   <h3 class="resume-skill-group__label">Additional Technologies</h3>
@@ -311,7 +334,7 @@
               <div class="resume-edu">
                 <h3 class="resume-edu__degree">C# Programming Certification</h3>
                 <p class="resume-edu__school">University of California San Diego</p>
-                <p class="resume-edu__dates">2005 &ndash; 2010</p>
+                <p class="resume-edu__dates">2015 &ndash; 2016</p>
               </div>
             </div>
 
