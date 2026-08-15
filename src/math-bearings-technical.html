@@ -188,37 +188,30 @@
 
     <section class="section" id="process" aria-labelledby="walkthrough-heading">
       <div class="section__inner">
-        <h2 class="section-label" id="walkthrough-heading">How It Works</h2>
-        <div class="case-walkthrough">
-          <article class="walkthrough-step">
-            <span class="walkthrough-step__number">01</span>
-            <div>
-              <h3>Place the learner without asking</h3>
-              <p>A silent adaptive pretest probes down each strand and settles on a starting point. Nobody self-reports a grade level, and the probe results are kept separate from the mastery record.</p>
-            </div>
-          </article>
-          <article class="walkthrough-step">
-            <span class="walkthrough-step__number">02</span>
-            <div>
-              <h3>Serve the page that follows from the graph</h3>
-              <p>The scheduler interleaves strands, respects prerequisite structure, and prefers continuing an active frontier over moving the learner somewhere new mid-thread.</p>
-            </div>
-          </article>
-          <article class="walkthrough-step">
-            <span class="walkthrough-step__number">03</span>
-            <div>
-              <h3>Grade the method, not the answer</h3>
-              <p>Carries, partial products, number-line jumps, tape diagrams, and the learner's own chunking are all graded as structured work. Hints are Socratic and structurally unable to contain the result.</p>
-            </div>
-          </article>
-          <article class="walkthrough-step">
-            <span class="walkthrough-step__number">04</span>
-            <div>
-              <h3>Let mastery decay, then ask again</h3>
-              <p>Mastery decays on a schedule, so the competence map reflects what a learner can do now rather than what they once did. Regaining a skill means re-demonstrating it cold.</p>
-            </div>
-          </article>
-        </div>
+        <h2 class="section-label" id="walkthrough-heading">The Mastery Cycle</h2>
+        <ol class="case-cycle" role="list">
+          <li>
+            <span class="case-cycle__phase">Place</span>
+            <h3>Place the learner without asking</h3>
+            <p>A silent adaptive pretest probes down each strand and settles on a starting point. Nobody self-reports a grade level, and the probe results are kept separate from the mastery record.</p>
+          </li>
+          <li>
+            <span class="case-cycle__phase">Serve</span>
+            <h3>Serve the page that follows from the graph</h3>
+            <p>The scheduler interleaves strands, respects prerequisite structure, and prefers continuing an active frontier over moving the learner somewhere new mid-thread.</p>
+          </li>
+          <li>
+            <span class="case-cycle__phase">Grade</span>
+            <h3>Grade the method, not the answer</h3>
+            <p>Carries, partial products, number-line jumps, tape diagrams, and the learner's own chunking are all graded as structured work. Hints are Socratic and structurally unable to contain the result.</p>
+          </li>
+          <li>
+            <span class="case-cycle__phase">Decay</span>
+            <h3>Let mastery decay, then ask again</h3>
+            <p>Mastery decays on a schedule, so the competence map reflects what a learner can do now rather than what they once did. Regaining a skill means re-demonstrating it cold.</p>
+          </li>
+        </ol>
+        <p class="case-cycle__return">Decay feeds back into Serve rather than ending the sequence. A skill that lapses re-enters the queue on its own, which is why the competence map describes what a learner can do today instead of what they once finished.</p>
       </div>
     </section>
 
@@ -260,24 +253,30 @@
 
     <section class="section" id="production" aria-labelledby="controls-heading">
       <div class="section__inner">
-        <h2 class="section-label" id="controls-heading">Production Controls</h2>
-        <div class="control-band">
-          <article>
-            <span>Privacy</span>
-            <h3>Enforce it in tests, not in a policy</h3>
-            <p>No accounts, no analytics, and no network call carries learner data. Every learner record stays in device storage, and the tests fail closed if a request would leave the origin with it.</p>
-          </article>
-          <article>
-            <span>Offline</span>
-            <h3>Treat offline as a tested property</h3>
-            <p>A browser journey goes offline and reopens every lazily loaded surface at 320px against the production origin, so the service worker and precache manifest are verified rather than assumed.</p>
-          </article>
-          <article>
-            <span>Delivery</span>
-            <h3>Ship only what CI verified</h3>
-            <p>Production deploys run from CI on the default branch, rebuild the artifact rather than trusting one, re-confirm the verified commit is still current, and are armed by an explicit kill switch. No manual deploy to production has been run.</p>
-          </article>
-        </div>
+        <h2 class="section-label" id="controls-heading">Gates That Fail Closed</h2>
+        <ul class="gate-list" role="list">
+          <li>
+            <h3 class="gate-list__name">Privacy</h3>
+            <div>
+              <span class="gate-list__claim">Enforced in tests, not in a policy</span>
+              <p>No accounts, no analytics, and no network call carries learner data. Every learner record stays in device storage, and the tests fail closed if a request would leave the origin with it.</p>
+            </div>
+          </li>
+          <li>
+            <h3 class="gate-list__name">Offline</h3>
+            <div>
+              <span class="gate-list__claim">A tested property, not a promise</span>
+              <p>A browser journey goes offline and reopens every lazily loaded surface at 320px against the production origin, so the service worker and precache manifest are verified rather than assumed.</p>
+            </div>
+          </li>
+          <li>
+            <h3 class="gate-list__name">Delivery</h3>
+            <div>
+              <span class="gate-list__claim">Only what CI verified ships</span>
+              <p>Production deploys run from CI on the default branch, rebuild the artifact rather than trusting one, re-confirm the verified commit is still current, and are armed by an explicit kill switch. No manual deploy to production has been run.</p>
+            </div>
+          </li>
+        </ul>
       </div>
     </section>
 

@@ -409,6 +409,82 @@ Make the site feel authored, not generated.
 
 ---
 
+## Wave 4: Template Debt and Reading Comfort
+
+> Re-critique on 2026-08-15 against the `feat/math-bearings-project` branch (PR #4).
+> Independent score: **31/40**. Deterministic scan: clean (3 hits, all false positives
+> on 1px `border-left` dividers).
+> The homepage hero, the copy, and the print resume all read as authored. The template
+> debt had moved into the two case-study pages, the project chips, and the experience stack.
+
+### 7.1 De-Template the Two Case Studies
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P1 |
+| **Status** | **Done** |
+| **Problem** | `math-bearings-technical.html` and `my-four-sous-chefs-technical.html` were class-for-class identical: a class-usage diff of the two files returned zero differences. Both used the same numbered-circle walkthrough, the same 3-up control band, and the same three decision cards. Those are the three most template-coded layouts available, and a visitor who read both pages met the mold rather than the projects. |
+| **Solution Applied** | Removed `.walkthrough-step` and its pale-blue numbered circles entirely. **Math Bearings** now uses `.case-cycle`: a 2x2 field of named phases (Place, Serve, Grade, Decay) closed by a `.case-cycle__return` statement, because mastery decay makes the sequence a loop rather than a list. **My Four Sous Chefs** now uses `.case-pipeline`: a connected vertical chain where each stage declares the data at its boundary (`in: photos, pantry lists, preferences` to `out: durable product state`), because the product is literally a transform chain. Math Bearings' production section became `.gate-list`, a ruled name/claim/prose list matching its "gates that fail closed" framing; My Four Sous Chefs keeps `.control-band`. Class-usage diff now shows six structural differences. |
+| **Files** | `src/math-bearings-technical.html`, `src/my-four-sous-chefs-technical.html`, `src/assets/styles/main.scss` |
+| **Acceptance** | The two case studies no longer share a structure. Numbered circles are gone from the codebase. Each page's spine comes from its own project. |
+
+### 7.2 Replace Project Highlight Chips With a Ruled List
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | `.project-card__highlights` wrapped six sentence-length phrases into bordered chips inside a ~470px column, so each phrase took its own row at its own width. Math Bearings stacked six deep, My Four Sous Chefs broke two-per-row: adjacent cards with different rhythm and a ragged right edge on both. They are claims, not tags. |
+| **Solution Applied** | Dropped the boxes. Highlights are now a ruled spec list: hairline top border per item, 0.85rem body face at weight 400, closing border on the last item. Holds its shape at any column width. Also dropped `font-weight: 600` from `.project-card__proof`, which was setting a five-line paragraph in bold. |
+| **Files** | `src/assets/styles/main.scss` |
+| **Acceptance** | Highlights read as evidence rows, not tags. Both project cards have the same rhythm. |
+
+### 7.3 Fix Uncapped Line Length
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | `.experience-item__desc` had no `max-width`, so the most recent role ran about 128 characters per line. `.resume-list li` ran about 96. The site already capped `.project-card__proof` at 52ch and `.case-proof` at 760px, so the discipline existed but was missing exactly where the reading happens. |
+| **Solution Applied** | `.experience-item` became a two-column grid (a 260px meta rail carrying role, company, and dates, plus the description) which fixes the measure structurally and stops the four items reading as four identical full-width blocks. Wrapped the meta in `.experience-item__meta` in the markup. Added `max-width: 68ch` to the description and `max-width: 74ch` to `.resume-list li`, reset to `none` in print. |
+| **Files** | `src/index.html`, `src/assets/styles/main.scss`, `src/assets/styles/_resume.scss` |
+| **Acceptance** | No reading column exceeds 75ch. The experience section has internal structure instead of four repeated blocks. |
+
+### 7.4 Give the PDF the Site's Typography
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P2 |
+| **Status** | **Done** |
+| **Problem** | Print overrode all three font families to Arial, so the artifact a recruiter downloads and keeps carried none of the site's typographic identity. ATS parses text, not glyphs, so the hedge bought nothing. |
+| **Solution Applied** | Print now uses `'Schibsted Grotesk', Arial, Helvetica, sans-serif` for display and `'Source Sans 3', Arial, Helvetica, sans-serif` for body and mono, keeping Arial as the fallback for a print run without webfonts. Source Sans 3 runs taller, which pushed the PDF to two pages and tripped `assertSinglePage`. Reclaimed the height by stepping the print scale down: body 9.25pt to 8.9pt, `.resume-list li` 9pt to 8.6pt at 1.25 leading, `.resume-job__role` 10.5pt to 10pt, job margin 6px to 5px, and `@page` margin 0.4in to 0.35in. |
+| **Files** | `src/assets/styles/_resume.scss` |
+| **Acceptance** | The PDF is set in the site's fonts and `npm run resume:pdf` still passes the one-page assertion. |
+
+### 7.5 Correctness and Consistency Fixes
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | Six defects found by reading the rendered output rather than the source. (1) The open mobile menu was 95% opaque with a backdrop blur over the dark hero, so the hero name read straight through the menu items. (2) `.nav__link:last-child` matched every link, since each `<a>` is the only child of its `<li>`, silently removing all mobile menu separators. (3) `.contact-row:hover` set `border-color` to the value it already had, making the hover state a no-op. (4) `--text-tertiary` was more prominent than `--text-secondary` in both themes, so metadata out-contrasted body copy. (5) `justify-content: space-between` stranded the resume project descriptor in mid-air and marooned job locations at the far right. (6) `.case-story__proof` put a bottom rule on its last child, leaving a hanging line. Plus: `#skills`/"Focus"/"Engineering Focus" named one section three ways, and `\|` and `·` were both in use as separators. |
+| **Solution Applied** | Mobile menu panels are fully opaque in both themes and the now-pointless `backdrop-filter` is gone. Separator rule retargeted to `.nav__links > li:last-child .nav__link`. Contact row hover moves to `var(--accent)`. Tertiary retuned to `oklch(0.50 0.025 260)` light and `oklch(0.66 0.018 260)` dark, both verified at 4.5:1 or better on every surface they land on including `--accent-pale`. Both stranded layouts became wrapping flex rows with a middot separator, screen and print. Orphan rule scoped with `:not(:last-child)`. Section id renamed to `#focus` across both pages. Resume title separator changed to `·`. Also removed the tinted rounded tile behind the contact icons and switched `.resume-project__type` off mono, since it sets a human phrase rather than technical metadata. |
+| **Files** | `src/index.html`, `src/resume.html`, `src/assets/styles/main.scss`, `src/assets/styles/_resume.scss` |
+| **Acceptance** | Mobile menu is legible over the hero with visible separators. Hover states do something. Metadata reads quieter than body copy while still passing AA. One name and one separator per concept. |
+
+### 7.6 Wave 4 Verification
+
+| Detail | Value |
+|--------|-------|
+| **Priority** | P3 |
+| **Status** | **Done** |
+| **Problem** | The Wave 4 edits introduced two regressions of their own, caught by re-running the detector rather than by eye. |
+| **Solution Applied** | `.gate-list__claim` was setting 32 to 34 character sentences in uppercase, tripping `all-caps-body`; uppercase removed and the claim reset to 0.9rem accent-colored body face. `.case-pipeline__io` was 11.2px, tripping `tiny-text`; raised to 0.75rem. Re-scan returns only the four known false positives on 1px `border-left` dividers. `npm run build` succeeds and the PDF stays one page. |
+| **Files** | `src/assets/styles/main.scss` |
+| **Acceptance** | Detector clean apart from known false positives. Build and PDF green. |
+
+---
+
 ## Phase Summary
 
 | Phase | Items | Priority Range | Focus |
@@ -419,6 +495,7 @@ Make the site feel authored, not generated.
 | **Phase 4** | 4.1 - 4.3 | P2-P3 | Visual distinction and final polish |
 | **Wave 2** | 5.1 - 5.8 | P2-P3 | Post-critique refinement (31→33+ target) |
 | **Wave 3** | 6.1 - 6.8 | P2-P3 | Legibility, interaction, and recovery tightening |
+| **Wave 4** | 7.1 - 7.6 | P1-P3 | Template debt in the case studies, reading comfort, PDF typography |
 
 ---
 
@@ -459,3 +536,9 @@ Make the site feel authored, not generated.
 | 2026-05-02 | 6.6 | Done — Head bootstrap now adds `.js-enabled` before CSS to prevent mobile nav first-paint leak |
 | 2026-05-02 | 6.7 | Done — 404 page now offers direct recovery links to home, resume, and email |
 | 2026-05-02 | 6.8 | Done — Copy button now changes to `Copied` or `Failed` before resetting |
+| 2026-08-15 | 7.1 | Done — Case studies de-templated: Math Bearings uses a mastery cycle and gate list, My Four Sous Chefs uses a data pipeline |
+| 2026-08-15 | 7.2 | Done — Project highlights changed from bordered chips to a ruled spec list; proof paragraph no longer bold |
+| 2026-08-15 | 7.3 | Done — Experience item split into meta rail plus description; reading columns capped at 68ch and 74ch |
+| 2026-08-15 | 7.4 | Done — Print uses Schibsted Grotesk and Source Sans 3; print scale stepped down to hold one page |
+| 2026-08-15 | 7.5 | Done — Opaque mobile menu, working separator and hover selectors, tertiary/secondary hierarchy corrected, stranded layouts joined, `#focus` rename |
+| 2026-08-15 | 7.6 | Done — Fixed all-caps and tiny-text regressions introduced in 7.1; detector clean, build and PDF green |
