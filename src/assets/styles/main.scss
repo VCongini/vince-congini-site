@@ -5,7 +5,9 @@
 // ============================================
 :root {
   --accent: oklch(0.45 0.18 260);
-  --accent-mid: oklch(0.53 0.13 260);
+  // L 0.52, not 0.53: at 0.53 this fails WCAG AA (4.48:1) against --surface,
+  // which is the ground for contact rows and resume project links.
+  --accent-mid: oklch(0.52 0.13 260);
   --accent-rule: oklch(0.74 0.07 260);
   --accent-pale: oklch(0.93 0.03 260);
 
@@ -407,7 +409,7 @@ button:focus:not(:focus-visible) {
   min-height: 65svh;
   display: flex;
   align-items: center;
-  background-color: oklch(0.20 0.04 260);
+  background-color: oklch(0.20 0.015 260);
   position: relative;
   padding: calc(var(--nav-height) + var(--space-xl)) 0 var(--space-xl);
 
@@ -1095,7 +1097,10 @@ button:focus:not(:focus-visible) {
 // ============================================
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  // Fluid 2-up: four focus areas pair off into a 2x2 wherever a column can hold
+  // 20rem, and drop to a single column below that. The min() keeps a narrow phone
+  // from forcing a track wider than the viewport.
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
   gap: var(--space-lg);
 }
 
@@ -1500,10 +1505,6 @@ button:focus:not(:focus-visible) {
     align-items: stretch;
   }
 
-  .skills-grid {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
 }
 
 @media (max-width: 480px) {
@@ -1541,7 +1542,7 @@ button:focus:not(:focus-visible) {
   --card-bg: oklch(0.25 0.025 260);
 
   .hero {
-    background-color: oklch(0.14 0.03 260);
+    background-color: oklch(0.14 0.015 260);
   }
 
   .btn--primary {
@@ -1560,7 +1561,7 @@ button:focus:not(:focus-visible) {
 
 @mixin dark-mobile {
   .nav__links {
-    background-color: oklch(0.14 0.03 260);
+    background-color: oklch(0.14 0.015 260);
   }
 
   .site-header.scrolled .nav__links {

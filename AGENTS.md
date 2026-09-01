@@ -9,7 +9,7 @@ This file exists so Codex and other agents that read root `AGENTS.md` get the bo
 - **Wiki vault:** `/Users/vincentcongini/obsidian/vince-obsidian-vault/vince-obsidian-vault`
 - **Pipeline manifest:** `wiki/projects/vince-congini-site/pipeline-manifest.md` (in vault)
 - **Routing skill:** `wiki/skills/wiki-context-routing/SKILL.md` (in vault) — route first, load second
-- **Context routing:** `wiki/guidelines/Agent Context Routing.md` (in vault) — standards/skill matching, read only after routing
+- **Context routing:** `wiki/guidelines/Skill Matching.md` for skills, `wiki/guidelines/Standards Routing.md` for standards (in vault) — read only the one the task needs, only after routing
 - **TDD default:** false
 - **Protected areas:** `dist/` (generated deploy output)
 
@@ -19,4 +19,4 @@ This file exists so Codex and other agents that read root `AGENTS.md` get the bo
 2. Vault: `wiki/projects/vince-congini-site/synthesis/Agent Handoff Summary.md`
 3. Vault: `wiki/projects/vince-congini-site/pipeline-manifest.md`
 4. Vault: `wiki/skills/wiki-context-routing/SKILL.md` — route the task class first
-5. Vault: `wiki/guidelines/Agent Context Routing.md` — then load only matched guidelines
+5. Vault: `wiki/guidelines/Skill Matching.md` or `wiki/guidelines/Standards Routing.md` — only the one needed, then load only matched guidelines
