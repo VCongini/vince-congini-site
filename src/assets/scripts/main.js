@@ -183,6 +183,141 @@
     });
   }
 
+  var workInMotionPlayer = document.querySelector('[data-work-in-motion-player]');
+  if (workInMotionPlayer) {
+    var workInMotionVideo = workInMotionPlayer.querySelector('[data-work-in-motion-video]');
+    // Collapsed details are omitted from Chromium's accessible description.
+    workInMotionVideo.setAttribute('aria-description', workInMotionPlayer.querySelector('#work-in-motion-description').textContent);
+    var workInMotionPoster = workInMotionPlayer.querySelector('[data-work-in-motion-poster]');
+    var workInMotionPlay = workInMotionPlayer.querySelector('[data-work-in-motion-play]');
+    var workInMotionStatus = workInMotionPlayer.querySelector('[data-work-in-motion-status]');
+    var workInMotionFallback = workInMotionPlayer.querySelector('[data-work-in-motion-fallback]');
+    var filmDarkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    var filmReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var filmAutoAttempted = false;
+    var pendingFilmState = null;
+
+    function filmIsDark() {
+      return (docEl.getAttribute('data-theme') || (filmDarkQuery.matches ? 'dark' : 'light')) === 'dark';
+    }
+
+    function filmSource(source, extension) {
+      return source.replace(extension, (filmIsDark() ? '-dark' : '') + extension);
+    }
+
+    function syncWorkInMotionTheme() {
+      workInMotionPlayer.querySelector('[data-work-in-motion-dark-poster="desktop"]').media =
+        filmIsDark() ? '(min-width: 769px)' : 'not all';
+      workInMotionPlayer.querySelector('[data-work-in-motion-dark-poster="mobile"]').media =
+        filmIsDark() ? '(max-width: 768px)' : 'not all';
+      var layout = workInMotionPlayer.dataset.activated;
+      if (!layout) return;
+      var source = filmSource(workInMotionVideo.dataset[layout + 'Src'], '.mp4');
+      if (workInMotionVideo.getAttribute('src') === source) return;
+      // Preserve the original state across rapid theme changes during loading.
+      pendingFilmState = pendingFilmState || {
+        time: workInMotionVideo.currentTime,
+        playing: !workInMotionVideo.paused && !workInMotionVideo.ended
+      };
+      workInMotionVideo.onloadedmetadata = function () {
+        var state = pendingFilmState;
+        if (!state) return;
+        pendingFilmState = null;
+        workInMotionVideo.currentTime = Math.min(state.time, workInMotionVideo.duration);
+        if (state.playing && !document.hidden) {
+          workInMotionVideo.play().catch(function () { workInMotionPlay.hidden = false; });
+        }
+      };
+      workInMotionVideo.poster = filmSource(workInMotionVideo.dataset[layout + 'Poster'], '.webp');
+      workInMotionVideo.src = source;
+      workInMotionVideo.load();
+    }
+
+    syncWorkInMotionTheme();
+    filmDarkQuery.addEventListener('change', syncWorkInMotionTheme);
+    new MutationObserver(syncWorkInMotionTheme).observe(docEl, { attributes: true, attributeFilter: ['data-theme'] });
+
+
+    function showWorkInMotionFailure(message) {
+      workInMotionStatus.textContent = message;
+      workInMotionStatus.hidden = false;
+      workInMotionFallback.href = workInMotionVideo.currentSrc || workInMotionVideo.src;
+      workInMotionFallback.hidden = false;
+    }
+
+    function activateWorkInMotion(manual) {
+      filmAutoAttempted = true;
+      if (pendingFilmState) pendingFilmState.playing = true;
+      if (!workInMotionPlayer.dataset.activated) {
+        var mobile = window.matchMedia('(max-width: 768px)').matches;
+        workInMotionPlayer.dataset.activated = mobile ? 'mobile' : 'desktop';
+        workInMotionVideo.classList.add(
+          mobile ? 'work-in-motion__video--mobile' : 'work-in-motion__video--desktop'
+        );
+        workInMotionVideo.src = filmSource(mobile
+          ? workInMotionVideo.dataset.mobileSrc
+          : workInMotionVideo.dataset.desktopSrc, '.mp4');
+        workInMotionVideo.poster = filmSource(mobile
+          ? workInMotionVideo.dataset.mobilePoster
+          : workInMotionVideo.dataset.desktopPoster, '.webp');
+        workInMotionVideo.setAttribute('controls', '');
+        workInMotionVideo.setAttribute('tabindex', '0');
+        workInMotionVideo.muted = true;
+        workInMotionPoster.hidden = true;
+        workInMotionVideo.hidden = false;
+      }
+      if (workInMotionVideo.ended) workInMotionVideo.currentTime = 0;
+      if (workInMotionVideo.error) workInMotionVideo.load();
+      workInMotionStatus.hidden = true;
+      workInMotionFallback.hidden = true;
+      workInMotionPlay.hidden = true;
+      if (manual) workInMotionVideo.focus({ preventScroll: true });
+      workInMotionVideo.play().catch(function () {
+        workInMotionPlay.hidden = false;
+        if (manual && !workInMotionVideo.error) {
+          showWorkInMotionFailure('Playback could not start. Use Play or the video controls to try again.');
+        }
+      });
+    }
+
+    workInMotionPlay.addEventListener('click', function () { activateWorkInMotion(true); });
+    workInMotionPlay.hidden = false;
+    workInMotionVideo.addEventListener('play', function () {
+      workInMotionPlay.hidden = true;
+      workInMotionPlay.setAttribute('aria-label', 'Play film');
+    });
+    workInMotionVideo.addEventListener('pause', function () { workInMotionPlay.hidden = false; });
+    workInMotionVideo.addEventListener('ended', function () {
+      workInMotionPlay.hidden = false;
+      workInMotionPlay.setAttribute('aria-label', 'Replay film');
+    });
+    workInMotionVideo.addEventListener('error', function () {
+      workInMotionPlay.hidden = false;
+      showWorkInMotionFailure('The film could not load. You can still explore the projects below.');
+    });
+
+    function pauseWorkInMotion() {
+      if (pendingFilmState) pendingFilmState.playing = false;
+      workInMotionVideo.pause();
+    }
+
+    var filmObserver = new IntersectionObserver(function (entries) {
+      var entry = entries[0];
+      if (entry.intersectionRatio < 0.1) pauseWorkInMotion();
+      if (entry.intersectionRatio >= 0.6 && !filmAutoAttempted && !document.hidden &&
+          !filmReducedMotion.matches && !(navigator.connection && navigator.connection.saveData)) {
+        activateWorkInMotion(false);
+      }
+    }, { threshold: [0, 0.1, 0.6], rootMargin: '-56px 0px 0px' });
+    filmObserver.observe(workInMotionPlayer.querySelector('[data-work-in-motion-media]'));
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) pauseWorkInMotion();
+    });
+    filmReducedMotion.addEventListener('change', function () {
+      if (filmReducedMotion.matches) pauseWorkInMotion();
+    });
+  }
+
   var visibleSections = new Set();
 
   if (sections.length) {
