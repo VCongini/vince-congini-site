@@ -83,6 +83,14 @@ The `dist/` directory is the deploy root after running `npm run build`. Any stat
 - **GitHub Pages** — push the built `dist/` contents to the deploy branch and configure the custom domain in repository settings.
 - **Manual** — run `npm run build` then upload `dist/` to any web server
 
+### Portfolio film delivery
+
+`worker.mjs` handles byte-range requests only for `/assets/video/*`. This lets browsers seek the short films and preserve playback position when changing theme. All other files retain static asset routing. No new dependency is required.
+
+Run `node --test scripts/check-video-delivery.mjs` for delivery checks and `node scripts/check-work-in-motion.mjs` for player checks. The player check uses an existing Playwright installation; set `PLAYWRIGHT_MODULE_PATH` and `PLAYWRIGHT_BROWSER_PATH` when needed.
+
+Cloudflare's Git build uploads a version without activating it. After merging and verifying the version preview, promote that exact version with `wrangler versions deploy <version-id>@100 --yes`, then verify the public domain.
+
 ## Customization checklist
 
 - [ ] Add `og:image` meta tag with a social preview image
