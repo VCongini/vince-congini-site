@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worldsaic Technical Overview | Vincent Congini</title>
+  <meta name="description" content="Inside Worldsaic, a relaxing shared-world art game built with React, TypeScript, Canvas 2D, Web Audio, and a persistent Cloudflare Durable Object.">
+  <meta name="author" content="Vincent Congini">
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="https://vincecongini.com/worldsaic-technical.html">
+
+  <meta property="og:title" content="Worldsaic Technical Overview | Vincent Congini">
+  <meta property="og:description" content="Draw with light, connect neighboring creations, and explore a shared Earth. The game loop, rendering, sound, and persistence behind Worldsaic.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://vincecongini.com/worldsaic-technical.html">
+  <meta property="og:site_name" content="Vincent Congini">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:image" content="https://vincecongini.com/assets/images/worldsaic-earth-1440.webp">
+  <meta property="og:image:width" content="1440">
+  <meta property="og:image:height" content="960">
+  <meta property="og:image:alt" content="Worldsaic's glowing Earth, an explorable canvas for shared light art">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Worldsaic Technical Overview | Vincent Congini">
+  <meta name="twitter:description" content="Draw with light, connect neighboring creations, and explore a shared Earth. The game loop, rendering, sound, and persistence behind Worldsaic.">
+  <meta name="twitter:image" content="https://vincecongini.com/assets/images/worldsaic-earth-1440.webp">
+  <meta name="twitter:image:alt" content="Worldsaic's glowing Earth, an explorable canvas for shared light art">
+
+  <meta name="theme-color" content="#F8F6F2" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1D1F29" media="(prefers-color-scheme: dark)">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='70' font-family='system-ui' font-weight='700' fill='%23044cb6'>VC</text></svg>">
+  <link rel="apple-touch-icon" href="/icon-192.svg">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="me" href="https://www.linkedin.com/in/vincent-congini-216a4b90/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Schibsted+Grotesk:wght@400;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <script src="assets/scripts/theme-init.js"></script>
+  <link rel="stylesheet" href="assets/styles/main.css">
+  <script src="assets/scripts/main.js" defer></script>
+  <script defer src="https://umami-production-f934.up.railway.app/script.js" integrity="sha384-KovSIPpdrAZNHs+M91d7FOrLat5rqcpTtQUq/GLIzYwAt+eN0EQHlgdUgm/0U2j+" crossorigin="anonymous" data-website-id="97799032-8afa-4f11-9ffc-22873bda7956" data-domains="vincecongini.com"></script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://vincecongini.com/#person",
+          "name": "Vincent Congini",
+          "url": "https://vincecongini.com/",
+          "email": "mailto:vcongini@gmail.com",
+          "jobTitle": "Senior Front End Tech Lead",
+          "sameAs": ["https://www.linkedin.com/in/vincent-congini-216a4b90/"],
+          "knowsAbout": ["React", "TypeScript", "Front-end architecture", "Canvas rendering", "Web Audio", "Interaction design", "Testing automation"],
+          "image": "https://vincecongini.com/og-image.png"
+        },
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://vincecongini.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Worldsaic Technical Overview",
+              "item": "https://vincecongini.com/worldsaic-technical.html"
+            }
+          ]
+        },
+        {
+          "@type": "TechArticle",
+          "@id": "https://vincecongini.com/worldsaic-technical.html#article",
+          "headline": "Worldsaic Technical Overview",
+          "description": "The gameplay, continuous camera, Canvas rendering, spatial sound, and durable shared world behind Worldsaic, a relaxing art game available to everyone.",
+          "author": {"@id": "https://vincecongini.com/#person"},
+          "url": "https://vincecongini.com/worldsaic-technical.html",
+          "image": "https://vincecongini.com/assets/images/worldsaic-earth-1440.webp",
+          "inLanguage": "en-US"
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header scrolled" id="site-header">
+    <nav class="nav nav--case" aria-label="Project">
+      <a href="index.html" class="nav__logo" aria-label="VC. Vincent Congini, home">VC.</a>
+      <a href="#overview" class="nav__context" aria-label="Worldsaic overview">Worldsaic</a>
+      <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul id="nav-menu" class="nav__links" role="list">
+        <li><a href="#gameplay" class="nav__link">Gameplay</a></li>
+        <li><a href="#architecture" class="nav__link">Foundation</a></li>
+        <li><a href="#reliability" class="nav__link">Reliability</a></li>
+        <li><a href="index.html#projects" class="nav__link nav__link--cta">Portfolio</a></li>
+      </ul>
+      <button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false">
+        <svg class="theme-toggle__moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="theme-toggle__sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="case-header case-header--worldsaic" id="overview">
+      <div class="section__inner">
+        <div class="case-header__accent" aria-hidden="true"></div>
+        <p class="case-header__eyebrow">Shared-world art game · Live</p>
+        <h1 class="case-header__title">A shared world, one light at a time.</h1>
+        <p class="case-header__summary">Worldsaic is a relaxing art game where Earth becomes a shared canvas. Draw with light, connect with neighboring creations, and follow real rivers from a glowing globe down to a single tile. Play in your browser, open to everyone.</p>
+        <div class="case-header__actions">
+          <a href="https://worldsaic.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="worldsaic-case-study-play-game">Play Worldsaic</a>
+          <a href="#gameplay" class="btn btn--secondary" data-umami-event="worldsaic-case-study-explore-game">Explore the Game</a>
+        </div>
+        <figure class="case-world">
+          <img src="assets/images/worldsaic-earth-1440.webp" srcset="assets/images/worldsaic-earth-960.webp 960w, assets/images/worldsaic-earth-1440.webp 1440w" sizes="(max-width: 1100px) calc(100vw - 40px), 1060px" alt="Worldsaic's Light Earth: a glowing globe with an invitation to add a light or follow a river" loading="eager" fetchpriority="high" width="1440" height="960">
+          <figcaption>Light Earth, the first shared world. One continuous camera carries the player from the globe into individual creations.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section" id="gameplay" aria-labelledby="gameplay-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="gameplay-heading">The Game Loop</h2>
+        <div class="case-story__intro">
+          <p>The invitation is simple: find a place, leave a light, and see where it leads. Exploration and making feed each other, with real rivers and other people's artwork giving each visit a different route.</p>
+        </div>
+        <ol class="case-cycle" role="list">
+          <li>
+            <span class="case-cycle__phase">Wander</span>
+            <h3>Find a place on Earth</h3>
+            <p>Turn the globe, follow a named river, or drift closer to a light. World, region, neighborhood, and tile are scales along the same camera journey.</p>
+          </li>
+          <li>
+            <span class="case-cycle__phase">Draw</span>
+            <h3>Make a small luminous canvas</h3>
+            <p>Paint a 24 × 24 tile with color, brightness, brush size, and light behavior. Drafts stay in the browser while the player experiments.</p>
+          </li>
+          <li>
+            <span class="case-cycle__phase">Connect</span>
+            <h3>Leave room for a neighbor</h3>
+            <p>Move into adjacent tiles and catch color from their facing edges. Review the edited neighbors together, then release the group into the shared world.</p>
+          </li>
+          <li>
+            <span class="case-cycle__phase">Follow</span>
+            <h3>See the light travel</h3>
+            <p>A released tile blooms. When its lit edges meet water or neighboring light, a spark follows that connection and invites the player onward.</p>
+          </li>
+        </ol>
+        <p class="case-cycle__return">The next creation can begin where the last journey ends. Open places keep their land and water until someone adds a light; every released artwork has a place in the same persistent world.</p>
+      </div>
+    </section>
+
+    <section class="section section--surface case-story" aria-labelledby="experience-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="experience-heading">Designed for a Quiet Visit</h2>
+        <div class="case-story__layout">
+          <figure class="case-story__screen">
+            <img src="assets/images/worldsaic-editor.webp" alt="Worldsaic on a phone: a 24 by 24 drawing canvas with a glowing mint stroke, color palette, neighboring tiles, and Release your light action" loading="lazy" width="390" height="844">
+            <figcaption><span>The creation surface</span>A small canvas, a few drawing tools, and a way to carry light into the next tile.</figcaption>
+          </figure>
+          <div class="case-story__proof">
+            <div>
+              <span>Scope</span>
+              <p>Game interaction, globe and tile rendering, drawing tools, spatial sound, shared-world persistence, and deployment.</p>
+            </div>
+            <div>
+              <span>Interaction</span>
+              <p>Phone exploration uses pinch and drag, with controls that recede while idle. Touch, pointer, and keyboard paths stay available. Reduced motion stops ambient movement and automatic journeys.</p>
+            </div>
+            <div>
+              <span>Sound</span>
+              <p>Sound starts muted. Native Web Audio places drawing around the tile's center, blending procedural glass and water with recorded pencil and brush textures.</p>
+            </div>
+            <div>
+              <span>Current scope</span>
+              <p>The shared world, tile links, anonymous presence, and garden export/import are implemented. Accounts, identity recovery, and simultaneous editing within a tile remain outside the current release.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="architecture" aria-labelledby="architecture-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="architecture-heading">The Foundation</h2>
+        <div class="architecture-brief">
+          <div class="architecture-brief__copy">
+            <h3>A browser game with a durable shared world</h3>
+            <p>React and TypeScript own the interface. Canvas 2D draws the globe, its gradual transition into a flat canvas, and the individual lights. Cached overview artwork gives way to detailed pegs as the camera moves closer.</p>
+            <p>Bundled Natural Earth geography supplies the land, rivers, and lakes. The same river traces guide exploration and connect light across tiles. A Cloudflare Worker routes the shared-world API to one SQLite-backed Durable Object; the local server uses the same world rules.</p>
+          </div>
+          <div class="architecture-map" role="group" aria-label="Worldsaic foundation: browser rendering and sound, shared world rules, local drafts, and durable storage">
+            <div class="architecture-map__node">Browser<br><span>React, Canvas 2D</span></div>
+            <div class="architecture-map__node">Sound<br><span>Native Web Audio</span></div>
+            <div class="architecture-map__node architecture-map__node--core">World rules<br><span>Shared TypeScript logic</span></div>
+            <div class="architecture-map__node">Drafts<br><span>Browser local storage</span></div>
+            <div class="architecture-map__node">Shared world<br><span>Durable Object, SQLite</span></div>
+          </div>
+        </div>
+        <ul class="case-tags case-tags--stack" role="list" aria-label="Core stack">
+          <li>TypeScript</li>
+          <li>React</li>
+          <li>Vite</li>
+          <li>Canvas 2D</li>
+          <li>Web Audio</li>
+          <li>Natural Earth</li>
+          <li>Cloudflare Workers</li>
+          <li>Durable Objects</li>
+          <li>SQLite</li>
+          <li>R2</li>
+          <li>Playwright</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section section--surface" id="reliability" aria-labelledby="reliability-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="reliability-heading">Protecting the Player's Work</h2>
+        <ul class="gate-list" role="list">
+          <li>
+            <h3 class="gate-list__name">Release</h3>
+            <div>
+              <span class="gate-list__claim">A deliberate, atomic save</span>
+              <p>Drafts remain local until the player confirms a release. The server checks ownership and revision for every tile in the group; a conflict rejects the entire batch and preserves the drafts. Other browsers receive confirmed changes through ETag polling.</p>
+            </div>
+          </li>
+          <li>
+            <h3 class="gate-list__name">Recovery</h3>
+            <div>
+              <span class="gate-list__claim">Retries preserve the same intention</span>
+              <p>A failed request keeps the release dialog and artwork available. Retrying the same request after a lost response acknowledges the original save without writing twice. Garden exports carry local artwork between browsers; daily R2 snapshots and point-in-time restore protect the shared world.</p>
+            </div>
+          </li>
+          <li>
+            <h3 class="gate-list__name">Verification</h3>
+            <div>
+              <span class="gate-list__claim">Check the shared behavior in separate browsers</span>
+              <p>Isolated browser checks exercise publication between contributors, ownership conflicts, failed saves, lost responses, restart and reconnect, and garden transfer. A separate local Worker check runs the shared-world contract against the Durable Object with temporary state.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section case-close" aria-labelledby="proof-heading">
+      <div class="section__inner">
+        <h2 class="section-label" id="proof-heading">What This Demonstrates</h2>
+        <div class="case-proof">
+          <p>Worldsaic brings game feel and application engineering together: a continuous camera, tactile drawing, spatial sound, and a shared world that remembers contributions. The technical foundation supports a simple moment for the player: make something small and watch it become part of something larger.</p>
+          <p>The shared world is live and open to everyone. It brings the creation and exploration loop, durable publication, and recovery behavior into a browser game that people can play together.</p>
+        </div>
+        <div class="case-close__actions">
+          <a href="https://worldsaic.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="worldsaic-case-study-play-game-close">Play Worldsaic</a>
+          <a href="index.html#projects" class="btn btn--secondary" data-umami-event="worldsaic-case-study-return-portfolio">Return to Portfolio</a>
+          <a href="mailto:vcongini@gmail.com" class="case-close__contact" data-umami-event="worldsaic-case-study-email">Discuss the engineering</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <a href="index.html" class="footer__logo">VC.</a>
+      <p class="footer__copy">&copy; Vincent Congini</p>
+    </div>
+  </footer>
+</body>
+</html>

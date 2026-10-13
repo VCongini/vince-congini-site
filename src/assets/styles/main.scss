@@ -477,6 +477,191 @@ button:focus:not(:focus-visible) {
   gap: var(--space-sm);
 }
 
+.work-in-motion {
+  margin-bottom: var(--space-xl);
+}
+
+.work-in-motion__intro {
+  max-width: 58ch;
+  margin-bottom: var(--space-md);
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+
+}
+
+.work-in-motion__media {
+  position: relative;
+}
+
+.work-in-motion__poster,
+.work-in-motion__video {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+}
+
+.work-in-motion__poster {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.work-in-motion__video {
+  display: block;
+  object-fit: contain;
+}
+
+.work-in-motion__video.work-in-motion__video--desktop {
+  aspect-ratio: 16 / 9;
+}
+
+.work-in-motion__video.work-in-motion__video--mobile {
+  aspect-ratio: 4 / 5;
+}
+
+.work-in-motion__video[hidden],
+.work-in-motion__fallback[hidden],
+.work-in-motion__play[hidden] {
+  display: none;
+}
+
+.work-in-motion__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0 var(--space-md);
+  margin-top: var(--space-xs);
+}
+
+.work-in-motion__play {
+  position: absolute;
+  top: clamp(1rem, 3vw, 2rem);
+  right: clamp(1rem, 3vw, 2rem);
+  width: clamp(3.5rem, 5vw, 4.5rem);
+  height: clamp(3.5rem, 5vw, 4.5rem);
+  justify-content: center;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid oklch(0.98 0.003 260 / 0.42);
+  border-radius: var(--radius-pill);
+  background: oklch(0.17 0.015 260 / 0.92);
+  color: oklch(0.98 0.003 260);
+  font: 600 0.8rem/1 var(--font-body);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out-quart), transform var(--duration-fast) var(--ease-out-quart);
+
+  &:hover,
+  &:focus-visible {
+    background: var(--accent);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.work-in-motion__play-icon {
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 14px solid currentColor;
+  transform: translateX(2px);
+}
+
+.work-in-motion__meta {
+  padding-block: 12px;
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+
+.work-in-motion__description {
+  max-width: 68ch;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+
+  summary {
+    min-height: 44px;
+    padding-block: 10px;
+    cursor: pointer;
+  }
+
+  p {
+    margin-bottom: var(--space-sm);
+  }
+}
+
+.work-in-motion__status,
+.work-in-motion__fallback {
+  max-width: 68ch;
+  margin-top: var(--space-sm);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.work-in-motion__fallback {
+  display: inline-block;
+  color: var(--accent-mid);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+[data-work-in-motion-no-js-fallback] { display: none; }
+
+@media (max-width: 768px) {
+  [data-work-in-motion-no-js-fallback="mobile"] { display: inline; }
+}
+@media (min-width: 769px) {
+  [data-work-in-motion-no-js-fallback="desktop"] { display: inline; }
+}
+@media (prefers-color-scheme: dark) {
+  [data-work-in-motion-no-js-fallback] { display: none; }
+  @media (max-width: 768px) {
+    [data-work-in-motion-no-js-fallback="mobile-dark"] { display: inline; }
+  }
+  @media (min-width: 769px) {
+    [data-work-in-motion-no-js-fallback="desktop-dark"] { display: inline; }
+  }
+}
+
+.work-in-motion__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-md);
+  margin-top: var(--space-xs);
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--accent-mid);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+}
+
 
 // ============================================
 // Featured Project Card
@@ -604,6 +789,19 @@ button:focus:not(:focus-visible) {
   gap: var(--space-sm);
 }
 
+.project-card__preview--game {
+  width: 100%;
+  max-width: 320px;
+  justify-self: center;
+
+  figcaption {
+    margin-top: var(--space-sm);
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+}
+
 // ============================================
 // Technical Case Study
 // ============================================
@@ -670,6 +868,29 @@ button:focus:not(:focus-visible) {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
+}
+
+.case-header--worldsaic .case-header__title {
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.case-world {
+  margin-top: var(--space-lg);
+
+  img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+
+  figcaption {
+    margin-top: var(--space-sm);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
 }
 
 .case-story__intro {
@@ -1424,6 +1645,11 @@ button:focus:not(:focus-visible) {
   .project-card {
     grid-template-columns: 1fr;
     padding: var(--space-md);
+  }
+
+  .work-in-motion__poster,
+  .work-in-motion__video {
+    aspect-ratio: 4 / 5;
   }
 
   // Single column: lead with the title and description so the project is

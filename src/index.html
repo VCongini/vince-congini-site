@@ -168,7 +168,48 @@
     <section class="section" id="projects">
       <div class="section__inner">
         <h2 class="section-label">Projects</h2>
-        <article class="project-card">
+        <section class="work-in-motion" data-work-in-motion-player aria-labelledby="work-in-motion-title">
+          <div class="work-in-motion__intro">
+            <h3 id="work-in-motion-title">The work, in motion.</h3>
+          </div>
+          <div class="work-in-motion__media" data-work-in-motion-media>
+          <div class="work-in-motion__poster" data-work-in-motion-poster>
+            <picture>
+              <source data-work-in-motion-dark-poster="desktop" media="(prefers-color-scheme: dark) and (min-width: 769px)" srcset="assets/images/work-in-motion-poster-desktop-dark.webp">
+              <source data-work-in-motion-dark-poster="mobile" media="(prefers-color-scheme: dark)" srcset="assets/images/work-in-motion-poster-mobile-dark.webp">
+              <source media="(min-width: 769px)" srcset="assets/images/work-in-motion-poster-desktop.webp">
+              <img src="assets/images/work-in-motion-poster-mobile.webp" alt="The number 4 in Worldsaic lights, a Math Bearings exercise, and a recipe." width="1080" height="1350">
+            </picture>
+          </div>
+          <video id="work-in-motion-video" class="work-in-motion__video" data-work-in-motion-video data-desktop-src="assets/video/work-in-motion-desktop.mp4" data-mobile-src="assets/video/work-in-motion-mobile.mp4" data-desktop-poster="assets/images/work-in-motion-poster-desktop.webp" data-mobile-poster="assets/images/work-in-motion-poster-mobile.webp" preload="none" playsinline aria-labelledby="work-in-motion-title" aria-describedby="work-in-motion-description" hidden></video>
+            <button class="work-in-motion__play" type="button" data-work-in-motion-play aria-controls="work-in-motion-video" aria-label="Play film" hidden>
+              <span class="work-in-motion__play-icon" aria-hidden="true"></span>
+            </button>
+          </div>
+          <div class="work-in-motion__controls">
+            <span class="work-in-motion__meta" data-work-in-motion-meta>15 seconds &middot; Silent</span>
+            <details class="work-in-motion__description">
+              <summary>Film description</summary>
+              <p id="work-in-motion-description">A 4 made from Worldsaic lights becomes a Math Bearings number, then 4 cloves of garlic in a My Four Sous Chefs recipe.</p>
+            </details>
+          </div>
+          <p class="work-in-motion__status" data-work-in-motion-status aria-live="polite" hidden></p>
+          <a class="work-in-motion__fallback" data-work-in-motion-fallback target="_blank" rel="noopener noreferrer" hidden>Open the film in a new tab</a>
+          <noscript>
+            <p class="work-in-motion__fallback">JavaScript is off.
+              <a data-work-in-motion-no-js-fallback="desktop" href="assets/video/work-in-motion-desktop.mp4">Open the landscape film</a>
+              <a data-work-in-motion-no-js-fallback="mobile" href="assets/video/work-in-motion-mobile.mp4">Open the portrait film</a>
+              <a data-work-in-motion-no-js-fallback="desktop-dark" href="assets/video/work-in-motion-desktop-dark.mp4">Open the landscape film</a>
+              <a data-work-in-motion-no-js-fallback="mobile-dark" href="assets/video/work-in-motion-mobile-dark.mp4">Open the portrait film</a>
+            </p>
+          </noscript>
+          <ul class="work-in-motion__links" role="list" aria-label="Projects featured in the film">
+            <li><a href="#worldsaic">Worldsaic</a></li>
+            <li><a href="#math-bearings">Math Bearings</a></li>
+            <li><a href="#my-four-sous-chefs">My Four Sous Chefs</a></li>
+          </ul>
+        </section>
+        <article class="project-card" id="math-bearings">
           <div class="project-card__content">
             <div class="project-card__header">
               <span class="project-card__status">
@@ -178,8 +219,8 @@
             </div>
             <h3 class="project-card__title">Math<br>Bearings</h3>
             <a href="https://mathbearings.com/" class="project-card__url" target="_blank" rel="noopener noreferrer" data-umami-event="project-mb-domain">mathbearings.com</a>
-            <p class="project-card__desc">A math practice app built on one idea: progress is work you can see. It grades the method a learner shows rather than the answer they land on, and a skill counts as held only while they keep proving it.</p>
-            <p class="project-card__proof">A pure deterministic core owns curriculum, scheduling, and grading, with storage, rendering, and platform pushed behind ports at the edges. Privacy, offline behavior, and answer-safe hints are properties the tests enforce, not promises the copy makes.</p>
+            <p class="project-card__desc">Math practice that grades the learner’s method and revisits skills over time.</p>
+            <p class="project-card__proof">A deterministic core handles curriculum, scheduling, and grading, with storage and rendering kept separate.</p>
             <ul class="project-card__highlights" role="list">
               <li>Pure domain core, platforms at the edges</li>
               <li>Grades the method, not the answer</li>
@@ -203,7 +244,7 @@
             </picture>
           </div>
         </article>
-        <article class="project-card project-card--reverse">
+        <article class="project-card project-card--reverse" id="my-four-sous-chefs">
           <div class="project-card__content">
             <div class="project-card__header">
               <span class="project-card__status">
@@ -213,8 +254,8 @@
             </div>
             <h3 class="project-card__title">My Four<br>Sous Chefs</h3>
             <a href="https://myfoursouschefs.com/" class="project-card__url" target="_blank" rel="noopener noreferrer" data-umami-event="project-domain">myfoursouschefs.com</a>
-            <p class="project-card__desc">A full-stack recipe product that turns fridge, pantry, and shopping-list photos into personalized recipes and meal plans.</p>
-            <p class="project-card__proof">Built end to end with vision and language models, auth, billing, provider cost controls, abuse protection, observability, and automated tests.</p>
+            <p class="project-card__desc">Turn fridge, pantry, and shopping-list photos into recipes and meal plans.</p>
+            <p class="project-card__proof">Built with vision and language models, subscriptions, usage controls, and automated tests.</p>
             <ul class="project-card__highlights" role="list">
               <li>Vision and language-model workflow</li>
               <li>Image preprocessing and OCR</li>
@@ -237,6 +278,32 @@
               <img src="assets/images/mfsc-screenshot.png" alt="My Four Sous Chefs app showing the recipe generation interface with image upload and AI chef selection" loading="lazy" width="834" height="1024">
             </picture>
           </div>
+        </article>
+        <article class="project-card" id="worldsaic">
+          <div class="project-card__content">
+            <div class="project-card__header">
+              <span class="project-card__status">Shared-world art game &middot; Live</span>
+            </div>
+            <h3 class="project-card__title">Worldsaic</h3>
+            <p class="project-card__desc">A relaxing art game where Earth becomes a shared canvas. Draw with light, connect with neighboring creations, and follow real rivers from a glowing globe down to a single tile.</p>
+            <p class="project-card__proof">Built with a custom Canvas 2D renderer, spatial sound, and a persistent shared world. Drawings stay in local drafts until the player publishes them.</p>
+            <ul class="project-card__highlights" role="list">
+              <li>Continuous exploration from globe to tile</li>
+              <li>A 24 &times; 24 canvas for drawing with light</li>
+              <li>Connected creations and real river journeys</li>
+              <li>React, TypeScript, Canvas 2D, and Web Audio</li>
+              <li>Shared persistence with atomic tile releases</li>
+              <li>Keyboard, touch, and reduced-motion support</li>
+            </ul>
+            <div class="project-card__actions">
+              <a href="https://worldsaic.com/" class="btn btn--primary" target="_blank" rel="noopener noreferrer" data-umami-event="project-worldsaic-live-app">Play Worldsaic</a>
+              <a href="worldsaic-technical.html" class="btn btn--secondary" data-umami-event="project-worldsaic-case-study">Technical Overview</a>
+            </div>
+          </div>
+          <figure class="project-card__preview project-card__preview--game">
+            <img src="assets/images/worldsaic-editor.webp" alt="Worldsaic's mobile editor: a glowing mint stroke on a 24 by 24 light canvas, with drawing tools and a color palette" loading="lazy" width="390" height="844">
+            <figcaption>Light, the first Worldsaic experience.<br>Shape a tile. Add it to a shared Earth.</figcaption>
+          </figure>
         </article>
       </div>
     </section>
